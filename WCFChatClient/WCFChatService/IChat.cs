@@ -11,16 +11,16 @@ namespace WCFChatService
     public interface IChat
     {
         [OperationContract]
-        void SubmitChatt(Chat post);
+        void SubmitChatt(UserMessage post);
 
         [OperationContract]
-        List<Chat> GetChats();
+        List<UserMessage> GetChats();
         [OperationContract]
         void RemoveChatt(int id);
         [OperationContract]
         void SaveToDatabase();
         [OperationContract]
-        List<Chat> GetChatFromDatabase(int roomID);
+        List<UserMessage> GetChatFromDatabase(int roomID);
 
 
     }
@@ -28,7 +28,7 @@ namespace WCFChatService
     
 
     [DataContract]
-    public class Chat
+    public class UserMessage
     {
         [DataMember]
         public string ID { get; set; }
