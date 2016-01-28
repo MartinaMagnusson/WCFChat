@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ChatService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/WCFChatService" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IChat_SubmitChatt_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitChatt" />
+  </wsdl:message>
+  <wsdl:message name="IChat_SubmitChatt_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitChattResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetChats_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChats" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetChats_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_RemoveChatt_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveChatt" />
+  </wsdl:message>
+  <wsdl:message name="IChat_RemoveChatt_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveChattResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_SaveToDatabase_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveToDatabase" />
+  </wsdl:message>
+  <wsdl:message name="IChat_SaveToDatabase_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveToDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetChatFromDatabase_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatFromDatabase" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetChatFromDatabase_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatFromDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_RegisterUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterUser" />
+  </wsdl:message>
+  <wsdl:message name="IChat_RegisterUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_LogInUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogInUser" />
+  </wsdl:message>
+  <wsdl:message name="IChat_LogInUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogInUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChat_LogOutUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogOutUser" />
+  </wsdl:message>
+  <wsdl:message name="IChat_LogOutUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogOutUserResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IChat">
+    <wsdl:operation name="SubmitChatt">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/SubmitChatt" message="tns:IChat_SubmitChatt_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/SubmitChattResponse" message="tns:IChat_SubmitChatt_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChats">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetChats" message="tns:IChat_GetChats_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetChatsResponse" message="tns:IChat_GetChats_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveChatt">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/RemoveChatt" message="tns:IChat_RemoveChatt_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/RemoveChattResponse" message="tns:IChat_RemoveChatt_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveToDatabase">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/SaveToDatabase" message="tns:IChat_SaveToDatabase_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/SaveToDatabaseResponse" message="tns:IChat_SaveToDatabase_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChatFromDatabase">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetChatFromDatabase" message="tns:IChat_GetChatFromDatabase_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetChatFromDatabaseResponse" message="tns:IChat_GetChatFromDatabase_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/RegisterUser" message="tns:IChat_RegisterUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/RegisterUserResponse" message="tns:IChat_RegisterUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LogInUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/LogInUser" message="tns:IChat_LogInUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/LogInUserResponse" message="tns:IChat_LogInUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOutUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/LogOutUser" message="tns:IChat_LogOutUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/LogOutUserResponse" message="tns:IChat_LogOutUser_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IChat" type="tns:IChat">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SubmitChatt">
+      <soap:operation soapAction="http://tempuri.org/IChat/SubmitChatt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChats">
+      <soap:operation soapAction="http://tempuri.org/IChat/GetChats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveChatt">
+      <soap:operation soapAction="http://tempuri.org/IChat/RemoveChatt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveToDatabase">
+      <soap:operation soapAction="http://tempuri.org/IChat/SaveToDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChatFromDatabase">
+      <soap:operation soapAction="http://tempuri.org/IChat/GetChatFromDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterUser">
+      <soap:operation soapAction="http://tempuri.org/IChat/RegisterUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogInUser">
+      <soap:operation soapAction="http://tempuri.org/IChat/LogInUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOutUser">
+      <soap:operation soapAction="http://tempuri.org/IChat/LogOutUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ChatService">
+    <wsdl:port name="BasicHttpBinding_IChat" binding="tns:BasicHttpBinding_IChat">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/WCFChatService/Service1/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

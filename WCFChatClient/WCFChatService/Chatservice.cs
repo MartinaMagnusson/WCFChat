@@ -5,16 +5,15 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
 
 namespace WCFChatService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChat
     {
-        string connectionString = "Data Source=Badger;Initial Catalog=ChatDatabase;Integrated Security=True";
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
-
-
 
         public List<UserMessage> GetChats()
         {
@@ -39,15 +38,35 @@ namespace WCFChatService
             post.ID = Guid.NewGuid().ToString();
             _currentUserMessages.Add(post);
         }
-        public void SaveToDatabase()
+        public void SaveToDatabase(UserMessage userMessage, User user, int roomId)
         {
+            var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
+                          VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            using (var cmd = new SqlCommand(query, connection))
+            {
+                try
+                {
+                    cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
+                    cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
+                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;  
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
 
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
             List<UserMessage> _databaseUserMessages = new List<UserMessage>();
             var date = new DateTime();
-            using (var connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
                 try
                 {

@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,6 +72,7 @@
     <Compile Include="ChatroomWomen.Designer.cs">
       <DependentUpon>ChatroomWomen.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalMethods.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +86,11 @@
     </Compile>
     <Compile Include="Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ChatService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ChatroomMen.resx">
       <DependentUpon>ChatroomMen.cs</DependentUpon>
@@ -120,6 +128,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\ChatService\service.wsdl" />
+    <None Include="Service References\ChatService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatService\WCFChatClient.ChatService.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ChatService\WCFChatClient.ChatService.UserMessage.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ChatService\WCFChatService.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -137,6 +161,18 @@
     <Content Include="Images\UnisexSymbox.png" />
     <Content Include="Images\User.png" />
     <Content Include="Images\WomanSymbol.png" />
+    <None Include="Service References\ChatService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ChatService\configuration.svcinfo" />
+    <None Include="Service References\ChatService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ChatService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

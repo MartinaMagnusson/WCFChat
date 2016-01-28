@@ -15,6 +15,7 @@ namespace WCFChatClient
         public ChatroomWomen()
         {
             InitializeComponent();
+            textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(3);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace WCFChatClient
         public ChatroomUnisex()
         {
             InitializeComponent();
+            textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(2);
         }
     }
 }
