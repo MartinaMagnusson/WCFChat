@@ -42,9 +42,10 @@ namespace WCFChatService
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
-            using (var cmd = new SqlCommand(query, connection))
+            
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
+                var cmd = new SqlCommand(query, connection);
                 try
                 {
                     cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
