@@ -12,12 +12,12 @@ namespace WCFChatService
     public class ChatService : IChat
     {
         string connectionString = "Data Source=Badger;Initial Catalog=ChatDatabase;Integrated Security=True";
-        List<Chat> _currentChats = new List<Chat>();
-        List<Chat> _databaseChats = new List<Chat>();
+        List<UserMessage> _currentChats = new List<UserMessage>();
+        List<UserMessage> _databaseChats = new List<UserMessage>();
 
 
 
-        public List<Chat> GetChats()
+        public List<UserMessage> GetChats()
         {
             try
             {
@@ -35,7 +35,7 @@ namespace WCFChatService
         {
             _currentChats.Remove(_currentChats.Find(s => s.ID.Equals(id)));
         }
-        public void SubmitChatt(Chat post)
+        public void SubmitChatt(UserMessage post)
         {
             post.ID = Guid.NewGuid().ToString();
             _currentChats.Add(post);
@@ -44,10 +44,10 @@ namespace WCFChatService
         {
 
         }
-        public List<Chat> GetChatFromDatabase(int roomID)
+        public List<UserMessage> GetChatFromDatabase(int roomID)
         {
-            var chat = new Chat();
             
+            var date = new DateTime();
             using (var connection = new SqlConnection(connectionString))
             {
                 try
@@ -63,7 +63,7 @@ namespace WCFChatService
   FROM [dbo].[UserMessages]
   INNER JOIN [dbo].[Users]
   ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
-  WHERE [dbo].[UserMessages].Room_ID = @ID");
+  WHERE [dbo].[UserMessages].Room_ID = @ID",connection);
                     SqlParameter idParam = new SqlParameter();
                     idParam.ParameterName = "@ID";
                     idParam.Value = roomID;
@@ -74,10 +74,16 @@ namespace WCFChatService
                     {
                         while (reader.Read())
                         {
-                            chat.ID = (string)reader["MessageID"];
+                            var chat = new UserMessage();
+                            DateTime.TryParse((string)reader["Posted"], out date);
+
+
+                            chat.ID = reader["MessageID"].ToString();
                             chat.Submitter = (string)reader["Username"];
-                            chat.TimeStamp = (DateTime)reader["Posted"];
                             chat.Message = (string)reader["Message"];
+                            chat.TimeStamp = date;
+
+
                             _databaseChats.Add(chat);
                         }
 
