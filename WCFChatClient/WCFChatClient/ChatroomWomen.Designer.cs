@@ -142,12 +142,12 @@
             // 
             this.labelChatID.AutoSize = true;
             this.labelChatID.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelChatID.Location = new System.Drawing.Point(548, 5);
+            this.labelChatID.Location = new System.Drawing.Point(538, 5);
             this.labelChatID.Name = "labelChatID";
             this.labelChatID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.labelChatID.Size = new System.Drawing.Size(37, 12);
+            this.labelChatID.Size = new System.Drawing.Size(47, 12);
             this.labelChatID.TabIndex = 18;
-            this.labelChatID.Text = "Chat ID";
+            this.labelChatID.Text = "Chat ID: 3";
             // 
             // ChatroomWomen
             // 
