@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace WCFChatClient
 {
-    public partial class Login : Form
+    public partial class ChatroomOptions : Form
     {
-        public Login()
+        public ChatroomOptions()
         {
             InitializeComponent();
-        }
-
-        private void buttonRegister_Click(object sender, EventArgs e)
-        {
-            Register registerForm = new Register();
-            registerForm.Show();
         }
     }
 }

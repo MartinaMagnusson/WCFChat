@@ -16,7 +16,7 @@ namespace WCFChatClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ChatroomMen());
+            Application.Run(new Login());
         }
     }
 }

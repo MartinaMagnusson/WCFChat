@@ -37,14 +37,14 @@
             this.radioButtonWoman = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonRegister = new System.Windows.Forms.Button();
-            this.buttonBack = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxUsername
             // 
             this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxUsername.Location = new System.Drawing.Point(12, 39);
+            this.textBoxUsername.Location = new System.Drawing.Point(12, 61);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(153, 20);
             this.textBoxUsername.TabIndex = 0;
@@ -52,7 +52,7 @@
             // labelUsername
             // 
             this.labelUsername.AutoSize = true;
-            this.labelUsername.Location = new System.Drawing.Point(9, 23);
+            this.labelUsername.Location = new System.Drawing.Point(9, 45);
             this.labelUsername.Name = "labelUsername";
             this.labelUsername.Size = new System.Drawing.Size(55, 13);
             this.labelUsername.TabIndex = 1;
@@ -61,7 +61,7 @@
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(9, 62);
+            this.labelPassword.Location = new System.Drawing.Point(9, 84);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(53, 13);
             this.labelPassword.TabIndex = 3;
@@ -70,7 +70,7 @@
             // textBoxPassword
             // 
             this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPassword.Location = new System.Drawing.Point(12, 78);
+            this.textBoxPassword.Location = new System.Drawing.Point(12, 100);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(153, 20);
@@ -104,7 +104,7 @@
             // 
             this.panel1.Controls.Add(this.radioButtonMan);
             this.panel1.Controls.Add(this.radioButtonWoman);
-            this.panel1.Location = new System.Drawing.Point(12, 104);
+            this.panel1.Location = new System.Drawing.Point(12, 126);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(153, 41);
             this.panel1.TabIndex = 6;
@@ -114,29 +114,29 @@
             this.buttonRegister.BackColor = System.Drawing.Color.SkyBlue;
             this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRegister.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonRegister.Location = new System.Drawing.Point(92, 151);
+            this.buttonRegister.Location = new System.Drawing.Point(12, 173);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(73, 31);
+            this.buttonRegister.Size = new System.Drawing.Size(153, 31);
             this.buttonRegister.TabIndex = 7;
             this.buttonRegister.Text = "Register";
             this.buttonRegister.UseVisualStyleBackColor = false;
             // 
-            // buttonBack
+            // label1
             // 
-            this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBack.Location = new System.Drawing.Point(12, 151);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(73, 31);
-            this.buttonBack.TabIndex = 8;
-            this.buttonBack.Text = "Back";
-            this.buttonBack.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(10, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(155, 18);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Register New Account";
             // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(180, 204);
-            this.Controls.Add(this.buttonBack);
+            this.ClientSize = new System.Drawing.Size(180, 216);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelPassword);
@@ -164,6 +164,6 @@
         private System.Windows.Forms.RadioButton radioButtonWoman;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonRegister;
-        private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.Label label1;
     }
 }
