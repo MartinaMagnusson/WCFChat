@@ -22,5 +22,12 @@ namespace WCFChatClient
             Register registerForm = new Register();
             registerForm.Show();
         }
+
+        private void buttonLogin_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ChatroomOptions chatroomOptions = new ChatroomOptions();
+            chatroomOptions.Show();
+        }
     }
 }
