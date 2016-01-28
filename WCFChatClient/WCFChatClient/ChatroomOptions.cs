@@ -16,5 +16,37 @@ namespace WCFChatClient
         {
             InitializeComponent();
         }
+
+        private void buttonJoinChatroomMen_Click(object sender, EventArgs e)
+        {
+            ChatroomMen chatroomMen = new ChatroomMen();
+            chatroomMen.ShowDialog();
+        }
+
+
+        private void buttonJoinChatroomUnisex_Click(object sender, EventArgs e)
+        {
+            ChatroomUnisex chatroomUnisex = new ChatroomUnisex();
+            chatroomUnisex.ShowDialog();
+        }
+
+        private void buttonJoinChatroomWomen_Click(object sender, EventArgs e)
+        {
+            ChatroomWomen chatroomWomen = new ChatroomWomen();
+            chatroomWomen.ShowDialog();
+        }
+
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var login = new Login();
+            login.Show();
+        }
+
+        private void AreYouSure(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to close and logout?", "Close application?", MessageBoxButtons.YesNo);
+            // Logik för vad man trycker på
+        }
     }
 }

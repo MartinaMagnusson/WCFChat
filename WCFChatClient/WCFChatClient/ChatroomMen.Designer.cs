@@ -30,13 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatroomMen));
             this.textBoxChat = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxMessage = new System.Windows.Forms.TextBox();
             this.pictureBoxRefresh = new System.Windows.Forms.PictureBox();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSend = new System.Windows.Forms.PictureBox();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
+            this.textBoxHistory = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBoxMessage = new System.Windows.Forms.PictureBox();
+            this.labelChatID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSend)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMessage)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxChat
@@ -46,18 +51,20 @@
             this.textBoxChat.Multiline = true;
             this.textBoxChat.Name = "textBoxChat";
             this.textBoxChat.ReadOnly = true;
+            this.textBoxChat.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBoxChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxChat.Size = new System.Drawing.Size(416, 212);
             this.textBoxChat.TabIndex = 0;
             // 
-            // textBox1
+            // textBoxMessage
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(12, 263);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(368, 41);
-            this.textBox1.TabIndex = 1;
+            this.textBoxMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxMessage.Location = new System.Drawing.Point(46, 275);
+            this.textBoxMessage.Multiline = true;
+            this.textBoxMessage.Name = "textBoxMessage";
+            this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxMessage.Size = new System.Drawing.Size(505, 30);
+            this.textBoxMessage.TabIndex = 1;
             // 
             // pictureBoxRefresh
             // 
@@ -73,23 +80,23 @@
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(9, 247);
+            this.labelMessage.Location = new System.Drawing.Point(9, 254);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(50, 13);
             this.labelMessage.TabIndex = 4;
             this.labelMessage.Text = "Message";
             // 
-            // pictureBox1
+            // pictureBoxSend
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(386, 263);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(42, 41);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxSend.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBoxSend.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxSend.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSend.Image")));
+            this.pictureBoxSend.Location = new System.Drawing.Point(557, 275);
+            this.pictureBoxSend.Name = "pictureBoxSend";
+            this.pictureBoxSend.Size = new System.Drawing.Size(28, 30);
+            this.pictureBoxSend.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxSend.TabIndex = 5;
+            this.pictureBoxSend.TabStop = false;
             // 
             // checkBoxAutoRefresh
             // 
@@ -102,16 +109,61 @@
             this.checkBoxAutoRefresh.Text = "Auto Refresh";
             this.checkBoxAutoRefresh.UseVisualStyleBackColor = true;
             // 
+            // textBoxHistory
+            // 
+            this.textBoxHistory.BackColor = System.Drawing.Color.DarkGray;
+            this.textBoxHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxHistory.Location = new System.Drawing.Point(434, 32);
+            this.textBoxHistory.Multiline = true;
+            this.textBoxHistory.Name = "textBoxHistory";
+            this.textBoxHistory.ReadOnly = true;
+            this.textBoxHistory.Size = new System.Drawing.Size(151, 212);
+            this.textBoxHistory.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(431, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Chat History";
+            // 
+            // pictureBoxMessage
+            // 
+            this.pictureBoxMessage.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxMessage.Image")));
+            this.pictureBoxMessage.Location = new System.Drawing.Point(12, 275);
+            this.pictureBoxMessage.Name = "pictureBoxMessage";
+            this.pictureBoxMessage.Size = new System.Drawing.Size(28, 30);
+            this.pictureBoxMessage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxMessage.TabIndex = 18;
+            this.pictureBoxMessage.TabStop = false;
+            // 
+            // labelChatID
+            // 
+            this.labelChatID.AutoSize = true;
+            this.labelChatID.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelChatID.Location = new System.Drawing.Point(548, 3);
+            this.labelChatID.Name = "labelChatID";
+            this.labelChatID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.labelChatID.Size = new System.Drawing.Size(37, 12);
+            this.labelChatID.TabIndex = 19;
+            this.labelChatID.Text = "Chat ID";
+            // 
             // ChatroomMen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 318);
+            this.ClientSize = new System.Drawing.Size(597, 318);
+            this.Controls.Add(this.labelChatID);
+            this.Controls.Add(this.pictureBoxMessage);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxHistory);
             this.Controls.Add(this.checkBoxAutoRefresh);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxSend);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.pictureBoxRefresh);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxMessage);
             this.Controls.Add(this.textBoxChat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -119,7 +171,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chatroom - Men";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSend)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMessage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,10 +181,14 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxChat;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxMessage;
         private System.Windows.Forms.PictureBox pictureBoxRefresh;
         private System.Windows.Forms.Label labelMessage;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxSend;
         private System.Windows.Forms.CheckBox checkBoxAutoRefresh;
+        private System.Windows.Forms.TextBox textBoxHistory;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBoxMessage;
+        private System.Windows.Forms.Label labelChatID;
     }
 }
