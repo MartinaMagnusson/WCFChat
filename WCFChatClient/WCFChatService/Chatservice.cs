@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace WCFChatService
 {
@@ -40,13 +41,33 @@ namespace WCFChatService
             post.ID = Guid.NewGuid().ToString();
             _currentChats.Add(post);
         }
-        public void SaveToDatabase()
+        public void SaveToDatabase(UserMessage userMessage, User user)
         {
+            var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
+                          VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
+            using (var connection = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(query, connection))
+            {
+                try
+                {
+                    cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
+                    cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
+                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = 1;  
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
 
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
-            
+
             var date = new DateTime();
             using (var connection = new SqlConnection(connectionString))
             {
@@ -63,7 +84,7 @@ namespace WCFChatService
   FROM [dbo].[UserMessages]
   INNER JOIN [dbo].[Users]
   ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
-  WHERE [dbo].[UserMessages].Room_ID = @ID",connection);
+  WHERE [dbo].[UserMessages].Room_ID = @ID", connection);
                     SqlParameter idParam = new SqlParameter();
                     idParam.ParameterName = "@ID";
                     idParam.Value = roomID;
