@@ -20,7 +20,20 @@ namespace WCFChatClient
         private void buttonJoinChatroomMen_Click(object sender, EventArgs e)
         {
             ChatroomMen chatroomMen = new ChatroomMen();
-            chatroomMen.Show();
+            chatroomMen.ShowDialog();
+        }
+
+
+        private void buttonJoinChatroomUnisex_Click(object sender, EventArgs e)
+        {
+            ChatroomUnisex chatroomUnisex = new ChatroomUnisex();
+            chatroomUnisex.ShowDialog();
+        }
+
+        private void buttonJoinChatroomWomen_Click(object sender, EventArgs e)
+        {
+            ChatroomWomen chatroomWomen = new ChatroomWomen();
+            chatroomWomen.ShowDialog();
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)

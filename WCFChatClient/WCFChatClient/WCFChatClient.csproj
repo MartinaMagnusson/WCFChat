@@ -134,7 +134,9 @@
     <Content Include="Images\Message.png" />
     <Content Include="Images\Refresh.png" />
     <Content Include="Images\Send.png" />
+    <Content Include="Images\UnisexSymbox.png" />
     <Content Include="Images\User.png" />
+    <Content Include="Images\WomanSymbol.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

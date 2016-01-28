@@ -134,6 +134,7 @@
             this.buttonJoinChatroomUnisex.TabIndex = 14;
             this.buttonJoinChatroomUnisex.Text = "Join";
             this.buttonJoinChatroomUnisex.UseVisualStyleBackColor = false;
+            this.buttonJoinChatroomUnisex.Click += new System.EventHandler(this.buttonJoinChatroomUnisex_Click);
             // 
             // buttonJoinChatroomWomen
             // 
@@ -145,6 +146,7 @@
             this.buttonJoinChatroomWomen.TabIndex = 15;
             this.buttonJoinChatroomWomen.Text = "Join";
             this.buttonJoinChatroomWomen.UseVisualStyleBackColor = false;
+            this.buttonJoinChatroomWomen.Click += new System.EventHandler(this.buttonJoinChatroomWomen_Click);
             // 
             // buttonLogout
             // 
