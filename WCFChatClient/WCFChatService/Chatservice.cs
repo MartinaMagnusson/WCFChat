@@ -12,8 +12,7 @@ namespace WCFChatService
     public class ChatService : IChat
     {
         string connectionString = "Data Source=Badger;Initial Catalog=ChatDatabase;Integrated Security=True";
-        List<UserMessage> _currentChats = new List<UserMessage>();
-        List<UserMessage> _databaseChats = new List<UserMessage>();
+        List<UserMessage> _currentUserMessages = new List<UserMessage>();
 
 
 
@@ -21,7 +20,7 @@ namespace WCFChatService
         {
             try
             {
-                return _currentChats;
+                return _currentUserMessages;
             }
             catch (Exception)
             {
@@ -33,12 +32,12 @@ namespace WCFChatService
 
         public void RemoveChatt(int id)
         {
-            _currentChats.Remove(_currentChats.Find(s => s.ID.Equals(id)));
+            _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
         }
         public void SubmitChatt(UserMessage post)
         {
             post.ID = Guid.NewGuid().ToString();
-            _currentChats.Add(post);
+            _currentUserMessages.Add(post);
         }
         public void SaveToDatabase()
         {
@@ -46,7 +45,7 @@ namespace WCFChatService
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
-            
+            List<UserMessage> _databaseUserMessages = new List<UserMessage>();
             var date = new DateTime();
             using (var connection = new SqlConnection(connectionString))
             {
@@ -84,7 +83,7 @@ namespace WCFChatService
                             chat.TimeStamp = date;
 
 
-                            _databaseChats.Add(chat);
+                            _databaseUserMessages.Add(chat);
                         }
 
                     }
@@ -95,9 +94,25 @@ namespace WCFChatService
                     throw;
                 }
             }
-            return _databaseChats;
+            return _databaseUserMessages;
         }
 
 
+
+
+        public void RegisterUser(string userName, string password, string gender)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User LogInUser(string userName, string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LogOutUser(string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
