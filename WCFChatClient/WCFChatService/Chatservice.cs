@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Data.SqlClient;
+using System.Data;
 using System.Configuration;
 
 namespace WCFChatService
@@ -37,9 +38,29 @@ namespace WCFChatService
             post.ID = Guid.NewGuid().ToString();
             _currentUserMessages.Add(post);
         }
-        public void SaveToDatabase()
+        public void SaveToDatabase(UserMessage userMessage, User user, int roomId)
         {
+            var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
+                          VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            using (var cmd = new SqlCommand(query, connection))
+            {
+                try
+                {
+                    cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
+                    cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
+                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;  
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
 
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
@@ -52,15 +73,15 @@ namespace WCFChatService
                     connection.Open();
                     #region query
                     SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
-                                                            ,[Message]
-                                                            ,[Posted]
-                                                            ,[Room_ID]
-                                                            ,[User_ID]
-	                                                        ,[Username]
-                                                    FROM [dbo].[UserMessages]
-                                                    INNER JOIN [dbo].[Users]
-                                                    ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
-                                                    WHERE [dbo].[UserMessages].Room_ID = @ID", connection);
+      ,[Message]
+      ,[Posted]
+      ,[Room_ID]
+      ,[User_ID]
+	  ,[Username]
+  FROM [dbo].[UserMessages]
+  INNER JOIN [dbo].[Users]
+  ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
+  WHERE [dbo].[UserMessages].Room_ID = @ID", connection);
                     SqlParameter idParam = new SqlParameter();
                     idParam.ParameterName = "@ID";
                     idParam.Value = roomID;

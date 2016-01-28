@@ -18,7 +18,7 @@ namespace WCFChatService
         [OperationContract]
         void RemoveChatt(int id);
         [OperationContract]
-        void SaveToDatabase();
+        void SaveToDatabase(UserMessage userMessage, User user, int roomId);
         [OperationContract]
         List<UserMessage> GetChatFromDatabase(int roomID);
         [OperationContract]
@@ -44,14 +44,18 @@ namespace WCFChatService
         public DateTime TimeStamp { get; set; }
 
     }
+
     [DataContract]
     public class User
     {
         [DataMember]
-        public string Username { get; set; }
+        public string ID { get; set; }
+        [DataMember]
+        public string UserName { get; set; }
+        [DataMember]
+        public string Password { get; set; }
         [DataMember]
         public string Gender { get; set; }
-
     }
 
 }
