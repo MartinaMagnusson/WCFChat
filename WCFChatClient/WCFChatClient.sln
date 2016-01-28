@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFChatClient", "WCFChatClient\WCFChatClient.csproj", "{C7D1877B-A1AC-4614-9E13-07F5778886D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{107534DD-E963-4E30-83E9-A599E9585173} = {107534DD-E963-4E30-83E9-A599E9585173}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFChatService", "WCFChatService\WCFChatService.csproj", "{107534DD-E963-4E30-83E9-A599E9585173}"
 EndProject

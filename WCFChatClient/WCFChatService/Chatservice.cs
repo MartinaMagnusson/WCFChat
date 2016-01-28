@@ -5,16 +5,14 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WCFChatService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChat
     {
-        string connectionString = "Data Source=Badger;Initial Catalog=ChatDatabase;Integrated Security=True";
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
-
-
 
         public List<UserMessage> GetChats()
         {
@@ -47,22 +45,22 @@ namespace WCFChatService
         {
             List<UserMessage> _databaseUserMessages = new List<UserMessage>();
             var date = new DateTime();
-            using (var connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
                 try
                 {
                     connection.Open();
                     #region query
                     SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
-      ,[Message]
-      ,[Posted]
-      ,[Room_ID]
-      ,[User_ID]
-	  ,[Username]
-  FROM [dbo].[UserMessages]
-  INNER JOIN [dbo].[Users]
-  ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
-  WHERE [dbo].[UserMessages].Room_ID = @ID",connection);
+                                                            ,[Message]
+                                                            ,[Posted]
+                                                            ,[Room_ID]
+                                                            ,[User_ID]
+	                                                        ,[Username]
+                                                    FROM [dbo].[UserMessages]
+                                                    INNER JOIN [dbo].[Users]
+                                                    ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
+                                                    WHERE [dbo].[UserMessages].Room_ID = @ID", connection);
                     SqlParameter idParam = new SqlParameter();
                     idParam.ParameterName = "@ID";
                     idParam.Value = roomID;
