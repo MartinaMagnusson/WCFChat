@@ -46,11 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatOption.cs">
+    <Compile Include="ChatroomMen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChatOption.Designer.cs">
-      <DependentUpon>ChatOption.cs</DependentUpon>
+    <Compile Include="ChatroomMen.Designer.cs">
+      <DependentUpon>ChatroomMen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChatroomOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChatroomOptions.Designer.cs">
+      <DependentUpon>ChatroomOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChatroomUnisex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChatroomUnisex.Designer.cs">
+      <DependentUpon>ChatroomUnisex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChatroomWomen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChatroomWomen.Designer.cs">
+      <DependentUpon>ChatroomWomen.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -66,8 +84,17 @@
     <Compile Include="Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ChatOption.resx">
-      <DependentUpon>ChatOption.cs</DependentUpon>
+    <EmbeddedResource Include="ChatroomMen.resx">
+      <DependentUpon>ChatroomMen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChatroomOptions.resx">
+      <DependentUpon>ChatroomOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChatroomUnisex.resx">
+      <DependentUpon>ChatroomUnisex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChatroomWomen.resx">
+      <DependentUpon>ChatroomWomen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -100,10 +127,13 @@
   <ItemGroup>
     <Content Include="Images\Chat.png" />
     <Content Include="Images\ChatIcon.ico" />
+    <Content Include="Images\ChatMan.ico" />
     <Content Include="Images\ChatMan.png" />
+    <Content Include="Images\ChatWoman.ico" />
     <Content Include="Images\ChatWoman.png" />
     <Content Include="Images\Message.png" />
     <Content Include="Images\Refresh.png" />
+    <Content Include="Images\Send.png" />
     <Content Include="Images\User.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

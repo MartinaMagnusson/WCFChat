@@ -43,6 +43,7 @@
             // 
             // textBoxUsername
             // 
+            this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUsername.Location = new System.Drawing.Point(12, 39);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(153, 20);
@@ -68,6 +69,7 @@
             // 
             // textBoxPassword
             // 
+            this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPassword.Location = new System.Drawing.Point(12, 78);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
@@ -77,9 +79,10 @@
             // radioButtonMan
             // 
             this.radioButtonMan.AutoSize = true;
+            this.radioButtonMan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioButtonMan.Location = new System.Drawing.Point(15, 12);
             this.radioButtonMan.Name = "radioButtonMan";
-            this.radioButtonMan.Size = new System.Drawing.Size(46, 17);
+            this.radioButtonMan.Size = new System.Drawing.Size(45, 17);
             this.radioButtonMan.TabIndex = 4;
             this.radioButtonMan.TabStop = true;
             this.radioButtonMan.Text = "Man";
@@ -88,9 +91,10 @@
             // radioButtonWoman
             // 
             this.radioButtonWoman.AutoSize = true;
+            this.radioButtonWoman.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioButtonWoman.Location = new System.Drawing.Point(80, 12);
             this.radioButtonWoman.Name = "radioButtonWoman";
-            this.radioButtonWoman.Size = new System.Drawing.Size(62, 17);
+            this.radioButtonWoman.Size = new System.Drawing.Size(61, 17);
             this.radioButtonWoman.TabIndex = 5;
             this.radioButtonWoman.TabStop = true;
             this.radioButtonWoman.Text = "Woman";
@@ -107,15 +111,19 @@
             // 
             // buttonRegister
             // 
+            this.buttonRegister.BackColor = System.Drawing.Color.SkyBlue;
+            this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRegister.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonRegister.Location = new System.Drawing.Point(92, 151);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(73, 31);
             this.buttonRegister.TabIndex = 7;
             this.buttonRegister.Text = "Register";
-            this.buttonRegister.UseVisualStyleBackColor = true;
+            this.buttonRegister.UseVisualStyleBackColor = false;
             // 
             // buttonBack
             // 
+            this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBack.Location = new System.Drawing.Point(12, 151);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(73, 31);

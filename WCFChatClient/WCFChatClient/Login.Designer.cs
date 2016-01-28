@@ -39,6 +39,7 @@
             // 
             // textBoxUsername
             // 
+            this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUsername.Location = new System.Drawing.Point(16, 54);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(157, 20);
@@ -46,6 +47,7 @@
             // 
             // textBoxPassword
             // 
+            this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPassword.Location = new System.Drawing.Point(16, 95);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
@@ -72,18 +74,23 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(98, 121);
+            this.buttonLogin.BackColor = System.Drawing.Color.SkyBlue;
+            this.buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogin.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonLogin.Location = new System.Drawing.Point(100, 121);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(73, 31);
             this.buttonLogin.TabIndex = 4;
             this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.UseVisualStyleBackColor = false;
             // 
             // buttonRegister
             // 
+            this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRegister.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonRegister.Location = new System.Drawing.Point(16, 121);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(73, 31);
+            this.buttonRegister.Size = new System.Drawing.Size(78, 31);
             this.buttonRegister.TabIndex = 5;
             this.buttonRegister.Text = "Register";
             this.buttonRegister.UseVisualStyleBackColor = true;
@@ -92,7 +99,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(191, 187);
+            this.ClientSize = new System.Drawing.Size(191, 167);
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.labelUsername);
