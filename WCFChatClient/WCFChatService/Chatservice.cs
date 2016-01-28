@@ -12,7 +12,8 @@ namespace WCFChatService
     public class ChatService : IChat
     {
         string connectionString = "Data Source=Badger;Initial Catalog=ChatDatabase;Integrated Security=True";
-        List<Chat> _chats = new List<Chat>();
+        List<Chat> _currentChats = new List<Chat>();
+        List<Chat> _databaseChats = new List<Chat>();
 
 
 
@@ -20,37 +21,67 @@ namespace WCFChatService
         {
             try
             {
-                return _chats;
+                return _currentChats;
             }
             catch (Exception)
             {
 
                 throw;
             }
-            
+
         }
 
         public void RemoveChatt(int id)
         {
-            _chats.Remove(_chats.Find(s => s.ID.Equals(id)));
+            _currentChats.Remove(_currentChats.Find(s => s.ID.Equals(id)));
         }
         public void SubmitChatt(Chat post)
         {
             post.ID = Guid.NewGuid().ToString();
-            _chats.Add(post);
+            _currentChats.Add(post);
         }
         public void SaveToDatabase()
         {
 
         }
-        public List<Chat> GetChatFromDatabase()
+        public List<Chat> GetChatFromDatabase(int roomID)
         {
+            var chat = new Chat();
+            
             using (var connection = new SqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    //SqlCommand cmd = new SqlCommand(@"SELECT [Message],[Posted],[RoomID],[UserId] FROM [dbo].");
+                    #region query
+                    SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
+      ,[Message]
+      ,[Posted]
+      ,[Room_ID]
+      ,[User_ID]
+	  ,[Username]
+  FROM [dbo].[UserMessages]
+  INNER JOIN [dbo].[Users]
+  ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
+  WHERE [dbo].[UserMessages].Room_ID = @ID");
+                    SqlParameter idParam = new SqlParameter();
+                    idParam.ParameterName = "@ID";
+                    idParam.Value = roomID;
+                    cmd.Parameters.Add(idParam);
+                    #endregion
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            chat.ID = (string)reader["MessageID"];
+                            chat.Submitter = (string)reader["Username"];
+                            chat.TimeStamp = (DateTime)reader["Posted"];
+                            chat.Message = (string)reader["Message"];
+                            _databaseChats.Add(chat);
+                        }
+
+                    }
                 }
                 catch (Exception)
                 {
@@ -58,7 +89,7 @@ namespace WCFChatService
                     throw;
                 }
             }
-            throw new Exception();
+            return _databaseChats;
         }
 
 

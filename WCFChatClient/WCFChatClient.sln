@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFChatClient", "WCFChatClient\WCFChatClient.csproj", "{C7D1877B-A1AC-4614-9E13-07F5778886D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFChatService", "WCFChatService\WCFChatService.csproj", "{107534DD-E963-4E30-83E9-A599E9585173}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C7D1877B-A1AC-4614-9E13-07F5778886D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7D1877B-A1AC-4614-9E13-07F5778886D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7D1877B-A1AC-4614-9E13-07F5778886D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{107534DD-E963-4E30-83E9-A599E9585173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{107534DD-E963-4E30-83E9-A599E9585173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{107534DD-E963-4E30-83E9-A599E9585173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{107534DD-E963-4E30-83E9-A599E9585173}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
