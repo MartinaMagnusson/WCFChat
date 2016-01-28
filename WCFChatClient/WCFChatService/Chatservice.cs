@@ -40,7 +40,7 @@ namespace WCFChatService
             post.ID = Guid.NewGuid().ToString();
             _currentUserMessages.Add(post);
         }
-        public void SaveToDatabase(UserMessage userMessage, User user)
+        public void SaveToDatabase(UserMessage userMessage, User user, int roomId)
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
@@ -51,7 +51,7 @@ namespace WCFChatService
                 {
                     cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
                     cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
-                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = 1;  
+                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;  
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
 
                     connection.Open();
