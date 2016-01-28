@@ -123,7 +123,7 @@ namespace WCFChatService
         {
 
             //Amend to a fault exception;
-            if (CheckIfUserExists(user.Username))
+            if (CheckIfUserExists(user.UserName))
                 throw new Exception();
 
 
@@ -142,7 +142,7 @@ namespace WCFChatService
 
             cmd.Parameters.Add(new SqlParameter("Password",key));
             cmd.Parameters.Add(new SqlParameter("Gender",user.Gender));
-            cmd.Parameters.Add(new SqlParameter("Username",user.Username));
+            cmd.Parameters.Add(new SqlParameter("Username",user.UserName));
 
             #endregion
 
