@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WCFChatClient
 {
-    public partial class ChatOption : Form
+    public partial class ChatroomWomen : Form
     {
-        public ChatOption()
+        public ChatroomWomen()
         {
             InitializeComponent();
         }
