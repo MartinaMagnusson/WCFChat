@@ -48,6 +48,7 @@
             // 
             // pictureBoxChatMan
             // 
+            this.pictureBoxChatMan.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxChatMan.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxChatMan.Image")));
             this.pictureBoxChatMan.Location = new System.Drawing.Point(11, 34);
             this.pictureBoxChatMan.Name = "pictureBoxChatMan";
@@ -55,9 +56,11 @@
             this.pictureBoxChatMan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxChatMan.TabIndex = 6;
             this.pictureBoxChatMan.TabStop = false;
+            this.pictureBoxChatMan.Click += new System.EventHandler(this.buttonJoinChatroomMen_Click);
             // 
             // pictureBoxChatWoman
             // 
+            this.pictureBoxChatWoman.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxChatWoman.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxChatWoman.Image")));
             this.pictureBoxChatWoman.Location = new System.Drawing.Point(251, 34);
             this.pictureBoxChatWoman.Name = "pictureBoxChatWoman";
@@ -65,9 +68,11 @@
             this.pictureBoxChatWoman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxChatWoman.TabIndex = 7;
             this.pictureBoxChatWoman.TabStop = false;
+            this.pictureBoxChatWoman.Click += new System.EventHandler(this.buttonJoinChatroomWomen_Click);
             // 
             // pictureBoxChatUnisex
             // 
+            this.pictureBoxChatUnisex.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxChatUnisex.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxChatUnisex.Image")));
             this.pictureBoxChatUnisex.Location = new System.Drawing.Point(131, 34);
             this.pictureBoxChatUnisex.Name = "pictureBoxChatUnisex";
@@ -75,6 +80,7 @@
             this.pictureBoxChatUnisex.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxChatUnisex.TabIndex = 8;
             this.pictureBoxChatUnisex.TabStop = false;
+            this.pictureBoxChatUnisex.Click += new System.EventHandler(this.buttonJoinChatroomUnisex_Click);
             // 
             // labelMen
             // 

@@ -45,8 +45,8 @@ namespace WCFChatClient
 
         private void AreYouSure(object sender, FormClosingEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to close and logout?", "Close application?", MessageBoxButtons.YesNo);
-            // Logik för vad man trycker på
+            var result = MessageBox.Show("Are you sure you want to close and logout?", "Close application?", MessageBoxButtons.YesNoCancel);
+            // Logik för vad som händer beroende på olika klick
         }
     }
 }
