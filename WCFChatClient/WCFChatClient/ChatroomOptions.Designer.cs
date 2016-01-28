@@ -68,7 +68,6 @@
             this.pictureBoxChatWoman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxChatWoman.TabIndex = 7;
             this.pictureBoxChatWoman.TabStop = false;
-            this.pictureBoxChatWoman.Click += new System.EventHandler(this.buttonJoinChatroomWomen_Click);
             // 
             // pictureBoxChatUnisex
             // 
@@ -121,6 +120,7 @@
             // buttonJoinChatroomMen
             // 
             this.buttonJoinChatroomMen.BackColor = System.Drawing.Color.SkyBlue;
+            this.buttonJoinChatroomMen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonJoinChatroomMen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonJoinChatroomMen.Location = new System.Drawing.Point(11, 145);
             this.buttonJoinChatroomMen.Name = "buttonJoinChatroomMen";
@@ -133,6 +133,7 @@
             // buttonJoinChatroomUnisex
             // 
             this.buttonJoinChatroomUnisex.BackColor = System.Drawing.Color.SkyBlue;
+            this.buttonJoinChatroomUnisex.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonJoinChatroomUnisex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonJoinChatroomUnisex.Location = new System.Drawing.Point(131, 145);
             this.buttonJoinChatroomUnisex.Name = "buttonJoinChatroomUnisex";
@@ -145,6 +146,7 @@
             // buttonJoinChatroomWomen
             // 
             this.buttonJoinChatroomWomen.BackColor = System.Drawing.Color.SkyBlue;
+            this.buttonJoinChatroomWomen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonJoinChatroomWomen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonJoinChatroomWomen.Location = new System.Drawing.Point(251, 145);
             this.buttonJoinChatroomWomen.Name = "buttonJoinChatroomWomen";
@@ -157,6 +159,7 @@
             // buttonLogout
             // 
             this.buttonLogout.BackColor = System.Drawing.Color.Gainsboro;
+            this.buttonLogout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLogout.Location = new System.Drawing.Point(283, 5);
             this.buttonLogout.Name = "buttonLogout";
