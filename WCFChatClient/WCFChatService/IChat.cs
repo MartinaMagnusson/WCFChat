@@ -11,7 +11,7 @@ namespace WCFChatService
     public interface IChat
     {
         [OperationContract]
-        void SubmitChatt(UserMessage post);
+        void SubmitUserMessage(UserMessage post);
 
         [OperationContract]
         List<UserMessage> GetChats();
@@ -22,7 +22,7 @@ namespace WCFChatService
         [OperationContract]
         List<UserMessage> GetChatFromDatabase(int roomID);
         [OperationContract]
-        void RegisterUser(string userName,string password,string gender);
+        void RegisterUser(User user,string key);
         [OperationContract]
         User LogInUser(string userName,string key);
         [OperationContract]
@@ -47,6 +47,8 @@ namespace WCFChatService
     [DataContract]
     public class User
     {
+        [DataMember]
+        public int ID { get; set; }
         [DataMember]
         public string Username { get; set; }
         [DataMember]
