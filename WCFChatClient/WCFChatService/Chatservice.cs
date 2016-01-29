@@ -157,7 +157,7 @@ namespace WCFChatService
                 #region query
                 var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
-                             Where Username = '@userName'; ");
+                             Where Username = '@userName'; ", connection);
                 cmd.Parameters.Add(new SqlParameter("@userName", username));
                 #endregion
                 using (SqlDataReader reader = cmd.ExecuteReader())
