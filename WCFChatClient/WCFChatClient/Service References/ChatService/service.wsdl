@@ -7,11 +7,11 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/WCFChatService" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IChat_SubmitChatt_InputMessage">
-    <wsdl:part name="parameters" element="tns:SubmitChatt" />
+  <wsdl:message name="IChat_SubmitUserMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitUserMessage" />
   </wsdl:message>
-  <wsdl:message name="IChat_SubmitChatt_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SubmitChattResponse" />
+  <wsdl:message name="IChat_SubmitUserMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitUserMessageResponse" />
   </wsdl:message>
   <wsdl:message name="IChat_GetChats_InputMessage">
     <wsdl:part name="parameters" element="tns:GetChats" />
@@ -56,9 +56,9 @@
     <wsdl:part name="parameters" element="tns:LogOutUserResponse" />
   </wsdl:message>
   <wsdl:portType name="IChat">
-    <wsdl:operation name="SubmitChatt">
-      <wsdl:input wsaw:Action="http://tempuri.org/IChat/SubmitChatt" message="tns:IChat_SubmitChatt_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IChat/SubmitChattResponse" message="tns:IChat_SubmitChatt_OutputMessage" />
+    <wsdl:operation name="SubmitUserMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/SubmitUserMessage" message="tns:IChat_SubmitUserMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/SubmitUserMessageResponse" message="tns:IChat_SubmitUserMessage_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetChats">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetChats" message="tns:IChat_GetChats_InputMessage" />
@@ -91,8 +91,8 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IChat" type="tns:IChat">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="SubmitChatt">
-      <soap:operation soapAction="http://tempuri.org/IChat/SubmitChatt" style="document" />
+    <wsdl:operation name="SubmitUserMessage">
+      <soap:operation soapAction="http://tempuri.org/IChat/SubmitUserMessage" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

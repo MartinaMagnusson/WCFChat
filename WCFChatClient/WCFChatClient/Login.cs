@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WCFChatClient.ChatService;
 
 namespace WCFChatClient
 {
     public partial class Login : Form
     {
+        ChatService.ChatClient _chatClient;
         public Login()
         {
             InitializeComponent();
+            _chatClient = new ChatService.ChatClient();
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
@@ -25,9 +28,10 @@ namespace WCFChatClient
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+           
+            _chatClient.LogInUser(textBoxUsername.Text, textBoxPassword.Text);
 
-
-            if (!String.IsNullOrEmpty(textBoxUsername.Text) || !String.IsNullOrEmpty(textBoxPassword.Text)) 
+            if (!String.IsNullOrEmpty(textBoxUsername.Text) || !String.IsNullOrEmpty(textBoxPassword.Text))
             {
                 this.Hide();
                 ChatroomOptions chatroomOptions = new ChatroomOptions();
