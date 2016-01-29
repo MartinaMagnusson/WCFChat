@@ -22,9 +22,9 @@ namespace WCFChatService
         [OperationContract]
         List<UserMessage> GetChatFromDatabase(int roomID);
         [OperationContract]
-        void RegisterUser(User user,string key);
+        void RegisterUser(User user,string password);
         [OperationContract]
-        User LogInUser(string userName,string key);
+        User LogInUser(string userName,string password);
         [OperationContract]
         void LogOutUser(string userName);
     }

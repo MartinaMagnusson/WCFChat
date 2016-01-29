@@ -164,7 +164,7 @@ namespace WCFChatService
             return true;
         }
 
-        public User LogInUser(string userName, string key)
+        public User LogInUser(string userName, string password)
         {
             throw new NotImplementedException();
         }
