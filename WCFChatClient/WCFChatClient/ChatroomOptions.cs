@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WCFChatClient.ChatService;
 
 namespace WCFChatClient
 {
     public partial class ChatroomOptions : Form
     {
-        public ChatroomOptions()
+        CurrentUser _currentUser;
+        public ChatroomOptions(CurrentUser user)
         {
             InitializeComponent();
+            this._currentUser = user;
+
+            labelCurrentUser.Text = _currentUser.UserName;
         }
 
         private void buttonJoinChatroomMen_Click(object sender, EventArgs e)

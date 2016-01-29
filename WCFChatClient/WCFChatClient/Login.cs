@@ -35,7 +35,7 @@ namespace WCFChatClient
                 if (user != null)
                 {
                     this.Hide();
-                    ChatroomOptions chatroomOptions = new ChatroomOptions();
+                    ChatroomOptions chatroomOptions = new ChatroomOptions(user);
                     chatroomOptions.Show();
                 }
                 else
