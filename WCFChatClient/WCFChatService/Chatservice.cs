@@ -14,6 +14,7 @@ namespace WCFChatService
     public class ChatService : IChat
     {
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
+        List<string> loggedInUsers = new List<string>();
 
         public List<UserMessage> GetChats()
         {
@@ -175,8 +176,22 @@ namespace WCFChatService
 
         public User LogInUser(string userName, string password)
         {
-            throw new NotImplementedException();
-        }
+            //fråga databasen efter en user som har username och password
+            //retunera om kontot finns eller inte och gå vidare beroende på det.
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                connection.Open();
+                #region query
+                var cmd = new SqlCommand(@"SELECT [Username],[Password]
+                            FROM[ChatDatabase].[dbo].[Users]
+                             Where Username = @Username; ", connection);
+                cmd.Parameters.Add(new SqlParameter("@Username", userName));
+                cmd.Parameters.Add(new SqlParameter("@Password", password));
+                loggedInUsers.Insert(0, userName);
+                #endregion
+            }
+            
+            }
 
         public void LogOutUser(string userName)
         {
