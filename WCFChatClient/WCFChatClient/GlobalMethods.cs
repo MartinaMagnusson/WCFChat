@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WCFChatService;
 
 namespace WCFChatClient
 {
@@ -20,5 +21,6 @@ namespace WCFChatClient
             }
             return result;
         }
+
     }
 }

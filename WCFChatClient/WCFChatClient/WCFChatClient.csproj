@@ -119,6 +119,8 @@
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\WCFChatService.User.datasource" />
+    <None Include="Properties\DataSources\WCFChatService.UserMessage.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -134,12 +136,6 @@
     </None>
     <None Include="Service References\ChatService\service1.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ChatService\WCFChatClient.ChatService.User.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ChatService\WCFChatClient.ChatService.UserMessage.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ChatService\WCFChatService.xsd">
       <SubType>Designer</SubType>

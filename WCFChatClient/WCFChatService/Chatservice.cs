@@ -15,6 +15,7 @@ namespace WCFChatService
     {
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
         List<string> loggedInUsers = new List<string>();
+        int MessageCounter;
 
         public List<UserMessage> GetChats()
         {
@@ -30,12 +31,14 @@ namespace WCFChatService
 
         }
 
-        public void RemoveChatt(int id)
+        public void RemoveUserMessage(int id)
         {
             _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
         }
         public void SubmitUserMessage(UserMessage post)
         {
+            MessageCounter++;
+            post.ID = MessageCounter;
             _currentUserMessages.Add(post);
         }
         public void SaveToDatabase()
@@ -74,7 +77,7 @@ namespace WCFChatService
                 {
                     connection.Open();
                     #region query
-                    SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
+                    SqlCommand cmd = new SqlCommand(@"SELECT TOP 20 [MessageID]
       ,[Message]
       ,[Posted]
       ,[Room_ID]
@@ -98,7 +101,7 @@ namespace WCFChatService
                             DateTime.TryParse((string)reader["Posted"], out date);
 
 
-                            chat.ID = reader["MessageID"].ToString();
+                            chat.ID = (int)reader["MessageID"];
                             chat.Submitter = (string)reader["Username"];
                             chat.Message = (string)reader["Message"];
                             chat.TimeStamp = date;
@@ -107,6 +110,14 @@ namespace WCFChatService
                             _databaseUserMessages.Add(chat);
                         }
 
+                    }
+                    SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]",connection);
+                    using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            MessageCounter++;
+                        }
                     }
                 }
                 catch (Exception)
@@ -190,7 +201,9 @@ namespace WCFChatService
                 loggedInUsers.Insert(0, userName);
                 #endregion
             }
-            
+
+            //dealing with build error.
+            throw new Exception();
             }
 
         public void LogOutUser(string userName)

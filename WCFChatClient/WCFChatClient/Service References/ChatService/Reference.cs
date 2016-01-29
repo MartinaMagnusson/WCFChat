@@ -9,179 +9,23 @@
 //------------------------------------------------------------------------------
 
 namespace WCFChatClient.ChatService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserMessage", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
-    [System.SerializableAttribute()]
-    public partial class UserMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string IDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SubmitterField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime TimeStampField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ID {
-            get {
-                return this.IDField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.IDField, value) != true)) {
-                    this.IDField = value;
-                    this.RaisePropertyChanged("ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Message {
-            get {
-                return this.MessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
-                    this.MessageField = value;
-                    this.RaisePropertyChanged("Message");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Submitter {
-            get {
-                return this.SubmitterField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SubmitterField, value) != true)) {
-                    this.SubmitterField = value;
-                    this.RaisePropertyChanged("Submitter");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime TimeStamp {
-            get {
-                return this.TimeStampField;
-            }
-            set {
-                if ((this.TimeStampField.Equals(value) != true)) {
-                    this.TimeStampField = value;
-                    this.RaisePropertyChanged("TimeStamp");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
-    [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string GenderField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsernameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Gender {
-            get {
-                return this.GenderField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.GenderField, value) != true)) {
-                    this.GenderField = value;
-                    this.RaisePropertyChanged("Gender");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username {
-            get {
-                return this.UsernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
-                    this.UsernameField = value;
-                    this.RaisePropertyChanged("Username");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.IChat")]
     public interface IChat {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitChatt", ReplyAction="http://tempuri.org/IChat/SubmitChattResponse")]
-        void SubmitChatt(WCFChatClient.ChatService.UserMessage post);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitUserMessage", ReplyAction="http://tempuri.org/IChat/SubmitUserMessageResponse")]
+        void SubmitUserMessage(WCFChatService.UserMessage post);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitChatt", ReplyAction="http://tempuri.org/IChat/SubmitChattResponse")]
-        System.Threading.Tasks.Task SubmitChattAsync(WCFChatClient.ChatService.UserMessage post);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChats", ReplyAction="http://tempuri.org/IChat/GetChatsResponse")]
-        WCFChatClient.ChatService.UserMessage[] GetChats();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitUserMessage", ReplyAction="http://tempuri.org/IChat/SubmitUserMessageResponse")]
+        System.Threading.Tasks.Task SubmitUserMessageAsync(WCFChatService.UserMessage post);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChats", ReplyAction="http://tempuri.org/IChat/GetChatsResponse")]
-        System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatsAsync();
+        WCFChatService.UserMessage[] GetChats();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChats", ReplyAction="http://tempuri.org/IChat/GetChatsResponse")]
+        System.Threading.Tasks.Task<WCFChatService.UserMessage[]> GetChatsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveChatt", ReplyAction="http://tempuri.org/IChat/RemoveChattResponse")]
         void RemoveChatt(int id);
@@ -196,22 +40,22 @@ namespace WCFChatClient.ChatService {
         System.Threading.Tasks.Task SaveToDatabaseAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChatFromDatabase", ReplyAction="http://tempuri.org/IChat/GetChatFromDatabaseResponse")]
-        WCFChatClient.ChatService.UserMessage[] GetChatFromDatabase(int roomID);
+        WCFChatService.UserMessage[] GetChatFromDatabase(int roomID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChatFromDatabase", ReplyAction="http://tempuri.org/IChat/GetChatFromDatabaseResponse")]
-        System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatFromDatabaseAsync(int roomID);
+        System.Threading.Tasks.Task<WCFChatService.UserMessage[]> GetChatFromDatabaseAsync(int roomID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RegisterUser", ReplyAction="http://tempuri.org/IChat/RegisterUserResponse")]
-        void RegisterUser(string userName, string password, string gender);
+        void RegisterUser(WCFChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RegisterUser", ReplyAction="http://tempuri.org/IChat/RegisterUserResponse")]
-        System.Threading.Tasks.Task RegisterUserAsync(string userName, string password, string gender);
+        System.Threading.Tasks.Task RegisterUserAsync(WCFChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogInUser", ReplyAction="http://tempuri.org/IChat/LogInUserResponse")]
-        WCFChatClient.ChatService.User LogInUser(string userName, string key);
+        WCFChatService.User LogInUser(string userName, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogInUser", ReplyAction="http://tempuri.org/IChat/LogInUserResponse")]
-        System.Threading.Tasks.Task<WCFChatClient.ChatService.User> LogInUserAsync(string userName, string key);
+        System.Threading.Tasks.Task<WCFChatService.User> LogInUserAsync(string userName, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogOutUser", ReplyAction="http://tempuri.org/IChat/LogOutUserResponse")]
         void LogOutUser(string userName);
@@ -247,19 +91,19 @@ namespace WCFChatClient.ChatService {
                 base(binding, remoteAddress) {
         }
         
-        public void SubmitChatt(WCFChatClient.ChatService.UserMessage post) {
-            base.Channel.SubmitChatt(post);
+        public void SubmitUserMessage(WCFChatService.UserMessage post) {
+            base.Channel.SubmitUserMessage(post);
         }
         
-        public System.Threading.Tasks.Task SubmitChattAsync(WCFChatClient.ChatService.UserMessage post) {
-            return base.Channel.SubmitChattAsync(post);
+        public System.Threading.Tasks.Task SubmitUserMessageAsync(WCFChatService.UserMessage post) {
+            return base.Channel.SubmitUserMessageAsync(post);
         }
         
-        public WCFChatClient.ChatService.UserMessage[] GetChats() {
+        public WCFChatService.UserMessage[] GetChats() {
             return base.Channel.GetChats();
         }
         
-        public System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatsAsync() {
+        public System.Threading.Tasks.Task<WCFChatService.UserMessage[]> GetChatsAsync() {
             return base.Channel.GetChatsAsync();
         }
         
@@ -279,28 +123,28 @@ namespace WCFChatClient.ChatService {
             return base.Channel.SaveToDatabaseAsync();
         }
         
-        public WCFChatClient.ChatService.UserMessage[] GetChatFromDatabase(int roomID) {
+        public WCFChatService.UserMessage[] GetChatFromDatabase(int roomID) {
             return base.Channel.GetChatFromDatabase(roomID);
         }
         
-        public System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatFromDatabaseAsync(int roomID) {
+        public System.Threading.Tasks.Task<WCFChatService.UserMessage[]> GetChatFromDatabaseAsync(int roomID) {
             return base.Channel.GetChatFromDatabaseAsync(roomID);
         }
         
-        public void RegisterUser(string userName, string password, string gender) {
-            base.Channel.RegisterUser(userName, password, gender);
+        public void RegisterUser(WCFChatService.User user) {
+            base.Channel.RegisterUser(user);
         }
         
-        public System.Threading.Tasks.Task RegisterUserAsync(string userName, string password, string gender) {
-            return base.Channel.RegisterUserAsync(userName, password, gender);
+        public System.Threading.Tasks.Task RegisterUserAsync(WCFChatService.User user) {
+            return base.Channel.RegisterUserAsync(user);
         }
         
-        public WCFChatClient.ChatService.User LogInUser(string userName, string key) {
-            return base.Channel.LogInUser(userName, key);
+        public WCFChatService.User LogInUser(string userName, string password) {
+            return base.Channel.LogInUser(userName, password);
         }
         
-        public System.Threading.Tasks.Task<WCFChatClient.ChatService.User> LogInUserAsync(string userName, string key) {
-            return base.Channel.LogInUserAsync(userName, key);
+        public System.Threading.Tasks.Task<WCFChatService.User> LogInUserAsync(string userName, string password) {
+            return base.Channel.LogInUserAsync(userName, password);
         }
         
         public void LogOutUser(string userName) {
