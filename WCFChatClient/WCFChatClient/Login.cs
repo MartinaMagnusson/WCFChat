@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WCFChatClient.ChatService;
 
 namespace WCFChatClient
 {
     public partial class Login : Form
     {
+        ChatService.ChatClient _chatClient;
         public Login()
         {
             InitializeComponent();
+            _chatClient = new ChatService.ChatClient();
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
@@ -25,19 +28,25 @@ namespace WCFChatClient
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-
-
-            if (!String.IsNullOrEmpty(textBoxUsername.Text) || !String.IsNullOrEmpty(textBoxPassword.Text)) 
+            if (textBoxUsername.Text != "" && textBoxPassword.Text != "")
             {
-                this.Hide();
-                ChatroomOptions chatroomOptions = new ChatroomOptions();
-                chatroomOptions.Show();
+                var user = _chatClient.LogInUser(textBoxUsername.Text, textBoxPassword.Text);
+
+                if (user != null)
+                {
+                    this.Hide();
+                    ChatroomOptions chatroomOptions = new ChatroomOptions();
+                    chatroomOptions.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Username/Password Incorrect.");
+                }
             }
-            else if(String.IsNullOrEmpty(textBoxUsername.Text) || String.IsNullOrEmpty(textBoxPassword.Text))
+            else
             {
-                MessageBox.Show("Username or password Requiered.");
+                MessageBox.Show("Username and password required.");
             }
-            
         }
     }
 }

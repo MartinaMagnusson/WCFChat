@@ -24,12 +24,12 @@ namespace WCFChatService
         [OperationContract]
         void RegisterUser(User user);
         [OperationContract]
-        User LogInUser(string userName,string password);
+        CurrentUser LogInUser(string userName, string password);
         [OperationContract]
         void LogOutUser(string userName);
     }
 
-    
+
 
     [DataContract]
     public class UserMessage
@@ -59,6 +59,15 @@ namespace WCFChatService
         public string Password { get; set; }
         [DataMember]
         public string Gender { get; set; }
+    }
+
+    [DataContract]
+    public class CurrentUser
+    {
+        [DataMember]
+        public string ID { get; set; }
+        [DataMember]
+        public string UserName { get; set; }
     }
 
 }

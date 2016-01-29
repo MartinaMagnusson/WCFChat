@@ -92,6 +92,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="UsersOnline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsersOnline.Designer.cs">
+      <DependentUpon>UsersOnline.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ChatroomMen.resx">
       <DependentUpon>ChatroomMen.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,6 +125,9 @@
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UsersOnline.resx">
+      <DependentUpon>UsersOnline.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\WCFChatService.User.datasource" />
     <None Include="Properties\DataSources\WCFChatService.UserMessage.datasource" />
     <None Include="Properties\Settings.settings">
@@ -136,6 +145,12 @@
     </None>
     <None Include="Service References\ChatService\service1.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatService\WCFChatClient.ChatService.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ChatService\WCFChatClient.ChatService.UserMessage.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ChatService\WCFChatService.xsd">
       <SubType>Designer</SubType>
@@ -169,12 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ChatService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WCFChatService\WCFChatService.csproj">
-      <Project>{107534dd-e963-4e30-83e9-a599e9585173}</Project>
-      <Name>WCFChatService</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

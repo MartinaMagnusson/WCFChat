@@ -35,15 +35,17 @@
             this.labelMen = new System.Windows.Forms.Label();
             this.labelWomen = new System.Windows.Forms.Label();
             this.labelUnisex = new System.Windows.Forms.Label();
-            this.labelLoggedinas = new System.Windows.Forms.Label();
             this.buttonJoinChatroomMen = new System.Windows.Forms.Button();
             this.buttonJoinChatroomUnisex = new System.Windows.Forms.Button();
             this.buttonJoinChatroomWomen = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.labelCurrentUser = new System.Windows.Forms.Label();
+            this.labelOnlineCounter = new System.Windows.Forms.Label();
+            this.labelUsersOnline = new System.Windows.Forms.Label();
+            this.pictureBoxUsersOnline = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatMan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatWoman)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatUnisex)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUsersOnline)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxChatMan
@@ -68,6 +70,7 @@
             this.pictureBoxChatWoman.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxChatWoman.TabIndex = 7;
             this.pictureBoxChatWoman.TabStop = false;
+            this.pictureBoxChatWoman.Click += new System.EventHandler(this.buttonJoinChatroomWomen_Click);
             // 
             // pictureBoxChatUnisex
             // 
@@ -107,15 +110,6 @@
             this.labelUnisex.Size = new System.Drawing.Size(39, 13);
             this.labelUnisex.TabIndex = 11;
             this.labelUnisex.Text = "Unisex";
-            // 
-            // labelLoggedinas
-            // 
-            this.labelLoggedinas.AutoSize = true;
-            this.labelLoggedinas.Location = new System.Drawing.Point(8, 10);
-            this.labelLoggedinas.Name = "labelLoggedinas";
-            this.labelLoggedinas.Size = new System.Drawing.Size(71, 13);
-            this.labelLoggedinas.TabIndex = 12;
-            this.labelLoggedinas.Text = "Logged in as:";
             // 
             // buttonJoinChatroomMen
             // 
@@ -169,29 +163,50 @@
             this.buttonLogout.UseVisualStyleBackColor = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // labelCurrentUser
+            // labelOnlineCounter
             // 
-            this.labelCurrentUser.AutoSize = true;
-            this.labelCurrentUser.BackColor = System.Drawing.SystemColors.Control;
-            this.labelCurrentUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCurrentUser.ForeColor = System.Drawing.Color.Black;
-            this.labelCurrentUser.Location = new System.Drawing.Point(75, 10);
-            this.labelCurrentUser.Name = "labelCurrentUser";
-            this.labelCurrentUser.Size = new System.Drawing.Size(33, 13);
-            this.labelCurrentUser.TabIndex = 17;
-            this.labelCurrentUser.Text = "User";
+            this.labelOnlineCounter.AutoSize = true;
+            this.labelOnlineCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOnlineCounter.ForeColor = System.Drawing.Color.Green;
+            this.labelOnlineCounter.Location = new System.Drawing.Point(106, 12);
+            this.labelOnlineCounter.Name = "labelOnlineCounter";
+            this.labelOnlineCounter.Size = new System.Drawing.Size(14, 13);
+            this.labelOnlineCounter.TabIndex = 25;
+            this.labelOnlineCounter.Text = "0";
+            // 
+            // labelUsersOnline
+            // 
+            this.labelUsersOnline.AutoSize = true;
+            this.labelUsersOnline.Location = new System.Drawing.Point(40, 12);
+            this.labelUsersOnline.Name = "labelUsersOnline";
+            this.labelUsersOnline.Size = new System.Drawing.Size(70, 13);
+            this.labelUsersOnline.TabIndex = 24;
+            this.labelUsersOnline.Text = "Users Online:";
+            // 
+            // pictureBoxUsersOnline
+            // 
+            this.pictureBoxUsersOnline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxUsersOnline.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxUsersOnline.Image")));
+            this.pictureBoxUsersOnline.Location = new System.Drawing.Point(11, 5);
+            this.pictureBoxUsersOnline.Name = "pictureBoxUsersOnline";
+            this.pictureBoxUsersOnline.Size = new System.Drawing.Size(28, 26);
+            this.pictureBoxUsersOnline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxUsersOnline.TabIndex = 23;
+            this.pictureBoxUsersOnline.TabStop = false;
+            this.pictureBoxUsersOnline.Click += new System.EventHandler(this.pictureBoxUsersOnline_Click);
             // 
             // ChatroomOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 185);
-            this.Controls.Add(this.labelCurrentUser);
+            this.Controls.Add(this.labelOnlineCounter);
+            this.Controls.Add(this.labelUsersOnline);
+            this.Controls.Add(this.pictureBoxUsersOnline);
             this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.buttonJoinChatroomWomen);
             this.Controls.Add(this.buttonJoinChatroomUnisex);
             this.Controls.Add(this.buttonJoinChatroomMen);
-            this.Controls.Add(this.labelLoggedinas);
             this.Controls.Add(this.labelUnisex);
             this.Controls.Add(this.labelWomen);
             this.Controls.Add(this.labelMen);
@@ -200,6 +215,7 @@
             this.Controls.Add(this.pictureBoxChatMan);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "ChatroomOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Options";
@@ -207,6 +223,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatMan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatWoman)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatUnisex)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUsersOnline)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,12 +236,13 @@
         private System.Windows.Forms.Label labelMen;
         private System.Windows.Forms.Label labelWomen;
         private System.Windows.Forms.Label labelUnisex;
-        private System.Windows.Forms.Label labelLoggedinas;
         private System.Windows.Forms.Button buttonJoinChatroomMen;
         private System.Windows.Forms.Button buttonJoinChatroomUnisex;
         private System.Windows.Forms.Button buttonJoinChatroomWomen;
         private System.Windows.Forms.Button buttonLogout;
-        private System.Windows.Forms.Label labelCurrentUser;
+        private System.Windows.Forms.Label labelOnlineCounter;
+        private System.Windows.Forms.Label labelUsersOnline;
+        private System.Windows.Forms.PictureBox pictureBoxUsersOnline;
     }
 }
 

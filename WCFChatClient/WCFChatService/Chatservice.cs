@@ -41,29 +41,28 @@ namespace WCFChatService
             post.ID = MessageCounter;
             _currentUserMessages.Add(post);
         }
-        public void SaveToDatabase()
+        public void SaveToDatabase(UserMessage userMessage, User user, int roomId)
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
+                var cmd = new SqlCommand(query, connection);
                 try
                 {
-                    connection.Open();
-                    foreach (var userMessage in _currentUserMessages)
-                    {
-                        var cmd = new SqlCommand(query, connection);
                         cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
                         cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
-                        cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = userMessage.RoomID;
-                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userMessage.UserID;
+                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;  
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
+
+                    connection.Open();
                         cmd.ExecuteNonQuery();
+                    connection.Close();
                     }
-                }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw new FaultException(ex.Message);
+                    throw;
                 }
             }
         }
@@ -132,17 +131,18 @@ namespace WCFChatService
 
 
 
-        public void RegisterUser(User user)
+        public void RegisterUser(User user, string key)
         {
 
+            //Amend to a fault exception;
             if (CheckIfUserExists(user.UserName))
-                throw new FaultException("Username unavailable");
+                throw new Exception();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
-            {
-                connection.Open();
+
                 #region query
 
+            //Unfinished Insert Command,
+            //Using required
                 var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
@@ -156,7 +156,7 @@ namespace WCFChatService
                 cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
                 cmd.ExecuteNonQuery();
                 #endregion
-            }
+
         }
 
         private bool CheckIfUserExists(string username)
@@ -181,15 +181,9 @@ namespace WCFChatService
             }
             if (result != "")
                 return true;
-            else
-                return false;
         }
 
-        public User LogInUser(string userName, string password)
-        {
-            //fråga databasen efter en user som har username och password
-            //retunera om kontot finns eller inte och gå vidare beroende på det.
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+        public User LogInUser(string userName, string key)
             {
                 connection.Open();
                 #region query
