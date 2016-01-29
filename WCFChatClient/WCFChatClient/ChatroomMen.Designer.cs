@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatroomMen));
-            this.textBoxChat = new System.Windows.Forms.TextBox();
             this.textBoxMessage = new System.Windows.Forms.TextBox();
             this.pictureBoxRefresh = new System.Windows.Forms.PictureBox();
             this.labelMessage = new System.Windows.Forms.Label();
@@ -39,22 +38,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBoxMessage = new System.Windows.Forms.PictureBox();
             this.labelChatID = new System.Windows.Forms.Label();
+            this.textBoxChatroomMen = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMessage)).BeginInit();
             this.SuspendLayout();
-            // 
-            // textBoxChat
-            // 
-            this.textBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxChat.Location = new System.Drawing.Point(12, 32);
-            this.textBoxChat.Multiline = true;
-            this.textBoxChat.Name = "textBoxChat";
-            this.textBoxChat.ReadOnly = true;
-            this.textBoxChat.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxChat.Size = new System.Drawing.Size(416, 212);
-            this.textBoxChat.TabIndex = 0;
             // 
             // textBoxMessage
             // 
@@ -150,11 +138,23 @@
             this.labelChatID.TabIndex = 19;
             this.labelChatID.Text = "Chat ID: 1";
             // 
+            // textBoxChatroomMen
+            // 
+            this.textBoxChatroomMen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxChatroomMen.Location = new System.Drawing.Point(12, 32);
+            this.textBoxChatroomMen.Multiline = true;
+            this.textBoxChatroomMen.Name = "textBoxChatroomMen";
+            this.textBoxChatroomMen.ReadOnly = true;
+            this.textBoxChatroomMen.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxChatroomMen.Size = new System.Drawing.Size(416, 213);
+            this.textBoxChatroomMen.TabIndex = 20;
+            // 
             // ChatroomMen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 318);
+            this.Controls.Add(this.textBoxChatroomMen);
             this.Controls.Add(this.labelChatID);
             this.Controls.Add(this.pictureBoxMessage);
             this.Controls.Add(this.label1);
@@ -164,7 +164,6 @@
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.pictureBoxRefresh);
             this.Controls.Add(this.textBoxMessage);
-            this.Controls.Add(this.textBoxChat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChatroomMen";
@@ -179,8 +178,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxChat;
         private System.Windows.Forms.TextBox textBoxMessage;
         private System.Windows.Forms.PictureBox pictureBoxRefresh;
         private System.Windows.Forms.Label labelMessage;
@@ -190,5 +187,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBoxMessage;
         private System.Windows.Forms.Label labelChatID;
+        private System.Windows.Forms.TextBox textBoxChatroomMen;
     }
 }

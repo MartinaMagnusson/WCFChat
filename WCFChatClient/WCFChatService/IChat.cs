@@ -16,7 +16,7 @@ namespace WCFChatService
         [OperationContract]
         List<UserMessage> GetChats();
         [OperationContract]
-        void RemoveChatt(int id);
+        void RemoveUserMessage(int id);
         [OperationContract]
         void SaveToDatabase();
         [OperationContract]
@@ -24,18 +24,18 @@ namespace WCFChatService
         [OperationContract]
         void RegisterUser(User user);
         [OperationContract]
-        bool LogInUser(string userName,string password);
+        CurrentUser LogInUser(string userName, string password);
         [OperationContract]
         void LogOutUser(string userName);
     }
 
-    
+
 
     [DataContract]
     public class UserMessage
     {
         [DataMember]
-        public string ID { get; set; }
+        public int ID { get; set; }
         [DataMember]
         public string Submitter { get; set; }
         [DataMember]
@@ -59,6 +59,15 @@ namespace WCFChatService
         public string Password { get; set; }
         [DataMember]
         public string Gender { get; set; }
+    }
+
+    [DataContract]
+    public class CurrentUser
+    {
+        [DataMember]
+        public string ID { get; set; }
+        [DataMember]
+        public string UserName { get; set; }
     }
 
 }

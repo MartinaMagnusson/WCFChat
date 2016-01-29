@@ -7,16 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WCFChatClient.ChatService;
 
 namespace WCFChatClient
 {
-    public partial class ChatroomMen : Form
+    public partial class UsersOnline : Form
     {
-        public ChatroomMen()
+        public UsersOnline()
         {
             InitializeComponent();
-            textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(1);
         }
     }
 }

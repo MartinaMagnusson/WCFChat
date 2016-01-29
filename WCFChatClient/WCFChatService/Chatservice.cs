@@ -15,6 +15,7 @@ namespace WCFChatService
     {
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
         List<string> loggedInUsers = new List<string>();
+        int MessageCounter;
 
         public List<UserMessage> GetChats()
         {
@@ -30,12 +31,14 @@ namespace WCFChatService
 
         }
 
-        public void RemoveChatt(int id)
+        public void RemoveUserMessage(int id)
         {
             _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
         }
         public void SubmitUserMessage(UserMessage post)
         {
+            MessageCounter++;
+            post.ID = MessageCounter;
             _currentUserMessages.Add(post);
         }
         public void SaveToDatabase()
@@ -74,7 +77,7 @@ namespace WCFChatService
                 {
                     connection.Open();
                     #region query
-                    SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
+                    SqlCommand cmd = new SqlCommand(@"SELECT TOP 20 [MessageID]
       ,[Message]
       ,[Posted]
       ,[Room_ID]
@@ -98,7 +101,7 @@ namespace WCFChatService
                             DateTime.TryParse((string)reader["Posted"], out date);
 
 
-                            chat.ID = reader["MessageID"].ToString();
+                            chat.ID = (int)reader["MessageID"];
                             chat.Submitter = (string)reader["Username"];
                             chat.Message = (string)reader["Message"];
                             chat.TimeStamp = date;
@@ -108,19 +111,22 @@ namespace WCFChatService
                         }
 
                     }
+                    SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
+                    using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            MessageCounter++;
                 }
-                catch (Exception)
+                    }
+                }
+                catch (Exception ex)
                 {
-
-                    throw;
+                    throw new FaultException(ex.Message);
                 }
             }
             return _databaseUserMessages;
         }
-
-
-
-
         public void RegisterUser(User user)
         {
 
@@ -153,11 +159,13 @@ namespace WCFChatService
             var result = "";
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
+                try
+                {
                 connection.Open();
                 #region query
                 var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
-                             Where Username = '@userName'; ", connection);
+                             WHERE Username = @userName", connection);
                 cmd.Parameters.Add(new SqlParameter("@userName", username));
                 #endregion
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -168,46 +176,57 @@ namespace WCFChatService
                     }
                 }
             }
+                catch (Exception ex)
+                {
+                    throw new FaultException(ex.Message);
+                }
+
+            }
             if (result != "")
                 return true;
             else
                 return false;
         }
 
-        public bool LogInUser(string userName, string password)
+        public CurrentUser LogInUser(string userName, string password)
         {
-            //fråga databasen efter en user som har username och password
-            //retunera om kontot finns eller inte och gå vidare beroende på det.
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
+                try
+                {
+                    #region query
+                    var sqlCommand = new SqlCommand(@"SELECT [UserID], [Username], [Password]
+                            FROM [Users]
+                            WHERE Username = @username AND Password = @password", connection);
+                    sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
+                    sqlCommand.Parameters.Add(new SqlParameter("@password", password));
+                    #endregion
                 connection.Open();
-                #region query
-                var cmd = new SqlCommand(@"SELECT [Username],[Password]
-                            FROM[ChatDatabase].[dbo].[Users]
-                             Where Username = @Username, Password = @password ", connection);
-                cmd.Parameters.Add(new SqlParameter("@Username", userName));
-                cmd.Parameters.Add(new SqlParameter("@Password", password));
-
-                var reader = cmd.ExecuteReader();
+                    var reader = sqlCommand.ExecuteReader();
 
                 while (reader.Read())
                 {
                     if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
                     {
                         loggedInUsers.Insert(0, userName);
-                        return true;
+                            return new CurrentUser()
+                            {
+                                UserName = reader["Username"].ToString(),
+                                ID = reader["UserID"].ToString()
+                            };
+                        }
                     }
+                    return null;
+                    }
+                catch (Exception ex)
+                {
+                    throw new FaultException(ex.Message);
                 }
-                return false;
-
-
-                #endregion
             }
         }
-
         public void LogOutUser(string userName)
         {
-            throw new NotImplementedException();
+            loggedInUsers.Remove(userName);
         }
     }
 }

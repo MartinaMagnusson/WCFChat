@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WCFChatClient.ChatService;
 
 namespace WCFChatClient
 {
     public partial class ChatroomOptions : Form
     {
-        public ChatroomOptions()
+        CurrentUser _currentUser;
+        public ChatroomOptions(CurrentUser user)
         {
             InitializeComponent();
+            this._currentUser = user;
+
+            labelCurrentUser.Text = _currentUser.UserName;
         }
 
         private void buttonJoinChatroomMen_Click(object sender, EventArgs e)
@@ -45,8 +50,21 @@ namespace WCFChatClient
 
         private void AreYouSure(object sender, FormClosingEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to close and logout?", "Close application?", MessageBoxButtons.YesNoCancel);
-            // Logik för vad som händer beroende på olika klick
+            var result = MessageBox.Show("Are you sure you want to close and logout?", "Close application?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            else if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void pictureBoxUsersOnline_Click(object sender, EventArgs e)
+        {
+            var usersOnline = new UsersOnline();
+            usersOnline.Show();
         }
     }
 }
