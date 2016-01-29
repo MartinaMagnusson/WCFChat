@@ -42,7 +42,7 @@ namespace WCFChatService
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
-            
+
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
                 var cmd = new SqlCommand(query, connection);
@@ -50,7 +50,7 @@ namespace WCFChatService
                 {
                     cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
                     cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
-                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;  
+                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
 
                     connection.Open();
@@ -120,48 +120,62 @@ namespace WCFChatService
 
 
 
-        public void RegisterUser(User user, string key)
+        public void RegisterUser(User user)
         {
 
             //Amend to a fault exception;
             if (CheckIfUserExists(user.UserName))
-                throw new Exception();
+                throw new FaultException("Username unavailable");
 
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                connection.Open();
+                #region query
 
-            #region query
-
-            //Unfinished Insert Command,
-            //Using required
-            var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
+                var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
            ,[Username])
             VALUES
            (@Password,
            @Gender,
-           @Username)");
+           @Username)",connection);
 
-            cmd.Parameters.Add(new SqlParameter("Password",key));
-            cmd.Parameters.Add(new SqlParameter("Gender",user.Gender));
-            cmd.Parameters.Add(new SqlParameter("Username",user.UserName));
+                cmd.Parameters.Add(new SqlParameter("Password", user.Password));
+                cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
+                cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
+                cmd.ExecuteNonQuery();
+                #endregion
+            }
 
-            #endregion
 
         }
 
         private bool CheckIfUserExists(string username)
         {
-            //Partial Sql command
-            var cmd = new SqlCommand(@"SELECT [UserID]
-                            ,[Password]
-                            ,[Gender]
-                            ,[Username]
+            var result = "";
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                connection.Open();
+                #region query
+                var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
-                             Where Username = '@userName'; ");
-            cmd.Parameters.Add(new SqlParameter("@userName",username));
+                             Where Username = @Username; ",connection);
+                cmd.Parameters.Add(new SqlParameter("@Username", username));
+                #endregion
 
-            //Defaulting true until method is finished.
-            return true;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        result = (string)reader["Username"];
+                    }
+                }
+            }
+            if (result != "")
+                return true;
+            else
+                return false;
         }
 
         public User LogInUser(string userName, string key)
