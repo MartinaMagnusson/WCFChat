@@ -174,7 +174,7 @@ namespace WCFChatService
                 return false;
         }
 
-        public User LogInUser(string userName, string password)
+        public bool LogInUser(string userName, string password)
         {
             //fråga databasen efter en user som har username och password
             //retunera om kontot finns eller inte och gå vidare beroende på det.
@@ -184,14 +184,26 @@ namespace WCFChatService
                 #region query
                 var cmd = new SqlCommand(@"SELECT [Username],[Password]
                             FROM[ChatDatabase].[dbo].[Users]
-                             Where Username = @Username; ", connection);
+                             Where Username = @Username, Password = @password ", connection);
                 cmd.Parameters.Add(new SqlParameter("@Username", userName));
                 cmd.Parameters.Add(new SqlParameter("@Password", password));
-                loggedInUsers.Insert(0, userName);
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                    {
+                        loggedInUsers.Insert(0, userName);
+                        return true;
+                    }
+                }
+                return false;
+
+
                 #endregion
             }
-            
-            }
+        }
 
         public void LogOutUser(string userName)
         {
