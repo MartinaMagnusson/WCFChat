@@ -29,10 +29,16 @@ namespace WCFChatClient.ChatService {
         private string MessageField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RoomIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SubmitterField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime TimeStampField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -71,6 +77,19 @@ namespace WCFChatClient.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RoomID {
+            get {
+                return this.RoomIDField;
+            }
+            set {
+                if ((this.RoomIDField.Equals(value) != true)) {
+                    this.RoomIDField = value;
+                    this.RaisePropertyChanged("RoomID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Submitter {
             get {
                 return this.SubmitterField;
@@ -92,6 +111,19 @@ namespace WCFChatClient.ChatService {
                 if ((this.TimeStampField.Equals(value) != true)) {
                     this.TimeStampField = value;
                     this.RaisePropertyChanged("TimeStamp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserID {
+            get {
+                return this.UserIDField;
+            }
+            set {
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
                 }
             }
         }
@@ -119,7 +151,13 @@ namespace WCFChatClient.ChatService {
         private string GenderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsernameField;
+        private string IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -145,14 +183,40 @@ namespace WCFChatClient.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username {
+        public string ID {
             get {
-                return this.UsernameField;
+                return this.IDField;
             }
             set {
-                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
-                    this.UsernameField = value;
-                    this.RaisePropertyChanged("Username");
+                if ((object.ReferenceEquals(this.IDField, value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password {
+            get {
+                return this.PasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
                 }
             }
         }
@@ -171,11 +235,11 @@ namespace WCFChatClient.ChatService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.IChat")]
     public interface IChat {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitChatt", ReplyAction="http://tempuri.org/IChat/SubmitChattResponse")]
-        void SubmitChatt(WCFChatClient.ChatService.UserMessage post);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitUserMessage", ReplyAction="http://tempuri.org/IChat/SubmitUserMessageResponse")]
+        void SubmitUserMessage(WCFChatClient.ChatService.UserMessage post);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitChatt", ReplyAction="http://tempuri.org/IChat/SubmitChattResponse")]
-        System.Threading.Tasks.Task SubmitChattAsync(WCFChatClient.ChatService.UserMessage post);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitUserMessage", ReplyAction="http://tempuri.org/IChat/SubmitUserMessageResponse")]
+        System.Threading.Tasks.Task SubmitUserMessageAsync(WCFChatClient.ChatService.UserMessage post);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChats", ReplyAction="http://tempuri.org/IChat/GetChatsResponse")]
         WCFChatClient.ChatService.UserMessage[] GetChats();
@@ -202,16 +266,16 @@ namespace WCFChatClient.ChatService {
         System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatFromDatabaseAsync(int roomID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RegisterUser", ReplyAction="http://tempuri.org/IChat/RegisterUserResponse")]
-        void RegisterUser(string userName, string password, string gender);
+        void RegisterUser(WCFChatClient.ChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RegisterUser", ReplyAction="http://tempuri.org/IChat/RegisterUserResponse")]
-        System.Threading.Tasks.Task RegisterUserAsync(string userName, string password, string gender);
+        System.Threading.Tasks.Task RegisterUserAsync(WCFChatClient.ChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogInUser", ReplyAction="http://tempuri.org/IChat/LogInUserResponse")]
-        WCFChatClient.ChatService.User LogInUser(string userName, string key);
+        bool LogInUser(string userName, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogInUser", ReplyAction="http://tempuri.org/IChat/LogInUserResponse")]
-        System.Threading.Tasks.Task<WCFChatClient.ChatService.User> LogInUserAsync(string userName, string key);
+        System.Threading.Tasks.Task<bool> LogInUserAsync(string userName, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogOutUser", ReplyAction="http://tempuri.org/IChat/LogOutUserResponse")]
         void LogOutUser(string userName);
@@ -247,12 +311,12 @@ namespace WCFChatClient.ChatService {
                 base(binding, remoteAddress) {
         }
         
-        public void SubmitChatt(WCFChatClient.ChatService.UserMessage post) {
-            base.Channel.SubmitChatt(post);
+        public void SubmitUserMessage(WCFChatClient.ChatService.UserMessage post) {
+            base.Channel.SubmitUserMessage(post);
         }
         
-        public System.Threading.Tasks.Task SubmitChattAsync(WCFChatClient.ChatService.UserMessage post) {
-            return base.Channel.SubmitChattAsync(post);
+        public System.Threading.Tasks.Task SubmitUserMessageAsync(WCFChatClient.ChatService.UserMessage post) {
+            return base.Channel.SubmitUserMessageAsync(post);
         }
         
         public WCFChatClient.ChatService.UserMessage[] GetChats() {
@@ -287,20 +351,20 @@ namespace WCFChatClient.ChatService {
             return base.Channel.GetChatFromDatabaseAsync(roomID);
         }
         
-        public void RegisterUser(string userName, string password, string gender) {
-            base.Channel.RegisterUser(userName, password, gender);
+        public void RegisterUser(WCFChatClient.ChatService.User user) {
+            base.Channel.RegisterUser(user);
         }
         
-        public System.Threading.Tasks.Task RegisterUserAsync(string userName, string password, string gender) {
-            return base.Channel.RegisterUserAsync(userName, password, gender);
+        public System.Threading.Tasks.Task RegisterUserAsync(WCFChatClient.ChatService.User user) {
+            return base.Channel.RegisterUserAsync(user);
         }
         
-        public WCFChatClient.ChatService.User LogInUser(string userName, string key) {
-            return base.Channel.LogInUser(userName, key);
+        public bool LogInUser(string userName, string password) {
+            return base.Channel.LogInUser(userName, password);
         }
         
-        public System.Threading.Tasks.Task<WCFChatClient.ChatService.User> LogInUserAsync(string userName, string key) {
-            return base.Channel.LogInUserAsync(userName, key);
+        public System.Threading.Tasks.Task<bool> LogInUserAsync(string userName, string password) {
+            return base.Channel.LogInUserAsync(userName, password);
         }
         
         public void LogOutUser(string userName) {
