@@ -34,32 +34,32 @@ namespace WCFChatService
             _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
         }
         public void SubmitUserMessage(UserMessage post)
-        {
-            post.ID = Guid.NewGuid().ToString();
+        { 
             _currentUserMessages.Add(post);
         }
-        public void SaveToDatabase(UserMessage userMessage, User user, int roomId)
+        public void SaveToDatabase()
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
-            
+
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
-            {
-                var cmd = new SqlCommand(query, connection);
+            {               
                 try
                 {
-                    cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
-                    cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
-                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;  
-                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
-
                     connection.Open();
-                    cmd.ExecuteNonQuery();
-                    connection.Close();
+                    foreach (var userMessage in _currentUserMessages)
+                    {
+                        var cmd = new SqlCommand(query, connection);
+                        cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
+                        cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
+                        cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = userMessage.RoomID;
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userMessage.UserID;
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    throw new FaultException(ex.Message);
                 }
             }
         }
@@ -141,9 +141,9 @@ namespace WCFChatService
            @Gender,
            @Username)");
 
-            cmd.Parameters.Add(new SqlParameter("Password",key));
-            cmd.Parameters.Add(new SqlParameter("Gender",user.Gender));
-            cmd.Parameters.Add(new SqlParameter("Username",user.UserName));
+            cmd.Parameters.Add(new SqlParameter("Password", key));
+            cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
+            cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
 
             #endregion
 
@@ -158,7 +158,7 @@ namespace WCFChatService
                             ,[Username]
                             FROM[ChatDatabase].[dbo].[Users]
                              Where Username = '@userName'; ");
-            cmd.Parameters.Add(new SqlParameter("@userName",username));
+            cmd.Parameters.Add(new SqlParameter("@userName", username));
 
             //Defaulting true until method is finished.
             return true;
