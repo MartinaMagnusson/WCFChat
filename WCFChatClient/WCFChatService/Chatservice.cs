@@ -14,6 +14,7 @@ namespace WCFChatService
     public class ChatService : IChat
     {
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
+        List<string> loggedInUsers = new List<string>();
 
         public List<UserMessage> GetChats()
         {
@@ -35,31 +36,31 @@ namespace WCFChatService
         }
         public void SubmitUserMessage(UserMessage post)
         {
-            post.ID = Guid.NewGuid().ToString();
             _currentUserMessages.Add(post);
         }
-        public void SaveToDatabase(UserMessage userMessage, User user, int roomId)
+        public void SaveToDatabase()
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
-            
+
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
-                var cmd = new SqlCommand(query, connection);
                 try
                 {
-                    cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
-                    cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
-                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = roomId;  
-                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = user.ID;
-
                     connection.Open();
-                    cmd.ExecuteNonQuery();
-                    connection.Close();
+                    foreach (var userMessage in _currentUserMessages)
+                    {
+                        var cmd = new SqlCommand(query, connection);
+                        cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
+                        cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
+                        cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = userMessage.RoomID;
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userMessage.UserID;
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    throw new FaultException(ex.Message);
                 }
             }
         }
@@ -108,70 +109,114 @@ namespace WCFChatService
 
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    throw new FaultException(ex.Message);
                 }
             }
             return _databaseUserMessages;
         }
-
-
-
-
-        public void RegisterUser(User user, string key)
+        public void RegisterUser(User user)
         {
 
-            //Amend to a fault exception;
             if (CheckIfUserExists(user.UserName))
-                throw new Exception();
+                throw new FaultException("Username unavailable");
 
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                connection.Open();
+                #region query
 
-            #region query
-
-            //Unfinished Insert Command,
-            //Using required
-            var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
+                var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
            ,[Username])
             VALUES
            (@Password,
            @Gender,
-           @Username)");
-
-            cmd.Parameters.Add(new SqlParameter("Password",key));
-            cmd.Parameters.Add(new SqlParameter("Gender",user.Gender));
-            cmd.Parameters.Add(new SqlParameter("Username",user.UserName));
-
-            #endregion
-
+           @Username)", connection);
+                cmd.Parameters.Add(new SqlParameter("Password", user.Password));
+                cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
+                cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
+                cmd.ExecuteNonQuery();
+                #endregion
+            }
         }
 
         private bool CheckIfUserExists(string username)
         {
-            //Partial Sql command
-            var cmd = new SqlCommand(@"SELECT [UserID]
-                            ,[Password]
-                            ,[Gender]
-                            ,[Username]
+            var result = "";
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    #region query
+                    var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
                              Where Username = '@userName'; ");
-            cmd.Parameters.Add(new SqlParameter("@userName",username));
+                    cmd.Parameters.Add(new SqlParameter("@userName", username));
+                    #endregion
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result = (string)reader["Username"];
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new FaultException(ex.Message);
+                }
 
-            //Defaulting true until method is finished.
-            return true;
+            }
+            if (result != "")
+                return true;
+            else
+                return false;
         }
 
-        public User LogInUser(string userName, string key)
+        public CurrentUser LogInUser(string userName, string password)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                try
+                {
+                    #region query
+                    var sqlCommand = new SqlCommand(@"SELECT [UserID], [Username], [Password]
+                            FROM [Users]
+                            WHERE Username = @username AND Password = @password", connection);
+                    sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
+                    sqlCommand.Parameters.Add(new SqlParameter("@password", password));
+                    #endregion
+                    connection.Open();
+                    var reader = sqlCommand.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                        {
+                            loggedInUsers.Insert(0, userName);
+                            return new CurrentUser()
+                            {
+                                UserName = reader["Username"].ToString(),
+                                ID = reader["UserID"].ToString()
+                            };
+                        }
+                    }
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    throw new FaultException(ex.Message);
+                }
+            }
         }
 
         public void LogOutUser(string userName)
         {
-            throw new NotImplementedException();
+            loggedInUsers.Remove(userName);
         }
     }
 }
