@@ -34,10 +34,10 @@ namespace WCFChatClient.ChatService {
         System.Threading.Tasks.Task RemoveChattAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SaveToDatabase", ReplyAction="http://tempuri.org/IChat/SaveToDatabaseResponse")]
-        void SaveToDatabase();
+        void SaveToDatabase(WCFChatService.UserMessage userMessage, WCFChatService.User user, int roomId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SaveToDatabase", ReplyAction="http://tempuri.org/IChat/SaveToDatabaseResponse")]
-        System.Threading.Tasks.Task SaveToDatabaseAsync();
+        System.Threading.Tasks.Task SaveToDatabaseAsync(WCFChatService.UserMessage userMessage, WCFChatService.User user, int roomId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChatFromDatabase", ReplyAction="http://tempuri.org/IChat/GetChatFromDatabaseResponse")]
         WCFChatService.UserMessage[] GetChatFromDatabase(int roomID);
@@ -46,16 +46,16 @@ namespace WCFChatClient.ChatService {
         System.Threading.Tasks.Task<WCFChatService.UserMessage[]> GetChatFromDatabaseAsync(int roomID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RegisterUser", ReplyAction="http://tempuri.org/IChat/RegisterUserResponse")]
-        void RegisterUser(WCFChatService.User user, string key);
+        void RegisterUser(WCFChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RegisterUser", ReplyAction="http://tempuri.org/IChat/RegisterUserResponse")]
-        System.Threading.Tasks.Task RegisterUserAsync(WCFChatService.User user, string key);
+        System.Threading.Tasks.Task RegisterUserAsync(WCFChatService.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogInUser", ReplyAction="http://tempuri.org/IChat/LogInUserResponse")]
-        WCFChatService.User LogInUser(string userName, string key);
+        bool LogInUser(string userName, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogInUser", ReplyAction="http://tempuri.org/IChat/LogInUserResponse")]
-        System.Threading.Tasks.Task<WCFChatService.User> LogInUserAsync(string userName, string key);
+        System.Threading.Tasks.Task<bool> LogInUserAsync(string userName, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/LogOutUser", ReplyAction="http://tempuri.org/IChat/LogOutUserResponse")]
         void LogOutUser(string userName);
@@ -115,12 +115,12 @@ namespace WCFChatClient.ChatService {
             return base.Channel.RemoveChattAsync(id);
         }
         
-        public void SaveToDatabase() {
-            base.Channel.SaveToDatabase();
+        public void SaveToDatabase(WCFChatService.UserMessage userMessage, WCFChatService.User user, int roomId) {
+            base.Channel.SaveToDatabase(userMessage, user, roomId);
         }
         
-        public System.Threading.Tasks.Task SaveToDatabaseAsync() {
-            return base.Channel.SaveToDatabaseAsync();
+        public System.Threading.Tasks.Task SaveToDatabaseAsync(WCFChatService.UserMessage userMessage, WCFChatService.User user, int roomId) {
+            return base.Channel.SaveToDatabaseAsync(userMessage, user, roomId);
         }
         
         public WCFChatService.UserMessage[] GetChatFromDatabase(int roomID) {
@@ -131,20 +131,20 @@ namespace WCFChatClient.ChatService {
             return base.Channel.GetChatFromDatabaseAsync(roomID);
         }
         
-        public void RegisterUser(WCFChatService.User user, string key) {
-            base.Channel.RegisterUser(user, key);
+        public void RegisterUser(WCFChatService.User user) {
+            base.Channel.RegisterUser(user);
         }
         
-        public System.Threading.Tasks.Task RegisterUserAsync(WCFChatService.User user, string key) {
-            return base.Channel.RegisterUserAsync(user, key);
+        public System.Threading.Tasks.Task RegisterUserAsync(WCFChatService.User user) {
+            return base.Channel.RegisterUserAsync(user);
         }
         
-        public WCFChatService.User LogInUser(string userName, string key) {
-            return base.Channel.LogInUser(userName, key);
+        public bool LogInUser(string userName, string password) {
+            return base.Channel.LogInUser(userName, password);
         }
         
-        public System.Threading.Tasks.Task<WCFChatService.User> LogInUserAsync(string userName, string key) {
-            return base.Channel.LogInUserAsync(userName, key);
+        public System.Threading.Tasks.Task<bool> LogInUserAsync(string userName, string password) {
+            return base.Channel.LogInUserAsync(userName, password);
         }
         
         public void LogOutUser(string userName) {

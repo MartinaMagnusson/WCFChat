@@ -24,7 +24,7 @@ namespace WCFChatService
         [OperationContract]
         void RegisterUser(User user);
         [OperationContract]
-        User LogInUser(string userName,string password);
+        bool LogInUser(string userName,string password);
         [OperationContract]
         void LogOutUser(string userName);
     }
