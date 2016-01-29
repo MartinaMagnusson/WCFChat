@@ -25,9 +25,19 @@ namespace WCFChatClient
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            ChatroomOptions chatroomOptions = new ChatroomOptions();
-            chatroomOptions.Show();
+
+
+            if (!String.IsNullOrEmpty(textBoxUsername.Text) || !String.IsNullOrEmpty(textBoxPassword.Text)) 
+            {
+                this.Hide();
+                ChatroomOptions chatroomOptions = new ChatroomOptions();
+                chatroomOptions.Show();
+            }
+            else if(String.IsNullOrEmpty(textBoxUsername.Text) || String.IsNullOrEmpty(textBoxPassword.Text))
+            {
+                MessageBox.Show("Username or password Requiered.");
+            }
+            
         }
     }
 }

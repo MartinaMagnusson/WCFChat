@@ -123,7 +123,6 @@ namespace WCFChatService
         public void RegisterUser(User user)
         {
 
-            //Amend to a fault exception;
             if (CheckIfUserExists(user.UserName))
                 throw new FaultException("Username unavailable");
 
@@ -178,7 +177,7 @@ namespace WCFChatService
                 return false;
         }
 
-        public User LogInUser(string userName, string key)
+        public User LogInUser(string userName, string password)
         {
             throw new NotImplementedException();
         }

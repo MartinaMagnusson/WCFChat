@@ -16,5 +16,10 @@ namespace WCFChatClient
         {
             InitializeComponent();
         }
+
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
