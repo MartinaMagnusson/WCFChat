@@ -16,7 +16,7 @@ namespace WCFChatService
         [OperationContract]
         List<UserMessage> GetChats();
         [OperationContract]
-        void RemoveChatt(int id);
+        void RemoveUserMessage(int id);
         [OperationContract]
         void SaveToDatabase();
         [OperationContract]
@@ -35,7 +35,7 @@ namespace WCFChatService
     public class UserMessage
     {
         [DataMember]
-        public string ID { get; set; }
+        public int ID { get; set; }
         [DataMember]
         public string Submitter { get; set; }
         [DataMember]

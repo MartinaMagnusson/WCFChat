@@ -15,6 +15,7 @@ namespace WCFChatService
     {
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
         List<string> loggedInUsers = new List<string>();
+        int MessageCounter;
 
         public List<UserMessage> GetChats()
         {
@@ -30,19 +31,21 @@ namespace WCFChatService
 
         }
 
-        public void RemoveChatt(int id)
+        public void RemoveUserMessage(int id)
         {
             _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
         }
         public void SubmitUserMessage(UserMessage post)
         {
+            MessageCounter++;
+            post.ID = MessageCounter;
             _currentUserMessages.Add(post);
         }
         public void SaveToDatabase()
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
-
+            
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
                 try
@@ -51,12 +54,12 @@ namespace WCFChatService
                     foreach (var userMessage in _currentUserMessages)
                     {
                         var cmd = new SqlCommand(query, connection);
-                        cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
-                        cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
+                    cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
+                    cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
                         cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = userMessage.RoomID;
                         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userMessage.UserID;
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.ExecuteNonQuery();
+                }
                 }
                 catch (Exception ex)
                 {
@@ -74,7 +77,7 @@ namespace WCFChatService
                 {
                     connection.Open();
                     #region query
-                    SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
+                    SqlCommand cmd = new SqlCommand(@"SELECT TOP 20 [MessageID]
       ,[Message]
       ,[Posted]
       ,[Room_ID]
@@ -98,7 +101,7 @@ namespace WCFChatService
                             DateTime.TryParse((string)reader["Posted"], out date);
 
 
-                            chat.ID = reader["MessageID"].ToString();
+                            chat.ID = (int)reader["MessageID"];
                             chat.Submitter = (string)reader["Username"];
                             chat.Message = (string)reader["Message"];
                             chat.TimeStamp = date;
@@ -108,6 +111,12 @@ namespace WCFChatService
                         }
 
                     }
+                    SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]",connection);
+                    using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            MessageCounter++;
                 }
                 catch (Exception ex)
                 {
@@ -125,9 +134,9 @@ namespace WCFChatService
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
                 connection.Open();
-                #region query
+            #region query
 
-                var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
+            var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
            ,[Username])
@@ -139,8 +148,8 @@ namespace WCFChatService
                 cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
                 cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
                 cmd.ExecuteNonQuery();
-                #endregion
-            }
+            #endregion
+        }
         }
 
         private bool CheckIfUserExists(string username)
@@ -172,7 +181,7 @@ namespace WCFChatService
 
             }
             if (result != "")
-                return true;
+            return true;
             else
                 return false;
         }
@@ -208,10 +217,8 @@ namespace WCFChatService
                     return null;
                 }
                 catch (Exception ex)
-                {
-                    throw new FaultException(ex.Message);
-                }
-            }
+        {
+            throw new NotImplementedException();
         }
 
         public void LogOutUser(string userName)

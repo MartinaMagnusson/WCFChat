@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WCFChatClient.ChatService;
+using WCFChatService;
 
 namespace WCFChatClient
 {
