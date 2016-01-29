@@ -23,7 +23,7 @@ namespace WCFChatClient.ChatService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string IDField;
+        private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MessageField;
@@ -51,12 +51,12 @@ namespace WCFChatClient.ChatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ID {
+        public int ID {
             get {
                 return this.IDField;
             }
             set {
-                if ((object.ReferenceEquals(this.IDField, value) != true)) {
+                if ((this.IDField.Equals(value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
                 }
@@ -308,11 +308,11 @@ namespace WCFChatClient.ChatService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChats", ReplyAction="http://tempuri.org/IChat/GetChatsResponse")]
         System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveChatt", ReplyAction="http://tempuri.org/IChat/RemoveChattResponse")]
-        void RemoveChatt(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveUserMessage", ReplyAction="http://tempuri.org/IChat/RemoveUserMessageResponse")]
+        void RemoveUserMessage(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveChatt", ReplyAction="http://tempuri.org/IChat/RemoveChattResponse")]
-        System.Threading.Tasks.Task RemoveChattAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveUserMessage", ReplyAction="http://tempuri.org/IChat/RemoveUserMessageResponse")]
+        System.Threading.Tasks.Task RemoveUserMessageAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SaveToDatabase", ReplyAction="http://tempuri.org/IChat/SaveToDatabaseResponse")]
         void SaveToDatabase();
@@ -388,12 +388,12 @@ namespace WCFChatClient.ChatService {
             return base.Channel.GetChatsAsync();
         }
         
-        public void RemoveChatt(int id) {
-            base.Channel.RemoveChatt(id);
+        public void RemoveUserMessage(int id) {
+            base.Channel.RemoveUserMessage(id);
         }
         
-        public System.Threading.Tasks.Task RemoveChattAsync(int id) {
-            return base.Channel.RemoveChattAsync(id);
+        public System.Threading.Tasks.Task RemoveUserMessageAsync(int id) {
+            return base.Channel.RemoveUserMessageAsync(id);
         }
         
         public void SaveToDatabase() {

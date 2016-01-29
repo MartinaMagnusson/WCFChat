@@ -45,7 +45,7 @@ namespace WCFChatService
         {
             var query = @"INSERT INTO [dbo].[UserMessages] ([Message] ,[Posted] ,[Room_ID] ,[User_ID])
                           VALUES (@Message ,@TimeStamp ,@RoomID ,@UserID)";
-            
+
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
                 try
@@ -54,12 +54,12 @@ namespace WCFChatService
                     foreach (var userMessage in _currentUserMessages)
                     {
                         var cmd = new SqlCommand(query, connection);
-                    cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
-                    cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
+                        cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
+                        cmd.Parameters.Add("@TimeStamp", SqlDbType.Date).Value = userMessage.TimeStamp;
                         cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = userMessage.RoomID;
                         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userMessage.UserID;
-                    cmd.ExecuteNonQuery();
-                }
+                        cmd.ExecuteNonQuery();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -111,12 +111,14 @@ namespace WCFChatService
                         }
 
                     }
-                    SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]",connection);
+                    SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
                     using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
                     {
-                        while(reader.Read())
+                        while (reader.Read())
                         {
                             MessageCounter++;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -134,9 +136,9 @@ namespace WCFChatService
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
                 connection.Open();
-            #region query
+                #region query
 
-            var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
+                var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
            ,[Username])
@@ -148,8 +150,8 @@ namespace WCFChatService
                 cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
                 cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
                 cmd.ExecuteNonQuery();
-            #endregion
-        }
+                #endregion
+            }
         }
 
         private bool CheckIfUserExists(string username)
@@ -163,7 +165,7 @@ namespace WCFChatService
                     #region query
                     var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
-                             Where Username = '@userName'; ");
+                             WHERE Username = @userName", connection);
                     cmd.Parameters.Add(new SqlParameter("@userName", username));
                     #endregion
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -181,7 +183,7 @@ namespace WCFChatService
 
             }
             if (result != "")
-            return true;
+                return true;
             else
                 return false;
         }
@@ -217,10 +219,11 @@ namespace WCFChatService
                     return null;
                 }
                 catch (Exception ex)
-        {
-            throw new NotImplementedException();
+                {
+                    throw new FaultException(ex.Message);
+                }
+            }
         }
-
         public void LogOutUser(string userName)
         {
             loggedInUsers.Remove(userName);
