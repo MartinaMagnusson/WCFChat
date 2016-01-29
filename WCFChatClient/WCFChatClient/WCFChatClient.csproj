@@ -128,6 +128,8 @@
     <EmbeddedResource Include="UsersOnline.resx">
       <DependentUpon>UsersOnline.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\WCFChatService.User.datasource" />
+    <None Include="Properties\DataSources\WCFChatService.UserMessage.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

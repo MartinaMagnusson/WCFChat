@@ -39,7 +39,11 @@
   </xs:element>
   <xs:element name="SaveToDatabase">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="userMessage" nillable="true" type="q3:UserMessage" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="user" nillable="true" type="q4:User" />
+        <xs:element minOccurs="0" name="roomId" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SaveToDatabaseResponse">
@@ -57,7 +61,7 @@
   <xs:element name="GetChatFromDatabaseResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="GetChatFromDatabaseResult" nillable="true" type="q3:ArrayOfUserMessage" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="GetChatFromDatabaseResult" nillable="true" type="q5:ArrayOfUserMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -65,6 +69,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="user" nillable="true" type="q4:User" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -84,6 +89,7 @@
   <xs:element name="LogInUserResponse">
     <xs:complexType>
       <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="LogInUserResult" nillable="true" type="q5:User" />
         <xs:element minOccurs="0" name="LogInUserResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>

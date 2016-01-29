@@ -28,20 +28,25 @@ namespace WCFChatClient
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-           
-            _chatClient.LogInUser(textBoxUsername.Text, textBoxPassword.Text);
+            if (textBoxUsername.Text != "" && textBoxPassword.Text != "")
+            {
+                var user = _chatClient.LogInUser(textBoxUsername.Text, textBoxPassword.Text);
 
-            if (!String.IsNullOrEmpty(textBoxUsername.Text) || !String.IsNullOrEmpty(textBoxPassword.Text))
-            {
-                this.Hide();
-                ChatroomOptions chatroomOptions = new ChatroomOptions();
-                chatroomOptions.Show();
+                if (user != null)
+                {
+                    this.Hide();
+                    ChatroomOptions chatroomOptions = new ChatroomOptions();
+                    chatroomOptions.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Username/Password Incorrect.");
+                }
             }
-            else if(String.IsNullOrEmpty(textBoxUsername.Text) || String.IsNullOrEmpty(textBoxPassword.Text))
+            else
             {
-                MessageBox.Show("Username or password Requiered.");
+                MessageBox.Show("Username and password required.");
             }
-            
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WCFChatClient.ChatService;
 
 namespace WCFChatClient
 {
@@ -20,5 +21,14 @@ namespace WCFChatClient
             }
             return result;
         }
+        public static void SubmitUserMessage(string message, int userID, int roomID)
+        {
+            var _chatClient = new ChatClient();
+            var userMessage = new UserMessage();
+            userMessage.Message = message;
+            userMessage.UserID = userID;    
+            userMessage.RoomID = roomID;
+            _chatClient.SubmitUserMessage(userMessage);
+        }   
     }
 }
