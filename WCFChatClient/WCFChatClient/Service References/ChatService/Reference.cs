@@ -365,6 +365,12 @@ namespace WCFChatClient.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetOnlineUsers", ReplyAction="http://tempuri.org/IChat/GetOnlineUsersResponse")]
         System.Threading.Tasks.Task<string[]> GetOnlineUsersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserId", ReplyAction="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserIdResponse")]
+        WCFChatClient.ChatService.UserMessage[] GetUserMessagesByRoomAndUserId(int roomId, int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserId", ReplyAction="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserIdResponse")]
+        System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetUserMessagesByRoomAndUserIdAsync(int roomId, int userId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -464,6 +470,14 @@ namespace WCFChatClient.ChatService {
         
         public System.Threading.Tasks.Task<string[]> GetOnlineUsersAsync() {
             return base.Channel.GetOnlineUsersAsync();
+        }
+        
+        public WCFChatClient.ChatService.UserMessage[] GetUserMessagesByRoomAndUserId(int roomId, int userId) {
+            return base.Channel.GetUserMessagesByRoomAndUserId(roomId, userId);
+        }
+        
+        public System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetUserMessagesByRoomAndUserIdAsync(int roomId, int userId) {
+            return base.Channel.GetUserMessagesByRoomAndUserIdAsync(roomId, userId);
         }
     }
 }

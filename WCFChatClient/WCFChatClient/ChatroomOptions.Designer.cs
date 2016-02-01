@@ -38,7 +38,6 @@
             this.buttonJoinChatroomMen = new System.Windows.Forms.Button();
             this.buttonJoinChatroomUnisex = new System.Windows.Forms.Button();
             this.buttonJoinChatroomWomen = new System.Windows.Forms.Button();
-            this.buttonLogout = new System.Windows.Forms.Button();
             this.labelOnlineCounter = new System.Windows.Forms.Label();
             this.labelUsersOnline = new System.Windows.Forms.Label();
             this.pictureBoxUsersOnline = new System.Windows.Forms.PictureBox();
@@ -46,12 +45,14 @@
             this.labelLoggedinas = new System.Windows.Forms.Label();
             this.labelCurrentUser = new System.Windows.Forms.Label();
             this.pictureBoxRefresh = new System.Windows.Forms.PictureBox();
+            this.pictureBoxLogout = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatMan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatWoman)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatUnisex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUsersOnline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogout)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxChatMan
@@ -156,19 +157,6 @@
             this.buttonJoinChatroomWomen.UseVisualStyleBackColor = false;
             this.buttonJoinChatroomWomen.Click += new System.EventHandler(this.buttonJoinChatroomWomen_Click);
             // 
-            // buttonLogout
-            // 
-            this.buttonLogout.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.buttonLogout.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLogout.Location = new System.Drawing.Point(282, 5);
-            this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(75, 23);
-            this.buttonLogout.TabIndex = 16;
-            this.buttonLogout.Text = "Logout";
-            this.buttonLogout.UseVisualStyleBackColor = false;
-            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
             // labelOnlineCounter
             // 
             this.labelOnlineCounter.AutoSize = true;
@@ -247,18 +235,31 @@
             this.pictureBoxRefresh.TabStop = false;
             this.pictureBoxRefresh.Click += new System.EventHandler(this.pictureBoxRefresh_Click);
             // 
+            // pictureBoxLogout
+            // 
+            this.pictureBoxLogout.BackColor = System.Drawing.Color.Gainsboro;
+            this.pictureBoxLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxLogout.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxLogout.Image")));
+            this.pictureBoxLogout.Location = new System.Drawing.Point(325, 2);
+            this.pictureBoxLogout.Name = "pictureBoxLogout";
+            this.pictureBoxLogout.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxLogout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxLogout.TabIndex = 30;
+            this.pictureBoxLogout.TabStop = false;
+            this.pictureBoxLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+            // 
             // ChatroomOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 217);
+            this.Controls.Add(this.pictureBoxLogout);
             this.Controls.Add(this.pictureBoxRefresh);
             this.Controls.Add(this.labelCurrentUser);
             this.Controls.Add(this.labelLoggedinas);
             this.Controls.Add(this.labelOnlineCounter);
             this.Controls.Add(this.labelUsersOnline);
             this.Controls.Add(this.pictureBoxUsersOnline);
-            this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.buttonJoinChatroomWomen);
             this.Controls.Add(this.buttonJoinChatroomUnisex);
             this.Controls.Add(this.buttonJoinChatroomMen);
@@ -282,6 +283,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUsersOnline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,7 +299,6 @@
         private System.Windows.Forms.Button buttonJoinChatroomMen;
         private System.Windows.Forms.Button buttonJoinChatroomUnisex;
         private System.Windows.Forms.Button buttonJoinChatroomWomen;
-        private System.Windows.Forms.Button buttonLogout;
         private System.Windows.Forms.Label labelOnlineCounter;
         private System.Windows.Forms.Label labelUsersOnline;
         private System.Windows.Forms.PictureBox pictureBoxUsersOnline;
@@ -305,6 +306,7 @@
         private System.Windows.Forms.Label labelLoggedinas;
         private System.Windows.Forms.Label labelCurrentUser;
         private System.Windows.Forms.PictureBox pictureBoxRefresh;
+        private System.Windows.Forms.PictureBox pictureBoxLogout;
     }
 }
 

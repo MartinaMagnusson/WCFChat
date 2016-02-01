@@ -62,6 +62,12 @@
   <wsdl:message name="IChat_GetOnlineUsers_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetOnlineUsersResponse" />
   </wsdl:message>
+  <wsdl:message name="IChat_GetUserMessagesByRoomAndUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserMessagesByRoomAndUserId" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetUserMessagesByRoomAndUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserMessagesByRoomAndUserIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="IChat">
     <wsdl:operation name="SubmitUserMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/SubmitUserMessage" message="tns:IChat_SubmitUserMessage_InputMessage" />
@@ -98,6 +104,10 @@
     <wsdl:operation name="GetOnlineUsers">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetOnlineUsers" message="tns:IChat_GetOnlineUsers_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetOnlineUsersResponse" message="tns:IChat_GetOnlineUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserMessagesByRoomAndUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserId" message="tns:IChat_GetUserMessagesByRoomAndUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserIdResponse" message="tns:IChat_GetUserMessagesByRoomAndUserId_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="Man" type="tns:IChat">
@@ -176,6 +186,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetOnlineUsers">
       <soap:operation soapAction="http://tempuri.org/IChat/GetOnlineUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserMessagesByRoomAndUserId">
+      <soap:operation soapAction="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

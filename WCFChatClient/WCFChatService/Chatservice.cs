@@ -13,6 +13,7 @@ namespace WCFChatService
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChat
     {
+        List<UserMessage> _MessagesBeingSavedToDatabase = new List<UserMessage>();
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
         List<string> loggedInUsers = new List<string>();
         int MessageCounter;
@@ -40,8 +41,27 @@ namespace WCFChatService
         {
             try
             {
-            _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
-        }
+                _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+                {
+                    try
+                    {
+                        SqlCommand cmd = new SqlCommand(@"DELETE FROM [ChatDatabase][dbo].[UserMessages]
+      WHERE [ChatDatabase][dbo].[UserMessages].[MessageID] = @ID");
+                        cmd.Parameters.Add(new SqlParameter("@ID",id));
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch(SqlException ex)
+                    {
+                        throw new FaultException($"SQL Error: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw new FaultException(ex.Message);
+                    }
+                }
+            }
             catch (Exception ex)
             {
 
@@ -53,6 +73,7 @@ namespace WCFChatService
             MessageCounter++;
             post.ID = MessageCounter;
             _currentUserMessages.Add(post);
+            _MessagesBeingSavedToDatabase.Add(post);
         }
         public void SaveToDatabase()
         {
@@ -64,7 +85,7 @@ namespace WCFChatService
                 try
                 {
                     connection.Open();
-                    foreach (var userMessage in _currentUserMessages)
+                    foreach (var userMessage in _MessagesBeingSavedToDatabase)
                     {
                         var cmd = new SqlCommand(query, connection);
                         cmd.Parameters.Add("@Message", SqlDbType.VarChar).Value = userMessage.Message;
@@ -87,13 +108,13 @@ namespace WCFChatService
             if (_currentUserMessages.Count < 20)
             {
                 var messageCountToRetrieve = 20 - _currentUserMessages.Count;
-            var date = new DateTime();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
-            {
-                try
+                var date = new DateTime();
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
                 {
-                    connection.Open();
-                    #region query
+                    try
+                    {
+                        connection.Open();
+                        #region query
                         SqlCommand cmd = new SqlCommand(@"SELECT TOP (@amount) [MessageID]
       ,[Message]
       ,[Posted]
@@ -105,51 +126,48 @@ namespace WCFChatService
   ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
   WHERE [dbo].[UserMessages].Room_ID = @ID
   ORDER by MessageID desc", connection);
-                    SqlParameter idParam = new SqlParameter();
-                    idParam.ParameterName = "@ID";
-                    idParam.Value = roomID;
-                        cmd.Parameters.Add(new SqlParameter("@ID",roomID));
+                        cmd.Parameters.Add(new SqlParameter("@ID", roomID));
                         cmd.Parameters.Add(new SqlParameter("@amount", messageCountToRetrieve));
-                    #endregion
+                        #endregion
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            var chat = new UserMessage();
-                            DateTime.TryParse((string)reader["Posted"], out date);
+                            while (reader.Read())
+                            {
+                                var chat = new UserMessage();
+                                DateTime.TryParse((string)reader["Posted"], out date);
 
 
-                            chat.ID = (int)reader["MessageID"];
-                            chat.Submitter = (string)reader["Username"];
-                            chat.Message = (string)reader["Message"];
-                            chat.TimeStamp = date;
+                                chat.ID = (int)reader["MessageID"];
+                                chat.Submitter = (string)reader["Username"];
+                                chat.Message = (string)reader["Message"];
+                                chat.TimeStamp = date;
 
 
-                            _databaseUserMessages.Add(chat);
-                        }
+                                _databaseUserMessages.Add(chat);
+                            }
                             _databaseUserMessages.Reverse();
 
-                    }
-                    #region CounterQuery
-                    SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
-                    using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
-                    {
-                        while (reader.Read())
+                        }
+                        #region CounterQuery
+                        SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
+                        using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
                         {
-                            MessageCounter++;
-                }
+                            while (reader.Read())
+                            {
+                                MessageCounter++;
+                            }
+                        }
+                        #endregion
                     }
-                    #endregion 
-                }
                     catch (SqlException ex)
                     {
                         throw new FaultException($"SQL error: {ex.Message}");
                     }
-                catch (Exception ex)
-                {
-                    throw new FaultException(ex.Message);
-                }
+                    catch (Exception ex)
+                    {
+                        throw new FaultException(ex.Message);
+                    }
                 }
             }
             else
@@ -176,10 +194,10 @@ namespace WCFChatService
             {
                 try
                 {
-                connection.Open();
-                #region query
+                    connection.Open();
+                    #region query
 
-                var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
+                    var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
            ,[Username])
@@ -187,16 +205,16 @@ namespace WCFChatService
            (@Password,
            @Gender,
            @Username)", connection);
-                cmd.Parameters.Add(new SqlParameter("Password", user.Password));
-                cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
-                cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
-                cmd.ExecuteNonQuery();
-                #endregion
-            }
+                    cmd.Parameters.Add(new SqlParameter("Password", user.Password));
+                    cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
+                    cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
+                    cmd.ExecuteNonQuery();
+                    #endregion
+                }
                 catch (SqlException ex)
                 {
                     throw new FaultException($"SQL server error: {ex.Message}");
-        }
+                }
                 catch (Exception ex)
                 {
                     throw new FaultException($"Service error: {ex.Message}");
@@ -213,21 +231,21 @@ namespace WCFChatService
             {
                 try
                 {
-                connection.Open();
-                #region query
-                var cmd = new SqlCommand(@"SELECT [Username]
+                    connection.Open();
+                    #region query
+                    var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
                              WHERE Username = @userName", connection);
-                cmd.Parameters.Add(new SqlParameter("@userName", username));
-                #endregion
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
+                    cmd.Parameters.Add(new SqlParameter("@userName", username));
+                    #endregion
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        result = (string)reader["Username"];
+                        while (reader.Read())
+                        {
+                            result = (string)reader["Username"];
+                        }
                     }
                 }
-            }
                 catch (SqlException ex)
                 {
                     throw new FaultException($"SQL error: {ex.Message}");
@@ -257,13 +275,13 @@ namespace WCFChatService
                     sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
                     sqlCommand.Parameters.Add(new SqlParameter("@password", password));
                     #endregion
-                connection.Open();
+                    connection.Open();
                     var reader = sqlCommand.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                    while (reader.Read())
                     {
+                        if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                        {
                             loggedInUsers.Add(userName.ToUpper());
                             return new CurrentUser()
                             {
@@ -274,7 +292,7 @@ namespace WCFChatService
                         }
                     }
                     return null;
-                    }
+                }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
@@ -289,6 +307,62 @@ namespace WCFChatService
         public List<string> GetOnlineUsers()
         {
             return loggedInUsers;
+        }
+
+        public List<UserMessage> GetUserMessagesByRoomAndUserId(int roomId, int userId)
+        {
+            var MessageList = new List<UserMessage>();
+            var date = new DateTime();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    #region query
+                    SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
+      ,[Message]
+      ,[Posted]
+      ,[Room_ID]
+      ,[User_ID]
+	  ,[Username]
+  FROM [ChatDatabase].[dbo].[UserMessages]
+  INNER JOIN [ChatDatabase].[dbo].[Users]
+  ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
+  WHERE [ChatDatabase].[dbo].[UserMessages].Room_ID = @ID AND [ChatDatabase].[dbo].[UserMessages].[User_ID] = @UserId", connection);
+                    cmd.Parameters.Add(new SqlParameter("@ID", roomId));
+                    cmd.Parameters.Add(new SqlParameter("@UserId", userId));
+                    #endregion
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var chat = new UserMessage();
+                            DateTime.TryParse((string)reader["Posted"], out date);
+
+
+                            chat.ID = (int)reader["MessageID"];
+                            chat.Submitter = (string)reader["Username"];
+                            chat.Message = (string)reader["Message"];
+                            chat.TimeStamp = date;
+
+
+                            MessageList.Add(chat);
+                        }
+
+                    }
+                    
+                }
+                catch (SqlException ex)
+                {
+                    throw new FaultException($"SQL error: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    throw new FaultException($"{ex.Message}");
+                }
+            }
+            return MessageList;
         }
     }
 }
