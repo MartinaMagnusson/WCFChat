@@ -18,9 +18,20 @@ namespace WCFChatClient
         int roomID = 3;
         public ChatroomWomen(CurrentUser user)
         {
-            InitializeComponent();
-            textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Woman");
-            _currentUser = user;
+            try
+            {
+                InitializeComponent();
+                textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Woman");
+                _currentUser = user;
+            }
+            catch (FaultException ex)
+            {
+                MessageBox.Show("Service error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Client error: " + ex.Message);
+            }
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)

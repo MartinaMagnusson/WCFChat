@@ -70,10 +70,18 @@ namespace WCFChatService
         }
         public void SubmitUserMessage(UserMessage post)
         {
-            MessageCounter++;
-            post.ID = MessageCounter;
-            _currentUserMessages.Add(post);
-            _MessagesBeingSavedToDatabase.Add(post);
+            try
+            {
+                MessageCounter++;
+                post.ID = MessageCounter;
+                _currentUserMessages.Add(post);
+                _MessagesBeingSavedToDatabase.Add(post);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+          
         }
         public void SaveToDatabase()
         {
