@@ -18,11 +18,17 @@ namespace WCFChatService
         List<string> loggedInUsers = new List<string>();
         int MessageCounter;
 
-        public List<UserMessage> GetChats()
+        public List<UserMessage> GetUserMessages(int roomID)
         {
+            var messages = new List<UserMessage>();
             try
             {
-                return _currentUserMessages;
+                foreach (var message in _currentUserMessages)
+                {
+                    if (message.RoomID == roomID)   
+                        messages.Add(message);
+                }
+                return messages;
             }
             catch (Exception ex)
             {
@@ -40,8 +46,8 @@ namespace WCFChatService
                 {
                     try
                     {
-                        SqlCommand cmd = new SqlCommand(@"DELETE FROM [ChatDatabase][dbo].[UserMessages]
-      WHERE [ChatDatabase][dbo].[UserMessages].[MessageID] = @ID");
+                        SqlCommand cmd = new SqlCommand(@"DELETE FROM [ChatDatabase].[dbo].[UserMessages]
+      WHERE [ChatDatabase].[dbo].[UserMessages].[MessageID] = @ID");
                         cmd.Parameters.Add(new SqlParameter("@ID",id));
                         cmd.ExecuteNonQuery();
                     }

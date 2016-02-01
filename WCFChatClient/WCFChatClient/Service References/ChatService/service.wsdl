@@ -14,11 +14,11 @@
   <wsdl:message name="IChat_SubmitUserMessage_OutputMessage">
     <wsdl:part name="parameters" element="tns:SubmitUserMessageResponse" />
   </wsdl:message>
-  <wsdl:message name="IChat_GetChats_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetChats" />
+  <wsdl:message name="IChat_GetUserMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserMessages" />
   </wsdl:message>
-  <wsdl:message name="IChat_GetChats_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetChatsResponse" />
+  <wsdl:message name="IChat_GetUserMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserMessagesResponse" />
   </wsdl:message>
   <wsdl:message name="IChat_RemoveUserMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:RemoveUserMessage" />
@@ -73,9 +73,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/SubmitUserMessage" message="tns:IChat_SubmitUserMessage_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/SubmitUserMessageResponse" message="tns:IChat_SubmitUserMessage_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetChats">
-      <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetChats" message="tns:IChat_GetChats_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetChatsResponse" message="tns:IChat_GetChats_OutputMessage" />
+    <wsdl:operation name="GetUserMessages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetUserMessages" message="tns:IChat_GetUserMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetUserMessagesResponse" message="tns:IChat_GetUserMessages_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RemoveUserMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/RemoveUserMessage" message="tns:IChat_RemoveUserMessage_InputMessage" />
@@ -121,8 +121,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetChats">
-      <soap:operation soapAction="http://tempuri.org/IChat/GetChats" style="document" />
+    <wsdl:operation name="GetUserMessages">
+      <soap:operation soapAction="http://tempuri.org/IChat/GetUserMessages" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

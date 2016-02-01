@@ -318,11 +318,11 @@ namespace WCFChatClient.ChatService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SubmitUserMessage", ReplyAction="http://tempuri.org/IChat/SubmitUserMessageResponse")]
         System.Threading.Tasks.Task SubmitUserMessageAsync(WCFChatClient.ChatService.UserMessage post);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChats", ReplyAction="http://tempuri.org/IChat/GetChatsResponse")]
-        WCFChatClient.ChatService.UserMessage[] GetChats();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUserMessages", ReplyAction="http://tempuri.org/IChat/GetUserMessagesResponse")]
+        WCFChatClient.ChatService.UserMessage[] GetUserMessages(int roomID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetChats", ReplyAction="http://tempuri.org/IChat/GetChatsResponse")]
-        System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatsAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUserMessages", ReplyAction="http://tempuri.org/IChat/GetUserMessagesResponse")]
+        System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetUserMessagesAsync(int roomID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveUserMessage", ReplyAction="http://tempuri.org/IChat/RemoveUserMessageResponse")]
         void RemoveUserMessage(int id);
@@ -408,12 +408,12 @@ namespace WCFChatClient.ChatService {
             return base.Channel.SubmitUserMessageAsync(post);
         }
         
-        public WCFChatClient.ChatService.UserMessage[] GetChats() {
-            return base.Channel.GetChats();
+        public WCFChatClient.ChatService.UserMessage[] GetUserMessages(int roomID) {
+            return base.Channel.GetUserMessages(roomID);
         }
         
-        public System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetChatsAsync() {
-            return base.Channel.GetChatsAsync();
+        public System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetUserMessagesAsync(int roomID) {
+            return base.Channel.GetUserMessagesAsync(roomID);
         }
         
         public void RemoveUserMessage(int id) {

@@ -14,7 +14,7 @@ namespace WCFChatService
         void SubmitUserMessage(UserMessage post);
 
         [OperationContract]
-        List<UserMessage> GetChats();
+        List<UserMessage> GetUserMessages(int roomID);
         [OperationContract]
         void RemoveUserMessage(int id);
         [OperationContract]
