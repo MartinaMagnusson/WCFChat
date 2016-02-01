@@ -19,7 +19,7 @@ namespace WCFChatClient
         {
             InitializeComponent();
             this._currentUser = user;
-            this._client = new ChatService.ChatClient();
+            this._client = new ChatService.ChatClient("Unisex");
             SetComponentsToCorrectState(user);
             PopulateCurrentOnlineUsersCounter();
         }
@@ -50,7 +50,7 @@ namespace WCFChatClient
 
         private void buttonJoinChatroomMen_Click(object sender, EventArgs e)
         {
-            ChatroomMen chatroomMen = new ChatroomMen();
+            ChatroomMen chatroomMen = new ChatroomMen(_currentUser);
             chatroomMen.ShowDialog();
         }
 

@@ -21,7 +21,7 @@ namespace WCFChatClient
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            var _chatClient = new ChatClient();
+            var _chatClient = new ChatClient("Unisex");
             var user = new User();
             try
             {
