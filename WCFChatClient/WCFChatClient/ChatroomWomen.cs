@@ -18,9 +18,20 @@ namespace WCFChatClient
         int roomID = 3;
         public ChatroomWomen(CurrentUser user)
         {
-            InitializeComponent();
-            textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Woman");
-            _currentUser = user;
+            try
+            {
+                InitializeComponent();
+                textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Woman");
+                _currentUser = user;
+            }
+            catch (FaultException ex)
+            {
+                MessageBox.Show("Service error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Client error: " + ex.Message);
+            }
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)
@@ -55,6 +66,27 @@ namespace WCFChatClient
         {
             var deleteMessages = new DeleteMessages(_currentUser, 3);
             deleteMessages.ShowDialog();
+        }
+
+        private void pictureBoxRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var userMessage = GlobalMethods.GetUserMessages("Man", roomID);
+                textBoxChat.Text = "";
+                foreach (var item in userMessage)
+                {
+                    textBoxChat.Text += string.Format("{0}: {1} ({2}) \r\n", item.Submitter, item.Message, item.TimeStamp.ToShortTimeString());
+                }
+            }
+            catch (FaultException ex)
+            {
+                MessageBox.Show("Service error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Client error: " + ex.Message);
+            }      
         }
     }
 }
