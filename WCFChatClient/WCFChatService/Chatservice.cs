@@ -25,7 +25,7 @@ namespace WCFChatService
             {
                 foreach (var message in _currentUserMessages)
                 {
-                    if (message.RoomID == roomID)   
+                    if (message.RoomID == roomID)
                         messages.Add(message);
                 }
                 return messages;
@@ -47,11 +47,12 @@ namespace WCFChatService
                     try
                     {
                         SqlCommand cmd = new SqlCommand(@"DELETE FROM [ChatDatabase].[dbo].[UserMessages]
-      WHERE [ChatDatabase].[dbo].[UserMessages].[MessageID] = @ID");
-                        cmd.Parameters.Add(new SqlParameter("@ID",id));
+                                                          WHERE [ChatDatabase].[dbo].[UserMessages].[MessageID] = @ID", connection);
+                        cmd.Parameters.Add(new SqlParameter("@ID", id));
+                        connection.Open();
                         cmd.ExecuteNonQuery();
                     }
-                    catch(SqlException ex)
+                    catch (SqlException ex)
                     {
                         throw new FaultException($"SQL Error: {ex.Message}");
                     }
@@ -64,7 +65,6 @@ namespace WCFChatService
             }
             catch (Exception ex)
             {
-
                 throw new FaultException(ex.Message);
             }
         }
@@ -351,7 +351,7 @@ namespace WCFChatService
                         }
 
                     }
-                    
+
                 }
                 catch (SqlException ex)
                 {

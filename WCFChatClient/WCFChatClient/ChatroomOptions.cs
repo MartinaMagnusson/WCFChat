@@ -76,19 +76,6 @@ namespace WCFChatClient
             login.Show();
         }
 
-        private void AreYouSure(object sender, FormClosingEventArgs e)
-        {
-            var result = MessageBox.Show("Are you sure you want to close and logout?", "Close application?", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else if (result == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
-
         private void pictureBoxUsersOnline_Click(object sender, EventArgs e)
         {
             var usersOnline = new UsersOnline();
@@ -98,6 +85,19 @@ namespace WCFChatClient
         private void pictureBoxRefresh_Click(object sender, EventArgs e)
         {
             PopulateCurrentOnlineUsersCounter();
+        }
+
+        private void AreYouSure(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to close and logout?", "Close application?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                e.Cancel = false;
+            }
+            else if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

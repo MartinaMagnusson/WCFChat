@@ -53,7 +53,7 @@ namespace WCFChatClient
 
         private void pictureBoxBin_Click(object sender, EventArgs e)
         {
-            var deleteMessages = new DeleteMessages();
+            var deleteMessages = new DeleteMessages(_currentUser, 3);
             deleteMessages.ShowDialog();
         }
     }
