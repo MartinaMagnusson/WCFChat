@@ -23,17 +23,24 @@ namespace WCFChatService
             {
                 return _currentUserMessages;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new FaultException(ex.Message);
             }
 
         }
 
         public void RemoveUserMessage(int id)
         {
-            _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
+            try
+            {
+                _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
+            }
+            catch (Exception ex)
+            {
+
+                throw new FaultException(ex.Message);
+            }
         }
         public void SubmitUserMessage(UserMessage post)
         {

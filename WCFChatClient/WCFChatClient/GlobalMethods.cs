@@ -21,14 +21,22 @@ namespace WCFChatClient
             }
             return result;
         }
-        public static void SubmitUserMessage(string message, int userID, int roomID)
+        public static void SubmitUserMessage(string userName, string message, int userID, int roomID)
         {
             var _chatClient = new ChatClient();
             var userMessage = new UserMessage();
             userMessage.Message = message;
-            userMessage.UserID = userID;    
+            userMessage.UserID = userID;
             userMessage.RoomID = roomID;
+            userMessage.Submitter = userName;
+            userMessage.TimeStamp = DateTime.Now;
             _chatClient.SubmitUserMessage(userMessage);
-        }   
+        }
+        public static UserMessage[] GetUserMessages()
+        {
+            var _chatClient = new ChatClient();
+            var message = _chatClient.GetChats();
+            return message;
+        }
     }
 }

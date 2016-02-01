@@ -24,7 +24,7 @@ namespace WCFChatClient
 
         private void buttonJoinChatroomMen_Click(object sender, EventArgs e)
         {
-            ChatroomMen chatroomMen = new ChatroomMen();
+            ChatroomMen chatroomMen = new ChatroomMen(_currentUser);
             chatroomMen.ShowDialog();
         }
 
