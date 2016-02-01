@@ -21,9 +21,9 @@ namespace WCFChatClient
             }
             return result;
         }
-        public static void SubmitUserMessage(string userName, string message, int userID, int roomID)
+        public static void SubmitUserMessage(string endpoint, string userName, string message, int userID, int roomID)
         {
-            var _chatClient = new ChatClient();
+            var _chatClient = new ChatClient(endpoint);
             var userMessage = new UserMessage();
             userMessage.Message = message;
             userMessage.UserID = userID;
@@ -32,9 +32,9 @@ namespace WCFChatClient
             userMessage.TimeStamp = DateTime.Now;
             _chatClient.SubmitUserMessage(userMessage);
         }
-        public static UserMessage[] GetUserMessages()
+        public static UserMessage[] GetUserMessages(string endpoint)
         {
-            var _chatClient = new ChatClient();
+            var _chatClient = new ChatClient(endpoint);
             var message = _chatClient.GetChats();
             return message;
         }

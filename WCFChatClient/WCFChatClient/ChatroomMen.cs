@@ -19,7 +19,7 @@ namespace WCFChatClient
         public ChatroomMen(CurrentUser user)
         {
             InitializeComponent();
-            textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(1, "Man");
+            textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Man");
             _currentUser = user;
         }
 
@@ -31,8 +31,8 @@ namespace WCFChatClient
             {
                 if (message != null && message != "")
                 {
-                    GlobalMethods.SubmitUserMessage(_currentUser.UserName, message, userID, roomID);
-                    var userMessage = GlobalMethods.GetUserMessages().Last();
+                    GlobalMethods.SubmitUserMessage("Man", _currentUser.UserName, message, userID, roomID);
+                    var userMessage = GlobalMethods.GetUserMessages("Man").Last();
                     textBoxChatroomMen.Text += string.Format("{0}: {1} ({2}) \r\n", userMessage.Submitter, userMessage.Message, userMessage.TimeStamp.ToShortTimeString());
                     textBoxMessage.Text = "";
                 }
