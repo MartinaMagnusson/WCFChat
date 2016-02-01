@@ -92,7 +92,7 @@
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(9, 257);
+            this.labelMessage.Location = new System.Drawing.Point(47, 262);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(50, 13);
             this.labelMessage.TabIndex = 12;
@@ -112,11 +112,11 @@
             // textBoxMessage
             // 
             this.textBoxMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxMessage.Location = new System.Drawing.Point(46, 278);
+            this.textBoxMessage.Location = new System.Drawing.Point(50, 278);
             this.textBoxMessage.Multiline = true;
             this.textBoxMessage.Name = "textBoxMessage";
             this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxMessage.Size = new System.Drawing.Size(505, 32);
+            this.textBoxMessage.Size = new System.Drawing.Size(501, 32);
             this.textBoxMessage.TabIndex = 10;
             // 
             // textBoxChat
