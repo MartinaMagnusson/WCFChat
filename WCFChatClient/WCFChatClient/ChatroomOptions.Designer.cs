@@ -185,7 +185,7 @@
             // 
             this.labelUsersOnline.AutoSize = true;
             this.labelUsersOnline.BackColor = System.Drawing.Color.Gainsboro;
-            this.labelUsersOnline.Location = new System.Drawing.Point(67, 12);
+            this.labelUsersOnline.Location = new System.Drawing.Point(69, 12);
             this.labelUsersOnline.Name = "labelUsersOnline";
             this.labelUsersOnline.Size = new System.Drawing.Size(70, 13);
             this.labelUsersOnline.TabIndex = 24;
@@ -217,7 +217,7 @@
             // 
             this.labelLoggedinas.AutoSize = true;
             this.labelLoggedinas.BackColor = System.Drawing.SystemColors.Control;
-            this.labelLoggedinas.Location = new System.Drawing.Point(8, 42);
+            this.labelLoggedinas.Location = new System.Drawing.Point(8, 44);
             this.labelLoggedinas.Name = "labelLoggedinas";
             this.labelLoggedinas.Size = new System.Drawing.Size(71, 13);
             this.labelLoggedinas.TabIndex = 27;
@@ -228,7 +228,7 @@
             this.labelCurrentUser.AutoSize = true;
             this.labelCurrentUser.BackColor = System.Drawing.SystemColors.Control;
             this.labelCurrentUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCurrentUser.Location = new System.Drawing.Point(75, 42);
+            this.labelCurrentUser.Location = new System.Drawing.Point(75, 44);
             this.labelCurrentUser.Name = "labelCurrentUser";
             this.labelCurrentUser.Size = new System.Drawing.Size(78, 13);
             this.labelCurrentUser.TabIndex = 28;
@@ -239,7 +239,7 @@
             this.pictureBoxRefresh.BackColor = System.Drawing.Color.Gainsboro;
             this.pictureBoxRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxRefresh.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxRefresh.Image")));
-            this.pictureBoxRefresh.Location = new System.Drawing.Point(40, 5);
+            this.pictureBoxRefresh.Location = new System.Drawing.Point(42, 5);
             this.pictureBoxRefresh.Name = "pictureBoxRefresh";
             this.pictureBoxRefresh.Size = new System.Drawing.Size(28, 26);
             this.pictureBoxRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

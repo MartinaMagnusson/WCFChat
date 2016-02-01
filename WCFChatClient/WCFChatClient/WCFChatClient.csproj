@@ -72,6 +72,12 @@
     <Compile Include="ChatroomWomen.Designer.cs">
       <DependentUpon>ChatroomWomen.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeleteMessages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteMessages.Designer.cs">
+      <DependentUpon>DeleteMessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalMethods.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -109,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChatroomWomen.resx">
       <DependentUpon>ChatroomWomen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteMessages.resx">
+      <DependentUpon>DeleteMessages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
