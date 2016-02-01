@@ -56,5 +56,15 @@ namespace WCFChatClient
             var deleteMessages = new DeleteMessages();
             deleteMessages.ShowDialog();
         }
+
+        private void pictureBoxRefresh_Click(object sender, EventArgs e)
+        {
+            var userMessage = GlobalMethods.GetUserMessages("Man", roomID);
+            textBoxChat.Text = "";
+            foreach (var item in userMessage)
+            {
+                textBoxChat.Text += string.Format("{0}: {1} ({2}) \r\n", item.Submitter, item.Message, item.TimeStamp.ToShortTimeString());
+            }
+        }
     }
 }
