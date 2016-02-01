@@ -195,7 +195,7 @@ namespace WCFChatService
                 try
                 {
                     #region query
-                    var sqlCommand = new SqlCommand(@"SELECT [UserID], [Username], [Password]
+                    var sqlCommand = new SqlCommand(@"SELECT [UserID], [Gender], [Username], [Password]
                             FROM [Users]
                             WHERE Username = @username AND Password = @password", connection);
                     sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
@@ -212,7 +212,8 @@ namespace WCFChatService
                             return new CurrentUser()
                             {
                                 UserName = reader["Username"].ToString(),
-                                ID = reader["UserID"].ToString()
+                                ID = reader["UserID"].ToString(),
+                                Gender = reader["Gender"].ToString()
                             };
                         }
                     }

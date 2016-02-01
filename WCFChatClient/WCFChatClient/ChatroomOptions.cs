@@ -18,8 +18,26 @@ namespace WCFChatClient
         {
             InitializeComponent();
             this._currentUser = user;
+            SetComponentsToCorrectState(user);
+        }
 
+        private void SetComponentsToCorrectState(CurrentUser user)
+        {
             labelCurrentUser.Text = _currentUser.UserName;
+
+            if (user.Gender != "Man")
+            {
+                buttonJoinChatroomMen.Enabled = false;
+                buttonJoinChatroomMen.BackColor = Color.LightGray;
+                pictureBoxChatMan.Enabled = false;
+            }
+            if (user.Gender != "Woman")
+            {
+                buttonJoinChatroomWomen.Enabled = false;
+                buttonJoinChatroomWomen.BackColor = Color.LightGray;
+                pictureBoxChatWoman.Enabled = false;
+            }
+
         }
 
         private void buttonJoinChatroomMen_Click(object sender, EventArgs e)
