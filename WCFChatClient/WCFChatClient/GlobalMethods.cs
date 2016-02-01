@@ -9,9 +9,9 @@ namespace WCFChatClient
 {
     public static class GlobalMethods
     {
-        public static string PopulateChatWithMessages(int roomId)
+        public static string PopulateChatWithMessages(int roomId, string endpoint)
         {
-            var _chatClient = new ChatService.ChatClient();
+            var _chatClient = new ChatService.ChatClient(endpoint);
             var userMessages = _chatClient.GetChatFromDatabase(roomId);
 
             string result = "";

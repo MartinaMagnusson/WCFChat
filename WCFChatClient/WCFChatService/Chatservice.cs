@@ -123,7 +123,7 @@ namespace WCFChatService
                         while (reader.Read())
                         {
                             MessageCounter++;
-                }
+                        }
                     }
                     #endregion 
                 }
@@ -145,10 +145,10 @@ namespace WCFChatService
             {
                 try
                 {
-                connection.Open();
-                #region query
+                    connection.Open();
+                    #region query
 
-                var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
+                    var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
            ,[Username])
@@ -156,16 +156,16 @@ namespace WCFChatService
            (@Password,
            @Gender,
            @Username)", connection);
-                cmd.Parameters.Add(new SqlParameter("Password", user.Password));
-                cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
-                cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
-                cmd.ExecuteNonQuery();
-                #endregion
-            }
+                    cmd.Parameters.Add(new SqlParameter("Password", user.Password));
+                    cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
+                    cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
+                    cmd.ExecuteNonQuery();
+                    #endregion
+                }
                 catch (SqlException ex)
                 {
                     throw new FaultException($"SQL server error: {ex.Message}");
-        }
+                }
                 catch (Exception ex)
                 {
                     throw new FaultException($"Service error: {ex.Message}");
@@ -182,22 +182,22 @@ namespace WCFChatService
             {
                 try
                 {
-                connection.Open();
-                #region query
-                var cmd = new SqlCommand(@"SELECT [Username]
+                    connection.Open();
+                    #region query
+                    var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
                              WHERE Username = @userName", connection);
-                cmd.Parameters.Add(new SqlParameter("@userName", username));
-                #endregion
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
+                    cmd.Parameters.Add(new SqlParameter("@userName", username));
+                    #endregion
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        result = (string)reader["Username"];
+                        while (reader.Read())
+                        {
+                            result = (string)reader["Username"];
+                        }
                     }
                 }
-            }
-                catch(SqlException ex)
+                catch (SqlException ex)
                 {
                     throw new FaultException($"SQL error: {ex.Message}");
                 }
@@ -226,13 +226,13 @@ namespace WCFChatService
                     sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
                     sqlCommand.Parameters.Add(new SqlParameter("@password", password));
                     #endregion
-                connection.Open();
+                    connection.Open();
                     var reader = sqlCommand.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                    while (reader.Read())
                     {
+                        if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                        {
                             loggedInUsers.Add(userName.ToUpper());
                             return new CurrentUser()
                             {
@@ -243,7 +243,7 @@ namespace WCFChatService
                         }
                     }
                     return null;
-                    }
+                }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);

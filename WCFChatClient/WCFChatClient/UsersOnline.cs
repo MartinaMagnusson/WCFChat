@@ -21,7 +21,7 @@ namespace WCFChatClient
         private void PopulateList()
         {
             textBoxCurrentOnline.Text = "";
-            var client = new ChatService.ChatClient();
+            var client = new ChatService.ChatClient("Unisex");
             var onlineUsers = client.GetOnlineUsers();
             foreach (var user in onlineUsers)
             {

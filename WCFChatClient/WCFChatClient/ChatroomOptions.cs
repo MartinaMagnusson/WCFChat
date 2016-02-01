@@ -19,7 +19,7 @@ namespace WCFChatClient
         {
             InitializeComponent();
             this._currentUser = user;
-            this._client = new ChatService.ChatClient();
+            this._client = new ChatService.ChatClient("Unisex");
             SetComponentsToCorrectState(user);
             PopulateCurrentOnlineUsersCounter();
         }

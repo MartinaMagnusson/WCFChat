@@ -16,7 +16,7 @@ namespace WCFChatClient
         public ChatroomMen()
         {
             InitializeComponent();
-            textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(1);
+            textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(1, "Man");
         }
     }
 }
