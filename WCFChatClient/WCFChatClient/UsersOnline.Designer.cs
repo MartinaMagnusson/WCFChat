@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsersOnline));
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxCurrentOnline = new System.Windows.Forms.TextBox();
             this.pictureBoxRefresh = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).BeginInit();
             this.SuspendLayout();
@@ -41,40 +41,42 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DimGray;
-            this.label1.Location = new System.Drawing.Point(46, 9);
+            this.label1.Location = new System.Drawing.Point(12, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Users Online";
             // 
-            // textBox1
+            // textBoxCurrentOnline
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 32);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(141, 192);
-            this.textBox1.TabIndex = 1;
+            this.textBoxCurrentOnline.Location = new System.Drawing.Point(12, 32);
+            this.textBoxCurrentOnline.Multiline = true;
+            this.textBoxCurrentOnline.Name = "textBoxCurrentOnline";
+            this.textBoxCurrentOnline.ReadOnly = true;
+            this.textBoxCurrentOnline.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxCurrentOnline.Size = new System.Drawing.Size(141, 225);
+            this.textBoxCurrentOnline.TabIndex = 1;
             // 
             // pictureBoxRefresh
             // 
             this.pictureBoxRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxRefresh.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxRefresh.Image")));
-            this.pictureBoxRefresh.Location = new System.Drawing.Point(12, 3);
+            this.pictureBoxRefresh.Location = new System.Drawing.Point(136, 13);
             this.pictureBoxRefresh.Name = "pictureBoxRefresh";
-            this.pictureBoxRefresh.Size = new System.Drawing.Size(28, 26);
+            this.pictureBoxRefresh.Size = new System.Drawing.Size(17, 16);
             this.pictureBoxRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxRefresh.TabIndex = 4;
+            this.pictureBoxRefresh.TabIndex = 12;
             this.pictureBoxRefresh.TabStop = false;
+            this.pictureBoxRefresh.Click += new System.EventHandler(this.pictureBoxRefresh_Click);
             // 
             // UsersOnline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(168, 241);
+            this.ClientSize = new System.Drawing.Size(168, 269);
             this.Controls.Add(this.pictureBoxRefresh);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxCurrentOnline);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -90,7 +92,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxCurrentOnline;
         private System.Windows.Forms.PictureBox pictureBoxRefresh;
     }
 }

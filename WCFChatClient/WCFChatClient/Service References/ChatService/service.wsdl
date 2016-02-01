@@ -5,6 +5,7 @@
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/WCFChatService" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IChat_SubmitUserMessage_InputMessage">
@@ -55,6 +56,12 @@
   <wsdl:message name="IChat_LogOutUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:LogOutUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IChat_GetOnlineUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOnlineUsers" />
+  </wsdl:message>
+  <wsdl:message name="IChat_GetOnlineUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOnlineUsersResponse" />
+  </wsdl:message>
   <wsdl:portType name="IChat">
     <wsdl:operation name="SubmitUserMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/SubmitUserMessage" message="tns:IChat_SubmitUserMessage_InputMessage" />
@@ -87,6 +94,10 @@
     <wsdl:operation name="LogOutUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/LogOutUser" message="tns:IChat_LogOutUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/LogOutUserResponse" message="tns:IChat_LogOutUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOnlineUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetOnlineUsers" message="tns:IChat_GetOnlineUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetOnlineUsersResponse" message="tns:IChat_GetOnlineUsers_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IChat" type="tns:IChat">
@@ -156,6 +167,15 @@
     </wsdl:operation>
     <wsdl:operation name="LogOutUser">
       <soap:operation soapAction="http://tempuri.org/IChat/LogOutUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOnlineUsers">
+      <soap:operation soapAction="http://tempuri.org/IChat/GetOnlineUsers" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

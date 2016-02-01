@@ -76,6 +76,11 @@ namespace WCFChatService
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
+            //Limits the amount of messages a new client receives, if the current session includes more then 20 messages there is no need to query database.
+            if (_currentUserMessages.Count >= 20)
+            {
+                return _currentUserMessages.Skip(_currentUserMessages.Count - 20).Take(20).ToList();
+            }
             List<UserMessage> _databaseUserMessages = new List<UserMessage>();
             var date = new DateTime();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
@@ -118,6 +123,7 @@ namespace WCFChatService
                         }
 
                     }
+                    #region CounterQuery
                     SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
                     using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
                     {
@@ -126,12 +132,14 @@ namespace WCFChatService
                             MessageCounter++;
                 }
                     }
+                    #endregion 
                 }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
                 }
             }
+
             return _databaseUserMessages;
         }
         public void RegisterUser(User user)
@@ -142,6 +150,8 @@ namespace WCFChatService
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
+                try
+                {
                 connection.Open();
                 #region query
 
@@ -158,6 +168,17 @@ namespace WCFChatService
                 cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
                 cmd.ExecuteNonQuery();
                 #endregion
+            }
+                catch (SqlException ex)
+                {
+                    throw new FaultException($"SQL server error: {ex.Message}");
+        }
+                catch (Exception ex)
+                {
+                    throw new FaultException($"Service error: {ex.Message}");
+
+                }
+
             }
         }
 
@@ -183,6 +204,10 @@ namespace WCFChatService
                     }
                 }
             }
+                catch(SqlException ex)
+                {
+                    throw new FaultException($"SQL error: {ex.Message}");
+                }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
@@ -202,7 +227,7 @@ namespace WCFChatService
                 try
                 {
                     #region query
-                    var sqlCommand = new SqlCommand(@"SELECT [UserID], [Username], [Password]
+                    var sqlCommand = new SqlCommand(@"SELECT [UserID], [Gender], [Username], [Password]
                             FROM [Users]
                             WHERE Username = @username AND Password = @password", connection);
                     sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
@@ -215,11 +240,12 @@ namespace WCFChatService
                 {
                     if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
                     {
-                        loggedInUsers.Insert(0, userName);
+                            loggedInUsers.Add(userName.ToUpper());
                             return new CurrentUser()
                             {
                                 UserName = reader["Username"].ToString(),
-                                ID = reader["UserID"].ToString()
+                                ID = reader["UserID"].ToString(),
+                                Gender = reader["Gender"].ToString()
                             };
                         }
                     }
@@ -233,7 +259,12 @@ namespace WCFChatService
         }
         public void LogOutUser(string userName)
         {
-            loggedInUsers.Remove(userName);
+            loggedInUsers.Remove(userName.ToUpper());
+        }
+
+        public List<string> GetOnlineUsers()
+        {
+            return loggedInUsers;
         }
     }
 }

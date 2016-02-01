@@ -45,7 +45,7 @@ namespace WCFChatClient
             }
             else
             {
-                MessageBox.Show("Username and password required.");
+                MessageBox.Show("Username & password required.");
             }
         }
     }
