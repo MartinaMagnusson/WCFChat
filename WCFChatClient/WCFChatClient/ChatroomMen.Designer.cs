@@ -39,19 +39,21 @@
             this.pictureBoxMessage = new System.Windows.Forms.PictureBox();
             this.labelChatID = new System.Windows.Forms.Label();
             this.textBoxChatroomMen = new System.Windows.Forms.TextBox();
+            this.pictureBoxBin = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMessage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBin)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxMessage
             // 
             this.textBoxMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxMessage.Location = new System.Drawing.Point(46, 275);
+            this.textBoxMessage.Location = new System.Drawing.Point(50, 275);
             this.textBoxMessage.Multiline = true;
             this.textBoxMessage.Name = "textBoxMessage";
             this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxMessage.Size = new System.Drawing.Size(505, 30);
+            this.textBoxMessage.Size = new System.Drawing.Size(495, 32);
             this.textBoxMessage.TabIndex = 1;
             // 
             // pictureBoxRefresh
@@ -79,9 +81,9 @@
             this.pictureBoxSend.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBoxSend.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxSend.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSend.Image")));
-            this.pictureBoxSend.Location = new System.Drawing.Point(557, 275);
+            this.pictureBoxSend.Location = new System.Drawing.Point(551, 275);
             this.pictureBoxSend.Name = "pictureBoxSend";
-            this.pictureBoxSend.Size = new System.Drawing.Size(28, 30);
+            this.pictureBoxSend.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxSend.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxSend.TabIndex = 5;
             this.pictureBoxSend.TabStop = false;
@@ -111,7 +113,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(431, 10);
+            this.label1.Location = new System.Drawing.Point(465, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 8;
@@ -122,7 +124,7 @@
             this.pictureBoxMessage.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxMessage.Image")));
             this.pictureBoxMessage.Location = new System.Drawing.Point(12, 275);
             this.pictureBoxMessage.Name = "pictureBoxMessage";
-            this.pictureBoxMessage.Size = new System.Drawing.Size(28, 30);
+            this.pictureBoxMessage.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxMessage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxMessage.TabIndex = 18;
             this.pictureBoxMessage.TabStop = false;
@@ -149,11 +151,24 @@
             this.textBoxChatroomMen.Size = new System.Drawing.Size(416, 213);
             this.textBoxChatroomMen.TabIndex = 20;
             // 
+            // pictureBoxBin
+            // 
+            this.pictureBoxBin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxBin.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxBin.Image")));
+            this.pictureBoxBin.Location = new System.Drawing.Point(434, 3);
+            this.pictureBoxBin.Name = "pictureBoxBin";
+            this.pictureBoxBin.Size = new System.Drawing.Size(28, 26);
+            this.pictureBoxBin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxBin.TabIndex = 21;
+            this.pictureBoxBin.TabStop = false;
+            this.pictureBoxBin.Click += new System.EventHandler(this.pictureBoxBin_Click);
+            // 
             // ChatroomMen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 318);
+            this.Controls.Add(this.pictureBoxBin);
             this.Controls.Add(this.textBoxChatroomMen);
             this.Controls.Add(this.labelChatID);
             this.Controls.Add(this.pictureBoxMessage);
@@ -172,6 +187,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMessage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,5 +204,6 @@
         private System.Windows.Forms.PictureBox pictureBoxMessage;
         private System.Windows.Forms.Label labelChatID;
         private System.Windows.Forms.TextBox textBoxChatroomMen;
+        private System.Windows.Forms.PictureBox pictureBoxBin;
     }
 }

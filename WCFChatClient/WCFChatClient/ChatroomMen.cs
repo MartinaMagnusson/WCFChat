@@ -18,5 +18,11 @@ namespace WCFChatClient
             InitializeComponent();
             textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(1, "Man");
         }
+
+        private void pictureBoxBin_Click(object sender, EventArgs e)
+        {
+            var deleteMessages = new DeleteMessages();
+            deleteMessages.ShowDialog();
+        }
     }
 }

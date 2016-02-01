@@ -17,5 +17,11 @@ namespace WCFChatClient
             InitializeComponent();
             textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(3, "Woman");
         }
+
+        private void pictureBoxBin_Click(object sender, EventArgs e)
+        {
+            var deleteMessages = new DeleteMessages();
+            deleteMessages.ShowDialog();
+        }
     }
 }

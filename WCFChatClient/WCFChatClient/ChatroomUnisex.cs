@@ -17,5 +17,11 @@ namespace WCFChatClient
             InitializeComponent();
             textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(2, "Unisex");
         }
+
+        private void pictureBoxBin_Click(object sender, EventArgs e)
+        {
+            var deleteMessages = new DeleteMessages();
+            deleteMessages.ShowDialog();
+        }
     }
 }
