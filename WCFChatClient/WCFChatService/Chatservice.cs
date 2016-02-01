@@ -69,6 +69,11 @@ namespace WCFChatService
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
+            //Limits the amount of messages a new client receives, if the current session includes more then 20 messages there is no need to query database.
+            if (_currentUserMessages.Count >= 20)
+            {
+                return _currentUserMessages.Skip(_currentUserMessages.Count - 20).Take(20).ToList();
+            }
             List<UserMessage> _databaseUserMessages = new List<UserMessage>();
             var date = new DateTime();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
@@ -111,20 +116,23 @@ namespace WCFChatService
                         }
 
                     }
+                    #region CounterQuery
                     SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
                     using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             MessageCounter++;
-                        }
+                }
                     }
+                    #endregion 
                 }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
                 }
             }
+
             return _databaseUserMessages;
         }
         public void RegisterUser(User user)
@@ -135,6 +143,8 @@ namespace WCFChatService
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
+                try
+                {
                 connection.Open();
                 #region query
 
@@ -152,6 +162,17 @@ namespace WCFChatService
                 cmd.ExecuteNonQuery();
                 #endregion
             }
+                catch (SqlException ex)
+                {
+                    throw new FaultException($"SQL server error: {ex.Message}");
+        }
+                catch (Exception ex)
+                {
+                    throw new FaultException($"Service error: {ex.Message}");
+
+                }
+
+            }
         }
 
         private bool CheckIfUserExists(string username)
@@ -161,20 +182,24 @@ namespace WCFChatService
             {
                 try
                 {
-                    connection.Open();
-                    #region query
-                    var cmd = new SqlCommand(@"SELECT [Username]
+                connection.Open();
+                #region query
+                var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
                              WHERE Username = @userName", connection);
-                    cmd.Parameters.Add(new SqlParameter("@userName", username));
-                    #endregion
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                cmd.Parameters.Add(new SqlParameter("@userName", username));
+                #endregion
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            result = (string)reader["Username"];
-                        }
+                        result = (string)reader["Username"];
                     }
+                }
+            }
+                catch(SqlException ex)
+                {
+                    throw new FaultException($"SQL error: {ex.Message}");
                 }
                 catch (Exception ex)
                 {
@@ -201,13 +226,13 @@ namespace WCFChatService
                     sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
                     sqlCommand.Parameters.Add(new SqlParameter("@password", password));
                     #endregion
-                    connection.Open();
+                connection.Open();
                     var reader = sqlCommand.ExecuteReader();
 
-                    while (reader.Read())
+                while (reader.Read())
+                {
+                    if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
                     {
-                        if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
-                        {
                             loggedInUsers.Add(userName.ToUpper());
                             return new CurrentUser()
                             {
@@ -218,7 +243,7 @@ namespace WCFChatService
                         }
                     }
                     return null;
-                }
+                    }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
