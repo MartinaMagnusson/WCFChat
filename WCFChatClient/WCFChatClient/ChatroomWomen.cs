@@ -32,8 +32,12 @@ namespace WCFChatClient
                 if (message != null && message != "")
                 {
                     GlobalMethods.SubmitUserMessage("Woman", _currentUser.UserName, message, userID, roomID);
-                    var userMessage = GlobalMethods.GetUserMessages("Woman").Last();
-                    textBoxChat.Text += string.Format("{0}: {1} ({2}) \r\n", userMessage.Submitter, userMessage.Message, userMessage.TimeStamp.ToShortTimeString());
+                    var userMessage = GlobalMethods.GetUserMessages("Woman", roomID);
+                    textBoxChat.Text = "";
+                    foreach (var item in userMessage)
+                    {
+                        textBoxChat.Text += string.Format("{0}: {1} ({2}) \r\n", item.Submitter, item.Message, item.TimeStamp.ToShortTimeString());
+                    }
                     textBoxMessage.Text = "";
                 }
             }
