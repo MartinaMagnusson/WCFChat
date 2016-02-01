@@ -152,9 +152,6 @@
     <None Include="Service References\ChatService\WCFChatClient.ChatService.CurrentUser1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ChatService\WCFChatClient.ChatService.User.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\ChatService\WCFChatClient.ChatService.UserMessage.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
