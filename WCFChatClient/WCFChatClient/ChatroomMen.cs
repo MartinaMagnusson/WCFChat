@@ -19,7 +19,7 @@ namespace WCFChatClient
         public ChatroomMen(CurrentUser user)
         {
             InitializeComponent();
-            textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(roomID);
+            textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(1, "Man");
             _currentUser = user;
         }
 

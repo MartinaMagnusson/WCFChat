@@ -17,7 +17,7 @@ namespace WCFChatClient
         public Login()
         {
             InitializeComponent();
-            _chatClient = new ChatService.ChatClient();
+            _chatClient = new ChatService.ChatClient("Unisex");
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
