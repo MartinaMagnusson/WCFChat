@@ -23,17 +23,24 @@ namespace WCFChatService
             {
                 return _currentUserMessages;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new FaultException(ex.Message);
             }
 
         }
 
         public void RemoveUserMessage(int id)
         {
+            try
+            {
             _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
+        }
+            catch (Exception ex)
+            {
+
+                throw new FaultException(ex.Message);
+            }
         }
         public void SubmitUserMessage(UserMessage post)
         {
@@ -69,12 +76,11 @@ namespace WCFChatService
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
-            //Limits the amount of messages a new client receives, if the current session includes more then 20 messages there is no need to query database.
-            if (_currentUserMessages.Count >= 20)
-            {
-                return _currentUserMessages.Skip(_currentUserMessages.Count - 20).Take(20).ToList();
-            }
             List<UserMessage> _databaseUserMessages = new List<UserMessage>();
+
+            if (_currentUserMessages.Count < 20)
+            {
+                var messageCountToRetrieve = 20 - _currentUserMessages.Count;
             var date = new DateTime();
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
             {
@@ -82,7 +88,7 @@ namespace WCFChatService
                 {
                     connection.Open();
                     #region query
-                    SqlCommand cmd = new SqlCommand(@"SELECT TOP 20 [MessageID]
+                        SqlCommand cmd = new SqlCommand(@"SELECT TOP (@amount) [MessageID]
       ,[Message]
       ,[Posted]
       ,[Room_ID]
@@ -91,11 +97,13 @@ namespace WCFChatService
   FROM [dbo].[UserMessages]
   INNER JOIN [dbo].[Users]
   ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
-  WHERE [dbo].[UserMessages].Room_ID = @ID", connection);
+  WHERE [dbo].[UserMessages].Room_ID = @ID
+  ORDER by MessageID desc", connection);
                     SqlParameter idParam = new SqlParameter();
                     idParam.ParameterName = "@ID";
                     idParam.Value = roomID;
-                    cmd.Parameters.Add(idParam);
+                        cmd.Parameters.Add(new SqlParameter("@ID",roomID));
+                        cmd.Parameters.Add(new SqlParameter("@amount", messageCountToRetrieve));
                     #endregion
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -114,6 +122,7 @@ namespace WCFChatService
 
                             _databaseUserMessages.Add(chat);
                         }
+                            _databaseUserMessages.Reverse();
 
                     }
                     #region CounterQuery
@@ -123,17 +132,33 @@ namespace WCFChatService
                         while (reader.Read())
                         {
                             MessageCounter++;
-                        }
+                }
                     }
                     #endregion 
                 }
+                    catch (SqlException ex)
+                    {
+                        throw new FaultException($"SQL error: {ex.Message}");
+                    }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
                 }
+                }
             }
+            else
+            {
+                //Limits the amount of messages a new client receives, if the current session includes more then 20 messages there is no need to query database.
+                return _currentUserMessages.Skip(_currentUserMessages.Count - 20).Take(20).ToList();
+            }
+            _currentUserMessages.Reverse();
+            foreach (var message in _databaseUserMessages)
+            {
+                _currentUserMessages.Add(message);
+            }
+            _currentUserMessages.Reverse();
 
-            return _databaseUserMessages;
+            return _currentUserMessages;
         }
         public void RegisterUser(User user)
         {
@@ -145,10 +170,10 @@ namespace WCFChatService
             {
                 try
                 {
-                    connection.Open();
-                    #region query
+                connection.Open();
+                #region query
 
-                    var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
+                var cmd = new SqlCommand(@"INSERT INTO [dbo].[Users]
            ([Password]
            ,[Gender]
            ,[Username])
@@ -156,16 +181,16 @@ namespace WCFChatService
            (@Password,
            @Gender,
            @Username)", connection);
-                    cmd.Parameters.Add(new SqlParameter("Password", user.Password));
-                    cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
-                    cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
-                    cmd.ExecuteNonQuery();
-                    #endregion
-                }
+                cmd.Parameters.Add(new SqlParameter("Password", user.Password));
+                cmd.Parameters.Add(new SqlParameter("Gender", user.Gender));
+                cmd.Parameters.Add(new SqlParameter("Username", user.UserName));
+                cmd.ExecuteNonQuery();
+                #endregion
+            }
                 catch (SqlException ex)
                 {
                     throw new FaultException($"SQL server error: {ex.Message}");
-                }
+        }
                 catch (Exception ex)
                 {
                     throw new FaultException($"Service error: {ex.Message}");
@@ -182,21 +207,21 @@ namespace WCFChatService
             {
                 try
                 {
-                    connection.Open();
-                    #region query
-                    var cmd = new SqlCommand(@"SELECT [Username]
+                connection.Open();
+                #region query
+                var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
                              WHERE Username = @userName", connection);
-                    cmd.Parameters.Add(new SqlParameter("@userName", username));
-                    #endregion
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                cmd.Parameters.Add(new SqlParameter("@userName", username));
+                #endregion
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            result = (string)reader["Username"];
-                        }
+                        result = (string)reader["Username"];
                     }
                 }
+            }
                 catch (SqlException ex)
                 {
                     throw new FaultException($"SQL error: {ex.Message}");
@@ -226,13 +251,13 @@ namespace WCFChatService
                     sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
                     sqlCommand.Parameters.Add(new SqlParameter("@password", password));
                     #endregion
-                    connection.Open();
+                connection.Open();
                     var reader = sqlCommand.ExecuteReader();
 
-                    while (reader.Read())
+                while (reader.Read())
+                {
+                    if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
                     {
-                        if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
-                        {
                             loggedInUsers.Add(userName.ToUpper());
                             return new CurrentUser()
                             {
@@ -243,7 +268,7 @@ namespace WCFChatService
                         }
                     }
                     return null;
-                }
+                    }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
