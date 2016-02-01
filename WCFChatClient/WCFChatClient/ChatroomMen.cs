@@ -26,12 +26,14 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
+                GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
+                GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Client error: " + ex.Message);
-            }         
+            }
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)
@@ -54,10 +56,12 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
+                GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
+                GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Client error: " + ex.Message);
             }
         }
@@ -81,12 +85,14 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
+                GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
+                GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Client error: " + ex.Message);
-            } 
+            }
         }
     }
 }

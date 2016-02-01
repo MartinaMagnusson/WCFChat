@@ -26,12 +26,14 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Client error: " + ex.Message);
-            }        
+            }
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)
@@ -54,10 +56,12 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Client error: " + ex.Message);
             }
         }
@@ -72,7 +76,7 @@ namespace WCFChatClient
         {
             try
             {
-                var userMessage = GlobalMethods.GetUserMessages("Man", roomID);
+                var userMessage = GlobalMethods.GetUserMessages("Unisex", roomID);
                 textBoxChat.Text = "";
                 foreach (var item in userMessage)
                 {
@@ -81,12 +85,14 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
                 MessageBox.Show("Client error: " + ex.Message);
-            }   
+            }
         }
     }
 }

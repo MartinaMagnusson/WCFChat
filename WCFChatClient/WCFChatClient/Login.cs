@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,10 +24,12 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message);
                 MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message);
                 MessageBox.Show("Client error: " + ex.Message);
             }
         }

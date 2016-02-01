@@ -16,6 +16,7 @@ namespace WCFChatService
         List<UserMessage> _MessagesBeingSavedToDatabase = new List<UserMessage>();
         List<UserMessage> _currentUserMessages = new List<UserMessage>();
         List<string> loggedInUsers = new List<string>();
+        List<Error> _errorMessages = new List<Error>();
         int MessageCounter;
 
         public List<UserMessage> GetUserMessages(int roomID)
@@ -81,7 +82,7 @@ namespace WCFChatService
             {
                 throw new FaultException(ex.Message);
             }
-          
+
         }
         public void SaveToDatabase()
         {
@@ -371,6 +372,32 @@ namespace WCFChatService
                 }
             }
             return MessageList;
+        }
+
+        public void ErrorMessages(Error error)
+        {
+            var query = @"INSERT INTO [dbo].[ErrorMessages] ([Room_ID] ,[UserName] ,[Time] ,[Messages] ,[Type])
+                          VALUES (@RoomID ,@UserName ,@Time ,@Messages ,@Type)";
+
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.Add("@RoomID", SqlDbType.Int).Value = error.RoomID;
+                    cmd.Parameters.Add("@UserName", SqlDbType.VarChar).Value = error.UserName;
+                    cmd.Parameters.Add("@Time", SqlDbType.Date).Value = error.Time;
+                    cmd.Parameters.Add("@Messages", SqlDbType.VarChar).Value = error.Messages;
+                    cmd.Parameters.Add("@Type", SqlDbType.VarChar).Value = error.ErrorType;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new FaultException(ex.Message);
+                }
+            }
+            //_errorMessages.Add(error);
         }
     }
 }

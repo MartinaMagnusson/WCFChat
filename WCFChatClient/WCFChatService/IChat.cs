@@ -31,6 +31,8 @@ namespace WCFChatService
         List<string> GetOnlineUsers();
         [OperationContract]
         List<UserMessage> GetUserMessagesByRoomAndUserId(int roomId,int userId);
+        [OperationContract]
+        void ErrorMessages(Error error);
     }
 
 
@@ -75,5 +77,18 @@ namespace WCFChatService
         [DataMember]
         public string Gender { get; set; }
     }
-
+    [DataContract]
+    public class Error
+    {
+        [DataMember]
+        public int RoomID { get; set; }
+        [DataMember]
+        public string UserName { get; set; }
+        [DataMember]
+        public DateTime Time { get; set; }
+        [DataMember]
+        public string ErrorType { get; set; }
+        [DataMember]
+        public string Messages { get; set; }    
+    }
 }
