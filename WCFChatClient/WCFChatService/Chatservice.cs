@@ -37,37 +37,18 @@ namespace WCFChatService
 
         }
 
-        public void RemoveUserMessage(int id)
+        public void RemoveUserMessage(UserMessage userMessage)
         {
             try
             {
-                _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(id)));
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
-                {
-                    try
-                    {
-                        SqlCommand cmd = new SqlCommand(@"DELETE FROM [ChatDatabase].[dbo].[UserMessages]
-                                                          WHERE [ChatDatabase].[dbo].[UserMessages].[MessageID] = @ID", connection);
-                        cmd.Parameters.Add(new SqlParameter("@ID", id));
-                        connection.Open();
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (SqlException ex)
-                    {
-                        throw new FaultException($"SQL Error: {ex.Message}");
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw new FaultException(ex.Message);
-                    }
-                }
+                _currentUserMessages.Remove(_currentUserMessages.Find(s => s.ID.Equals(userMessage.ID)));
             }
             catch (Exception ex)
             {
                 throw new FaultException(ex.Message);
             }
         }
+
         public void SubmitUserMessage(UserMessage post)
         {
             try
@@ -81,7 +62,7 @@ namespace WCFChatService
             {
                 throw new FaultException(ex.Message);
             }
-          
+
         }
         public void SaveToDatabase()
         {
@@ -320,55 +301,65 @@ namespace WCFChatService
         public List<UserMessage> GetUserMessagesByRoomAndUserId(int roomId, int userId)
         {
             var MessageList = new List<UserMessage>();
-            var date = new DateTime();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+            try
             {
-                try
+                foreach (var message in _currentUserMessages)
                 {
-                    connection.Open();
-                    #region query
-                    SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
-      ,[Message]
-      ,[Posted]
-      ,[Room_ID]
-      ,[User_ID]
-	  ,[Username]
-  FROM [ChatDatabase].[dbo].[UserMessages]
-  INNER JOIN [ChatDatabase].[dbo].[Users]
-  ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
-  WHERE [ChatDatabase].[dbo].[UserMessages].Room_ID = @ID AND [ChatDatabase].[dbo].[UserMessages].[User_ID] = @UserId", connection);
-                    cmd.Parameters.Add(new SqlParameter("@ID", roomId));
-                    cmd.Parameters.Add(new SqlParameter("@UserId", userId));
-                    #endregion
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    if (message.RoomID == roomId && message.UserID == userId)
                     {
-                        while (reader.Read())
-                        {
-                            var chat = new UserMessage();
-                            DateTime.TryParse((string)reader["Posted"], out date);
-
-
-                            chat.ID = (int)reader["MessageID"];
-                            chat.Submitter = (string)reader["Username"];
-                            chat.Message = (string)reader["Message"];
-                            chat.TimeStamp = date;
-
-
-                            MessageList.Add(chat);
-                        }
-
+                        MessageList.Add(message);
                     }
+                }
 
-                }
-                catch (SqlException ex)
-                {
-                    throw new FaultException($"SQL error: {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    throw new FaultException($"{ex.Message}");
-                }
+                //          var date = new DateTime();
+                //          using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+                //          {
+                //              try
+                //              {
+                //                  connection.Open();
+                //                  #region query
+                //                  SqlCommand cmd = new SqlCommand(@"SELECT [MessageID]
+                //    ,[Message]
+                //    ,[Posted]
+                //    ,[Room_ID]
+                //    ,[User_ID]
+                // ,[Username]
+                //FROM [ChatDatabase].[dbo].[UserMessages]
+                //INNER JOIN [ChatDatabase].[dbo].[Users]
+                //ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
+                //WHERE [ChatDatabase].[dbo].[UserMessages].Room_ID = @ID AND [ChatDatabase].[dbo].[UserMessages].[User_ID] = @UserId", connection);
+                //                  cmd.Parameters.Add(new SqlParameter("@ID", roomId));
+                //                  cmd.Parameters.Add(new SqlParameter("@UserId", userId));
+                //                  #endregion
+
+                //                  using (SqlDataReader reader = cmd.ExecuteReader())
+                //                  {
+                //                      while (reader.Read())
+                //                      {
+                //                          var chat = new UserMessage();
+                //                          DateTime.TryParse((string)reader["Posted"], out date);
+
+
+                //                          chat.ID = (int)reader["MessageID"];
+                //                          chat.Submitter = (string)reader["Username"];
+                //                          chat.Message = (string)reader["Message"];
+                //                          chat.TimeStamp = date;
+
+
+                //                          MessageList.Add(chat);
+                //                      }
+
+                //                  }
+
+
+            }
+            catch (SqlException ex)
+            {
+                throw new FaultException($"SQL error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException($"{ex.Message}");
             }
             return MessageList;
         }

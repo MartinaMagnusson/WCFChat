@@ -16,13 +16,19 @@ namespace WCFChatClient
     {
         CurrentUser _currentUser;
         int roomID = 1;
+        Timer _timer;
+
         public ChatroomMen(CurrentUser user)
         {
-            InitializeComponent();
             try
             {
+                InitializeComponent();
                 textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Man");
                 _currentUser = user;
+
+                _timer = new Timer();
+                _timer.Interval = 1000;
+                _timer.Tick += pictureBoxRefresh_Click;
             }
             catch (FaultException ex)
             {
@@ -31,7 +37,7 @@ namespace WCFChatClient
             catch (Exception ex)
             {
                 MessageBox.Show("Client error: " + ex.Message);
-            }         
+            }
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)
@@ -48,7 +54,7 @@ namespace WCFChatClient
                     foreach (var item in userMessage)
                     {
                         textBoxChatroomMen.Text += string.Format("{0}: {1} ({2}) \r\n", item.Submitter, item.Message, item.TimeStamp.ToShortTimeString());
-                    }                   
+                    }
                     textBoxMessage.Text = "";
                 }
             }
@@ -86,7 +92,19 @@ namespace WCFChatClient
             catch (Exception ex)
             {
                 MessageBox.Show("Client error: " + ex.Message);
-            } 
+            }
+        }
+
+        private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxAutoRefresh.Checked == true)
+            {
+                _timer.Start();
+            }
+            else
+            {
+                _timer.Stop();
+            }
         }
     }
 }

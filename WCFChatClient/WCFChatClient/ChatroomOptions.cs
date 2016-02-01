@@ -15,6 +15,7 @@ namespace WCFChatClient
     {
         CurrentUser _currentUser;
         ChatService.ChatClient _client;
+        Timer _timer;
         public ChatroomOptions(CurrentUser user)
         {
             InitializeComponent();
@@ -22,6 +23,17 @@ namespace WCFChatClient
             this._client = new ChatService.ChatClient("Unisex");
             SetComponentsToCorrectState(user);
             PopulateCurrentOnlineUsersCounter();
+
+            _timer = new Timer();
+            _timer.Interval = 3000;
+            _timer.Tick += RefreshCounter;
+            _timer.Start();
+        }
+
+        private void RefreshCounter(object sender, EventArgs e)
+        {
+            PopulateCurrentOnlineUsersCounter();
+
         }
 
         private void PopulateCurrentOnlineUsersCounter()
@@ -93,6 +105,7 @@ namespace WCFChatClient
             if (result == DialogResult.Yes)
             {
                 e.Cancel = false;
+                buttonLogout_Click(this, new EventArgs());
             }
             else if (result == DialogResult.No)
             {

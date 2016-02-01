@@ -16,7 +16,7 @@ namespace WCFChatClient
         CurrentUser _user;
         int _roomId;
         ChatService.ChatClient _client;
-        UserMessage[] myMessages;
+        List<UserMessage> myMessages;
 
         public DeleteMessages(CurrentUser user, int roomId)
         {
@@ -30,7 +30,7 @@ namespace WCFChatClient
 
         private void PopulateMyMessages()
         {
-            myMessages = _client.GetUserMessagesByRoomAndUserId(_roomId, int.Parse(_user.ID));
+            myMessages = _client.GetUserMessagesByRoomAndUserId(_roomId, int.Parse(_user.ID)).ToList();
 
             foreach (var message in myMessages)
             {
@@ -64,10 +64,10 @@ namespace WCFChatClient
                 {
                     foreach (var itemID in listBoxDeleteMessages.Items)
                     {
-                        _client.RemoveUserMessage(int.Parse(itemID.ToString()));
-                        MessageBox.Show("Successfully removed message(s)");
-                        this.Hide();
+                        _client.RemoveUserMessage(myMessages.Find(s => s.ID.Equals(itemID)));
                     }
+                    MessageBox.Show("Successfully removed message(s)");
+                    this.Hide();
                 }
                 else
                     MessageBox.Show("Nothing to delete...");

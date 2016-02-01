@@ -16,6 +16,8 @@ namespace WCFChatClient
     {
         CurrentUser _currentUser;
         int roomID = 2;
+        Timer _timer;
+
         public ChatroomUnisex(CurrentUser user)
         {
             try
@@ -23,6 +25,10 @@ namespace WCFChatClient
                 InitializeComponent();
                 textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Unisex");
                 _currentUser = user;
+
+                _timer = new Timer();
+                _timer.Interval = 1000;
+                _timer.Tick += pictureBoxRefresh_Click;
             }
             catch (FaultException ex)
             {
@@ -88,5 +94,16 @@ namespace WCFChatClient
                 MessageBox.Show("Client error: " + ex.Message);
             }   
         }
+        private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxAutoRefresh.Checked == true)
+            {
+                _timer.Start();
+            }
+            else
+            {
+                _timer.Stop();
+            }
+       }
     }
 }
