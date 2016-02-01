@@ -69,20 +69,19 @@ namespace WCFChatService
         }
         public List<UserMessage> GetChatFromDatabase(int roomID)
         {
-            //Limits the amount of messages a new client receives, if the current session includes more then 20 messages there is no need to query database.
-            if (_currentUserMessages.Count >= 20)
-            {
-                return _currentUserMessages.Skip(_currentUserMessages.Count - 20).Take(20).ToList();
-            }
             List<UserMessage> _databaseUserMessages = new List<UserMessage>();
-            var date = new DateTime();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
+
+            if (_currentUserMessages.Count < 20)
             {
-                try
+                var messageCountToRetrieve = 20 - _currentUserMessages.Count;
+                var date = new DateTime();
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))
                 {
-                    connection.Open();
-                    #region query
-                    SqlCommand cmd = new SqlCommand(@"SELECT TOP 20 [MessageID]
+                    try
+                    {
+                        connection.Open();
+                        #region query
+                        SqlCommand cmd = new SqlCommand(@"SELECT TOP (@amount) [MessageID]
       ,[Message]
       ,[Posted]
       ,[Room_ID]
@@ -91,49 +90,68 @@ namespace WCFChatService
   FROM [dbo].[UserMessages]
   INNER JOIN [dbo].[Users]
   ON [dbo].[UserMessages].[User_ID] = [dbo].[Users].[UserID]
-  WHERE [dbo].[UserMessages].Room_ID = @ID", connection);
-                    SqlParameter idParam = new SqlParameter();
-                    idParam.ParameterName = "@ID";
-                    idParam.Value = roomID;
-                    cmd.Parameters.Add(idParam);
-                    #endregion
+  WHERE [dbo].[UserMessages].Room_ID = @ID
+  ORDER by MessageID desc", connection);
+                        SqlParameter idParam = new SqlParameter();
+                        idParam.ParameterName = "@ID";
+                        idParam.Value = roomID;
+                        cmd.Parameters.Add(new SqlParameter("@ID",roomID));
+                        cmd.Parameters.Add(new SqlParameter("@amount", messageCountToRetrieve));
+                        #endregion
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            var chat = new UserMessage();
-                            DateTime.TryParse((string)reader["Posted"], out date);
+                            while (reader.Read())
+                            {
+                                var chat = new UserMessage();
+                                DateTime.TryParse((string)reader["Posted"], out date);
 
 
-                            chat.ID = (int)reader["MessageID"];
-                            chat.Submitter = (string)reader["Username"];
-                            chat.Message = (string)reader["Message"];
-                            chat.TimeStamp = date;
+                                chat.ID = (int)reader["MessageID"];
+                                chat.Submitter = (string)reader["Username"];
+                                chat.Message = (string)reader["Message"];
+                                chat.TimeStamp = date;
 
 
-                            _databaseUserMessages.Add(chat);
+                                _databaseUserMessages.Add(chat);
+                            }
+                            _databaseUserMessages.Reverse();
+
                         }
-
-                    }
-                    #region CounterQuery
-                    SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
-                    using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
-                    {
-                        while (reader.Read())
+                        #region CounterQuery
+                        SqlCommand msgCounterCmd = new SqlCommand("SELECT * FROM [ChatDatabase].[dbo].[UserMessages]", connection);
+                        using (SqlDataReader reader = msgCounterCmd.ExecuteReader())
                         {
-                            MessageCounter++;
-                }
+                            while (reader.Read())
+                            {
+                                MessageCounter++;
+                            }
+                        }
+                        #endregion
                     }
-                    #endregion 
-                }
-                catch (Exception ex)
-                {
-                    throw new FaultException(ex.Message);
+                    catch (SqlException ex)
+                    {
+                        throw new FaultException($"SQL error: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new FaultException(ex.Message);
+                    }
                 }
             }
+            else
+            {
+                //Limits the amount of messages a new client receives, if the current session includes more then 20 messages there is no need to query database.
+                return _currentUserMessages.Skip(_currentUserMessages.Count - 20).Take(20).ToList();
+            }
+            _currentUserMessages.Reverse();
+            foreach (var message in _databaseUserMessages)
+            {
+                _currentUserMessages.Add(message);
+            }
+            _currentUserMessages.Reverse();
 
-            return _databaseUserMessages;
+            return _currentUserMessages;
         }
         public void RegisterUser(User user)
         {
