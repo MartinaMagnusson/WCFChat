@@ -14,11 +14,19 @@ namespace WCFChatClient
     public partial class ChatroomOptions : Form
     {
         CurrentUser _currentUser;
+        ChatService.ChatClient _client;
         public ChatroomOptions(CurrentUser user)
         {
             InitializeComponent();
             this._currentUser = user;
+            this._client = new ChatService.ChatClient();
             SetComponentsToCorrectState(user);
+            PopulateCurrentOnlineUsersCounter();
+        }
+
+        private void PopulateCurrentOnlineUsersCounter()
+        {
+            labelOnlineCounter.Text = _client.GetOnlineUsers().Count().ToString();
         }
 
         private void SetComponentsToCorrectState(CurrentUser user)
@@ -62,6 +70,8 @@ namespace WCFChatClient
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             this.Hide();
+            _client.LogOutUser(_currentUser.UserName);
+
             var login = new Login();
             login.Show();
         }
@@ -83,6 +93,11 @@ namespace WCFChatClient
         {
             var usersOnline = new UsersOnline();
             usersOnline.Show();
+        }
+
+        private void pictureBoxRefresh_Click(object sender, EventArgs e)
+        {
+            PopulateCurrentOnlineUsersCounter();
         }
     }
 }

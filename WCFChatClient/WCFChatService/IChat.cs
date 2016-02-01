@@ -27,6 +27,8 @@ namespace WCFChatService
         CurrentUser LogInUser(string userName, string password);
         [OperationContract]
         void LogOutUser(string userName);
+        [OperationContract]
+        List<string> GetOnlineUsers();
     }
 
 

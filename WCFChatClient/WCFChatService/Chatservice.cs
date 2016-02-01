@@ -117,7 +117,7 @@ namespace WCFChatService
                         while (reader.Read())
                         {
                             MessageCounter++;
-                }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -161,21 +161,21 @@ namespace WCFChatService
             {
                 try
                 {
-                connection.Open();
-                #region query
-                var cmd = new SqlCommand(@"SELECT [Username]
+                    connection.Open();
+                    #region query
+                    var cmd = new SqlCommand(@"SELECT [Username]
                             FROM[ChatDatabase].[dbo].[Users]
                              WHERE Username = @userName", connection);
-                cmd.Parameters.Add(new SqlParameter("@userName", username));
-                #endregion
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
+                    cmd.Parameters.Add(new SqlParameter("@userName", username));
+                    #endregion
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        result = (string)reader["Username"];
+                        while (reader.Read())
+                        {
+                            result = (string)reader["Username"];
+                        }
                     }
                 }
-            }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
@@ -201,14 +201,14 @@ namespace WCFChatService
                     sqlCommand.Parameters.Add(new SqlParameter("@username", userName));
                     sqlCommand.Parameters.Add(new SqlParameter("@password", password));
                     #endregion
-                connection.Open();
+                    connection.Open();
                     var reader = sqlCommand.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                    while (reader.Read())
                     {
-                        loggedInUsers.Insert(0, userName);
+                        if (reader["Username"].ToString() != "" && reader["Password"].ToString() != "")
+                        {
+                            loggedInUsers.Add(userName.ToUpper());
                             return new CurrentUser()
                             {
                                 UserName = reader["Username"].ToString(),
@@ -218,7 +218,7 @@ namespace WCFChatService
                         }
                     }
                     return null;
-                    }
+                }
                 catch (Exception ex)
                 {
                     throw new FaultException(ex.Message);
@@ -227,7 +227,12 @@ namespace WCFChatService
         }
         public void LogOutUser(string userName)
         {
-            loggedInUsers.Remove(userName);
+            loggedInUsers.Remove(userName.ToUpper());
+        }
+
+        public List<string> GetOnlineUsers()
+        {
+            return loggedInUsers;
         }
     }
 }
