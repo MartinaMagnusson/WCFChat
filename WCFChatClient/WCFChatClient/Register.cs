@@ -37,6 +37,10 @@ namespace WCFChatClient
                     _chatClient.RegisterUser(user);
                     this.Hide();
                 }
+                else
+                {
+                    MessageBox.Show("All fields must be completed");
+                }
             }
             catch (Exception ex)
             {
