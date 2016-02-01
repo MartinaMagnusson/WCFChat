@@ -29,6 +29,8 @@ namespace WCFChatService
         void LogOutUser(string userName);
         [OperationContract]
         List<string> GetOnlineUsers();
+        [OperationContract]
+        List<UserMessage> GetUserMessagesByRoomAndUserId(int roomId,int userId);
     }
 
 
