@@ -40,8 +40,8 @@ namespace WCFChatService
                 {
                     try
                     {
-                        SqlCommand cmd = new SqlCommand(@"DELETE FROM [ChatDatabase][dbo].[UserMessages]
-      WHERE [ChatDatabase][dbo].[UserMessages].[MessageID] = @ID");
+                        SqlCommand cmd = new SqlCommand(@"DELETE FROM [ChatDatabase].[dbo].[UserMessages]
+      WHERE [ChatDatabase].[dbo].[UserMessages].[MessageID] = @ID");
                         cmd.Parameters.Add(new SqlParameter("@ID",id));
                         cmd.ExecuteNonQuery();
                     }
