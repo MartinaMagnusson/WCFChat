@@ -14,15 +14,17 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetChats">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetChatsResponse">
+  <xs:element name="GetUserMessages">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="GetChatsResult" nillable="true" type="q2:ArrayOfUserMessage" />
+        <xs:element minOccurs="0" name="roomID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserMessagesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCFChatService" minOccurs="0" name="GetUserMessagesResult" nillable="true" type="q2:ArrayOfUserMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -17,7 +17,8 @@ namespace WCFChatClient
             string result = "";
             foreach (var message in userMessages)
             {
-                result += string.Format("{0}: {1} ({2}) \r\n", message.Submitter, message.Message, message.TimeStamp.ToShortTimeString());
+                if (message.RoomID == roomId)
+                    result += string.Format("{0}: {1} ({2}) \r\n", message.Submitter, message.Message, message.TimeStamp.ToShortTimeString());
             }
             return result;
         }
@@ -32,10 +33,10 @@ namespace WCFChatClient
             userMessage.TimeStamp = DateTime.Now;
             _chatClient.SubmitUserMessage(userMessage);
         }
-        public static UserMessage[] GetUserMessages(string endpoint)
+        public static UserMessage[] GetUserMessages(string endpoint, int roomID)
         {
             var _chatClient = new ChatClient(endpoint);
-            var message = _chatClient.GetChats();
+            var message = _chatClient.GetUserMessages(roomID);
             return message;
         }
     }

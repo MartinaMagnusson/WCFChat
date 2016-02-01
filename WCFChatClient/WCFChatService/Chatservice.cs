@@ -17,11 +17,17 @@ namespace WCFChatService
         List<string> loggedInUsers = new List<string>();
         int MessageCounter;
 
-        public List<UserMessage> GetChats()
+        public List<UserMessage> GetUserMessages(int roomID)
         {
+            var messages = new List<UserMessage>();
             try
             {
-                return _currentUserMessages;
+                foreach (var message in _currentUserMessages)
+                {
+                    if (message.RoomID == roomID)   
+                        messages.Add(message);
+                }
+                return messages;
             }
             catch (Exception ex)
             {
