@@ -59,12 +59,23 @@ namespace WCFChatClient
 
         private void pictureBoxRefresh_Click(object sender, EventArgs e)
         {
-            var userMessage = GlobalMethods.GetUserMessages("Man", roomID);
-            textBoxChatroomMen.Text = "";
-            foreach (var item in userMessage)
+            try
             {
-                textBoxChatroomMen.Text += string.Format("{0}: {1} ({2}) \r\n", item.Submitter, item.Message, item.TimeStamp.ToShortTimeString());
+                var userMessage = GlobalMethods.GetUserMessages("Man", roomID);
+                textBoxChatroomMen.Text = "";
+                foreach (var item in userMessage)
+                {
+                    textBoxChatroomMen.Text += string.Format("{0}: {1} ({2}) \r\n", item.Submitter, item.Message, item.TimeStamp.ToShortTimeString());
+                }
             }
+            catch (FaultException ex)
+            {
+                MessageBox.Show("Service error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Client error: " + ex.Message);
+            } 
         }
     }
 }
