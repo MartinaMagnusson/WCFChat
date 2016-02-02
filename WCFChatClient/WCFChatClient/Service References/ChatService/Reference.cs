@@ -15,7 +15,7 @@ namespace WCFChatClient.ChatService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserMessage", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserMessage", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService.Entities")]
     [System.SerializableAttribute()]
     public partial class UserMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -140,7 +140,7 @@ namespace WCFChatClient.ChatService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService.Entities")]
     [System.SerializableAttribute()]
     public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -233,7 +233,7 @@ namespace WCFChatClient.ChatService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CurrentUser", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CurrentUser", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService.Entities")]
     [System.SerializableAttribute()]
     public partial class CurrentUser : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

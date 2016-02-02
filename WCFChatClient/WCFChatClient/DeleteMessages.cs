@@ -53,7 +53,7 @@ namespace WCFChatClient
             {
                 MessageBox.Show("Input not valid");
             }
-
+            textBoxMessageID.Text = "";
         }
 
         private void buttonDeleteMessages_Click(object sender, EventArgs e)

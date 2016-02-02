@@ -164,7 +164,7 @@
     <None Include="Service References\ChatService\WCFChatClient.ChatService.UserMessage.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ChatService\WCFChatService.xsd">
+    <None Include="Service References\ChatService\WCFChatService.Entities.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
