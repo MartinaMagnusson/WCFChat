@@ -351,7 +351,7 @@ namespace WCFChatService
 
         public void ErrorMessages(Error error)
         {
-            var query = @"INSERT INTO [dbo].[ErrorMessages] ([Room_ID] ,[UserName] ,[Time] ,[Messages] ,[Type])
+            var query = @"INSERT INTO[dbo].[ErrorMessages] ([Room_ID] ,[UserName] ,[Time] ,[Messages] ,[Type])
                           VALUES (@RoomID ,@UserName ,@Time ,@Messages ,@Type)";
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ChatDatabase"].ConnectionString))

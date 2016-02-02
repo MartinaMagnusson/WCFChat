@@ -39,7 +39,7 @@ namespace WCFChatClient
             var message = _chatClient.GetUserMessages(roomID);
             return message;
         }
-        public static void ErrorMessages(string endpoint, string errorType, string messages, int roomID = 0, string userName = "")
+        public static void ErrorMessages(string endpoint, string errorType, string messages, int roomID = 0, string userName = " ")
         {
             var _chatClient = new ChatClient(endpoint);
             var error = new Error()

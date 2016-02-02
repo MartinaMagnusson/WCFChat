@@ -48,6 +48,7 @@ namespace WCFChatClient
             var userID = int.Parse(_currentUser.ID);
             try
             {
+                var test = int.Parse("hej");
                 if (message != null && message != "")
                 {
                     GlobalMethods.SubmitUserMessage("Unisex", _currentUser.UserName, message, userID, roomID);
