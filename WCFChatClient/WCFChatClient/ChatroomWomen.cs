@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WCFChatClient.ChatService;
 
@@ -16,6 +15,8 @@ namespace WCFChatClient
     {
         CurrentUser _currentUser;
         int roomID = 3;
+        Timer _timer;
+
         public ChatroomWomen(CurrentUser user)
         {
             try
@@ -23,16 +24,20 @@ namespace WCFChatClient
                 InitializeComponent();
                 textBoxChat.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Woman");
                 _currentUser = user;
+
+                _timer = new Timer();
+                _timer.Interval = 1000;
+                _timer.Tick += pictureBoxRefresh_Click;
             }
             catch (FaultException ex)
             {
                 GlobalMethods.ErrorMessages("Woman", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Woman", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error: " + ex.Message);
+                MessageBox.Show("Client error");
             }
         }
 
@@ -57,12 +62,12 @@ namespace WCFChatClient
             catch (FaultException ex)
             {
                 GlobalMethods.ErrorMessages("Woman", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Woman", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error: " + ex.Message);
+                MessageBox.Show("Client error");
             }
         }
 
@@ -86,12 +91,24 @@ namespace WCFChatClient
             catch (FaultException ex)
             {
                 GlobalMethods.ErrorMessages("Woman", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Woman", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error: " + ex.Message);
+                MessageBox.Show("Client error");
+            }      
+        }
+
+        private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxAutoRefresh.Checked == true)
+            {
+                _timer.Start();
+            }
+            else
+            {
+                _timer.Stop();
             }
         }
     }

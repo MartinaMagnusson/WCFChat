@@ -16,7 +16,7 @@ namespace WCFChatService
         [OperationContract]
         List<UserMessage> GetUserMessages(int roomID);
         [OperationContract]
-        void RemoveUserMessage(int id);
+        void RemoveUserMessage(UserMessage userMessage);
         [OperationContract]
         void SaveToDatabase();
         [OperationContract]

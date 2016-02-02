@@ -44,14 +44,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelLoggedinas = new System.Windows.Forms.Label();
             this.labelCurrentUser = new System.Windows.Forms.Label();
-            this.pictureBoxRefresh = new System.Windows.Forms.PictureBox();
             this.pictureBoxLogout = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatMan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatWoman)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatUnisex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUsersOnline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogout)).BeginInit();
             this.SuspendLayout();
             // 
@@ -163,7 +161,7 @@
             this.labelOnlineCounter.BackColor = System.Drawing.Color.Gainsboro;
             this.labelOnlineCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelOnlineCounter.ForeColor = System.Drawing.Color.Green;
-            this.labelOnlineCounter.Location = new System.Drawing.Point(135, 12);
+            this.labelOnlineCounter.Location = new System.Drawing.Point(106, 12);
             this.labelOnlineCounter.Name = "labelOnlineCounter";
             this.labelOnlineCounter.Size = new System.Drawing.Size(14, 13);
             this.labelOnlineCounter.TabIndex = 25;
@@ -173,7 +171,7 @@
             // 
             this.labelUsersOnline.AutoSize = true;
             this.labelUsersOnline.BackColor = System.Drawing.Color.Gainsboro;
-            this.labelUsersOnline.Location = new System.Drawing.Point(69, 12);
+            this.labelUsersOnline.Location = new System.Drawing.Point(40, 12);
             this.labelUsersOnline.Name = "labelUsersOnline";
             this.labelUsersOnline.Size = new System.Drawing.Size(70, 13);
             this.labelUsersOnline.TabIndex = 24;
@@ -222,19 +220,6 @@
             this.labelCurrentUser.TabIndex = 28;
             this.labelCurrentUser.Text = "Current User";
             // 
-            // pictureBoxRefresh
-            // 
-            this.pictureBoxRefresh.BackColor = System.Drawing.Color.Gainsboro;
-            this.pictureBoxRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxRefresh.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxRefresh.Image")));
-            this.pictureBoxRefresh.Location = new System.Drawing.Point(42, 5);
-            this.pictureBoxRefresh.Name = "pictureBoxRefresh";
-            this.pictureBoxRefresh.Size = new System.Drawing.Size(28, 26);
-            this.pictureBoxRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxRefresh.TabIndex = 29;
-            this.pictureBoxRefresh.TabStop = false;
-            this.pictureBoxRefresh.Click += new System.EventHandler(this.pictureBoxRefresh_Click);
-            // 
             // pictureBoxLogout
             // 
             this.pictureBoxLogout.BackColor = System.Drawing.Color.Gainsboro;
@@ -254,7 +239,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 217);
             this.Controls.Add(this.pictureBoxLogout);
-            this.Controls.Add(this.pictureBoxRefresh);
             this.Controls.Add(this.labelCurrentUser);
             this.Controls.Add(this.labelLoggedinas);
             this.Controls.Add(this.labelOnlineCounter);
@@ -282,7 +266,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChatUnisex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUsersOnline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -305,7 +288,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelLoggedinas;
         private System.Windows.Forms.Label labelCurrentUser;
-        private System.Windows.Forms.PictureBox pictureBoxRefresh;
         private System.Windows.Forms.PictureBox pictureBoxLogout;
     }
 }

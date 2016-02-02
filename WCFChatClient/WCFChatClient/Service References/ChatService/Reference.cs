@@ -434,10 +434,10 @@ namespace WCFChatClient.ChatService {
         System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetUserMessagesAsync(int roomID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveUserMessage", ReplyAction="http://tempuri.org/IChat/RemoveUserMessageResponse")]
-        void RemoveUserMessage(int id);
+        void RemoveUserMessage(WCFChatClient.ChatService.UserMessage userMessage);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/RemoveUserMessage", ReplyAction="http://tempuri.org/IChat/RemoveUserMessageResponse")]
-        System.Threading.Tasks.Task RemoveUserMessageAsync(int id);
+        System.Threading.Tasks.Task RemoveUserMessageAsync(WCFChatClient.ChatService.UserMessage userMessage);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/SaveToDatabase", ReplyAction="http://tempuri.org/IChat/SaveToDatabaseResponse")]
         void SaveToDatabase();
@@ -531,12 +531,12 @@ namespace WCFChatClient.ChatService {
             return base.Channel.GetUserMessagesAsync(roomID);
         }
         
-        public void RemoveUserMessage(int id) {
-            base.Channel.RemoveUserMessage(id);
+        public void RemoveUserMessage(WCFChatClient.ChatService.UserMessage userMessage) {
+            base.Channel.RemoveUserMessage(userMessage);
         }
         
-        public System.Threading.Tasks.Task RemoveUserMessageAsync(int id) {
-            return base.Channel.RemoveUserMessageAsync(id);
+        public System.Threading.Tasks.Task RemoveUserMessageAsync(WCFChatClient.ChatService.UserMessage userMessage) {
+            return base.Channel.RemoveUserMessageAsync(userMessage);
         }
         
         public void SaveToDatabase() {

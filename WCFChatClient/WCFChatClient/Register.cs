@@ -45,12 +45,12 @@ namespace WCFChatClient
             catch (FaultException ex)
             {
                 GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message);
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message);
-                MessageBox.Show("Client error: " + ex.Message);
+                MessageBox.Show("Client error");
             }
         }
     }

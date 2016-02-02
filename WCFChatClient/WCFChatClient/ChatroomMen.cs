@@ -16,24 +16,30 @@ namespace WCFChatClient
     {
         CurrentUser _currentUser;
         int roomID = 1;
+        Timer _timer;
+
         public ChatroomMen(CurrentUser user)
         {
-            InitializeComponent();
             try
             {
+                InitializeComponent();
                 textBoxChatroomMen.Text = GlobalMethods.PopulateChatWithMessages(roomID, "Man");
                 _currentUser = user;
+
+                _timer = new Timer();
+                _timer.Interval = 1000;
+                _timer.Tick += pictureBoxRefresh_Click;
             }
             catch (FaultException ex)
             {
                 GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error: " + ex.Message);
-            }
+                MessageBox.Show("Client error");
+            }         
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)
@@ -57,12 +63,12 @@ namespace WCFChatClient
             catch (FaultException ex)
             {
                 GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error: " + ex.Message);
+                MessageBox.Show("Client error");
             }
         }
 
@@ -86,12 +92,24 @@ namespace WCFChatClient
             catch (FaultException ex)
             {
                 GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error: " + ex.Message);
+                MessageBox.Show("Client error");
+            } 
+        }
+
+        private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxAutoRefresh.Checked == true)
+            {
+                _timer.Start();
+            }
+            else
+            {
+                _timer.Stop();
             }
         }
     }
