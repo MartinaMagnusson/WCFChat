@@ -15,7 +15,7 @@ namespace WCFChatClient.ChatService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserMessage", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService.Entities")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserMessage", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
     [System.SerializableAttribute()]
     public partial class UserMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -140,7 +140,7 @@ namespace WCFChatClient.ChatService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService.Entities")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
     [System.SerializableAttribute()]
     public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -233,7 +233,7 @@ namespace WCFChatClient.ChatService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CurrentUser", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService.Entities")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CurrentUser", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
     [System.SerializableAttribute()]
     public partial class CurrentUser : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -281,115 +281,6 @@ namespace WCFChatClient.ChatService {
                 if ((object.ReferenceEquals(this.IDField, value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserName {
-            get {
-                return this.UserNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
-                    this.UserNameField = value;
-                    this.RaisePropertyChanged("UserName");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Error", Namespace="http://schemas.datacontract.org/2004/07/WCFChatService")]
-    [System.SerializableAttribute()]
-    public partial class Error : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ErrorTypeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MessagesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int RoomIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime TimeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserNameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ErrorType {
-            get {
-                return this.ErrorTypeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ErrorTypeField, value) != true)) {
-                    this.ErrorTypeField = value;
-                    this.RaisePropertyChanged("ErrorType");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Messages {
-            get {
-                return this.MessagesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MessagesField, value) != true)) {
-                    this.MessagesField = value;
-                    this.RaisePropertyChanged("Messages");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int RoomID {
-            get {
-                return this.RoomIDField;
-            }
-            set {
-                if ((this.RoomIDField.Equals(value) != true)) {
-                    this.RoomIDField = value;
-                    this.RaisePropertyChanged("RoomID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime Time {
-            get {
-                return this.TimeField;
-            }
-            set {
-                if ((this.TimeField.Equals(value) != true)) {
-                    this.TimeField = value;
-                    this.RaisePropertyChanged("Time");
                 }
             }
         }
@@ -480,12 +371,6 @@ namespace WCFChatClient.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserId", ReplyAction="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserIdResponse")]
         System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetUserMessagesByRoomAndUserIdAsync(int roomId, int userId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/ErrorMessages", ReplyAction="http://tempuri.org/IChat/ErrorMessagesResponse")]
-        void ErrorMessages(WCFChatClient.ChatService.Error error);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChat/ErrorMessages", ReplyAction="http://tempuri.org/IChat/ErrorMessagesResponse")]
-        System.Threading.Tasks.Task ErrorMessagesAsync(WCFChatClient.ChatService.Error error);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -593,14 +478,6 @@ namespace WCFChatClient.ChatService {
         
         public System.Threading.Tasks.Task<WCFChatClient.ChatService.UserMessage[]> GetUserMessagesByRoomAndUserIdAsync(int roomId, int userId) {
             return base.Channel.GetUserMessagesByRoomAndUserIdAsync(roomId, userId);
-        }
-        
-        public void ErrorMessages(WCFChatClient.ChatService.Error error) {
-            base.Channel.ErrorMessages(error);
-        }
-        
-        public System.Threading.Tasks.Task ErrorMessagesAsync(WCFChatClient.ChatService.Error error) {
-            return base.Channel.ErrorMessagesAsync(error);
         }
     }
 }

@@ -32,14 +32,12 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error");
+                MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error");
-            }         
+                MessageBox.Show("Client error: " + ex.Message);
+            }
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)
@@ -56,19 +54,17 @@ namespace WCFChatClient
                     foreach (var item in userMessage)
                     {
                         textBoxChatroomMen.Text += string.Format("{0}: {1} ({2}) \r\n", item.Submitter, item.Message, item.TimeStamp.ToShortTimeString());
-                    }                   
+                    }
                     textBoxMessage.Text = "";
                 }
             }
             catch (FaultException ex)
             {
-                GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error");
+                MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error");
+                MessageBox.Show("Client error: " + ex.Message);
             }
         }
 
@@ -91,14 +87,12 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                GlobalMethods.ErrorMessages("Man", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error");
+                MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                GlobalMethods.ErrorMessages("Man", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error");
-            } 
+                MessageBox.Show("Client error: " + ex.Message);
+            }
         }
 
         private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)

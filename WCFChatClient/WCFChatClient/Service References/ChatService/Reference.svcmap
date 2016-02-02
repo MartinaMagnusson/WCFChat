@@ -25,7 +25,7 @@
     <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="72213580-efe2-4885-b04b-db796ba7e0f4" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFChatService/Service1/mex" />
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="fb1a71bc-ac4a-4c99-866d-b9c27cd4919c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFChatService/Service1/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="664327fe-a3a7-4d67-acb7-ce0f896eca98" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFChatService/Service1/mex" />
-    <MetadataFile FileName="WCFChatService.Entities.xsd" MetadataType="Schema" ID="c8e07384-4f7c-4e5f-8a80-a9b93ba5f601" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFChatService/Service1/mex" />
+    <MetadataFile FileName="WCFChatService.xsd" MetadataType="Schema" ID="26d29bd4-4330-4b59-96a9-f957e6ad5e5a" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFChatService/Service1/mex" />
     <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="7aeee8fa-d32e-43bf-a1ca-de8af98d4bed" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFChatService/Service1/mex" />
   </Metadata>
   <Extensions>

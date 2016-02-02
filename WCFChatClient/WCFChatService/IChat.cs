@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using WCFChatService.Entities;
 
 namespace WCFChatService
 {
@@ -20,8 +19,8 @@ namespace WCFChatService
         void RemoveUserMessage(UserMessage userMessage);
         [OperationContract]
         void SaveToDatabase();
-        //[OperationContract]
-        //List<UserMessage> GetChatFromDatabase(int roomID);
+        [OperationContract]
+        List<UserMessage> GetChatFromDatabase(int roomID);
         [OperationContract]
         void RegisterUser(User user);
         [OperationContract]
@@ -31,8 +30,63 @@ namespace WCFChatService
         [OperationContract]
         List<string> GetOnlineUsers();
         [OperationContract]
-        List<UserMessage> GetUserMessagesByRoomAndUserId(int roomId,int userId);
-        [OperationContract]
-        void ErrorMessages(Error error);
+        List<UserMessage> GetUserMessagesByRoomAndUserId(int roomId, int userId);
+    }
+
+
+
+    [DataContract]
+    public class UserMessage
+    {
+        [DataMember]
+        public int ID { get; set; }
+        [DataMember]
+        public string Submitter { get; set; }
+        [DataMember]
+        public string Message { get; set; }
+        [DataMember]
+        public DateTime TimeStamp { get; set; }
+        [DataMember]
+        public int UserID { get; set; }
+        [DataMember]
+        public int RoomID { get; set; }
+    }
+
+    [DataContract]
+    public class User
+    {
+        [DataMember]
+        public string ID { get; set; }
+        [DataMember]
+        public string UserName { get; set; }
+        [DataMember]
+        public string Password { get; set; }
+        [DataMember]
+        public string Gender { get; set; }
+    }
+
+    [DataContract]
+    public class CurrentUser
+    {
+        [DataMember]
+        public string ID { get; set; }
+        [DataMember]
+        public string UserName { get; set; }
+        [DataMember]
+        public string Gender { get; set; }
+    }
+    [DataContract]
+    public class Error
+    {
+        [DataMember]
+        public int RoomID { get; set; }
+        [DataMember]
+        public string UserName { get; set; }
+        [DataMember]
+        public DateTime Time { get; set; }
+        [DataMember]
+        public string ErrorType { get; set; }
+        [DataMember]
+        public string Messages { get; set; }
     }
 }

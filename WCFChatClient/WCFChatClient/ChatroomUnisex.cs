@@ -32,14 +32,12 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error");
+                MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error");
-            }
+                MessageBox.Show("Client error: " + ex.Message);
+            }        
         }
 
         private void pictureBoxSend_Click(object sender, EventArgs e)
@@ -48,7 +46,6 @@ namespace WCFChatClient
             var userID = int.Parse(_currentUser.ID);
             try
             {
-                var test = int.Parse("hej");
                 if (message != null && message != "")
                 {
                     GlobalMethods.SubmitUserMessage("Unisex", _currentUser.UserName, message, userID, roomID);
@@ -63,13 +60,11 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error");
+                MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client error");
+                MessageBox.Show("Client error: " + ex.Message);
             }
         }
 
@@ -83,7 +78,7 @@ namespace WCFChatClient
         {
             try
             {
-                var userMessage = GlobalMethods.GetUserMessages("Unisex", roomID);
+                var userMessage = GlobalMethods.GetUserMessages("Man", roomID);
                 textBoxChat.Text = "";
                 foreach (var item in userMessage)
                 {
@@ -92,14 +87,12 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Service error");
+                MessageBox.Show("Service error: " + ex.Message);
             }
             catch (Exception ex)
             {
-                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
-                MessageBox.Show("Client erro");
-            }
+                MessageBox.Show("Client error: " + ex.Message);
+            }   
         }
         private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
         {

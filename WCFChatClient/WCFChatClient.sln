@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFChatClient", "WCFChatCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFChatService", "WCFChatService\WCFChatService.csproj", "{107534DD-E963-4E30-83E9-A599E9585173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{BE0DFE20-B62D-44F0-A55C-5FC6CC2A2ED3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{107534DD-E963-4E30-83E9-A599E9585173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{107534DD-E963-4E30-83E9-A599E9585173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{107534DD-E963-4E30-83E9-A599E9585173}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE0DFE20-B62D-44F0-A55C-5FC6CC2A2ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE0DFE20-B62D-44F0-A55C-5FC6CC2A2ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE0DFE20-B62D-44F0-A55C-5FC6CC2A2ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE0DFE20-B62D-44F0-A55C-5FC6CC2A2ED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

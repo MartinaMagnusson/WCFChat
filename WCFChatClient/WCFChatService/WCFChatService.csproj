@@ -47,10 +47,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CurrentUser.cs" />
-    <Compile Include="Entities\Error.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\UserMessage.cs" />
     <Compile Include="IChat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Chatservice.cs" />
@@ -61,19 +57,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{be0dfe20-b62d-44f0-a55c-5fc6cc2a2ed3}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
