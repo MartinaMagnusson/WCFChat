@@ -60,7 +60,7 @@ namespace WCFChatClient
                 GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message);
                 MessageBox.Show("Client erro, input not valid");
             }
-
+            textBoxMessageID.Text = "";
         }
 
         private void buttonDeleteMessages_Click(object sender, EventArgs e)
@@ -87,7 +87,7 @@ namespace WCFChatClient
             catch (Exception ex)
             {
                 GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message);
-                MessageBox.Show("Client erro, input not valid");
+                MessageBox.Show("Something went wrong... client erro");
             }
         }
     }
