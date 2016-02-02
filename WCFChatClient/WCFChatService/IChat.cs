@@ -20,8 +20,8 @@ namespace WCFChatService
         void RemoveUserMessage(UserMessage userMessage);
         [OperationContract]
         void SaveToDatabase();
-        [OperationContract]
-        List<UserMessage> GetChatFromDatabase(int roomID);
+        //[OperationContract]
+        //List<UserMessage> GetChatFromDatabase(int roomID);
         [OperationContract]
         void RegisterUser(User user);
         [OperationContract]
