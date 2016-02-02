@@ -24,11 +24,11 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                MessageBox.Show("Service error: " + ex.Message);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Client error: " + ex.Message);
+                MessageBox.Show("Client error");
             }
         }
 
@@ -42,18 +42,30 @@ namespace WCFChatClient
         {
             if (textBoxUsername.Text != "" && textBoxPassword.Text != "")
             {
-                var user = _chatClient.LogInUser(textBoxUsername.Text, textBoxPassword.Text);
+                try
+                {
+                    var user = _chatClient.LogInUser(textBoxUsername.Text, textBoxPassword.Text);
 
-                if (user != null)
-                {
-                    this.Hide();
-                    ChatroomOptions chatroomOptions = new ChatroomOptions(user);
-                    chatroomOptions.Show();
+                    if (user != null)
+                    {
+                        this.Hide();
+                        ChatroomOptions chatroomOptions = new ChatroomOptions(user);
+                        chatroomOptions.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Username/Password Incorrect.");
+                    }
                 }
-                else
+                catch (FaultException ex)
                 {
-                    MessageBox.Show("Username/Password Incorrect.");
+                    MessageBox.Show("Service error");
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Client error");
+                }
+               
             }
             else
             {

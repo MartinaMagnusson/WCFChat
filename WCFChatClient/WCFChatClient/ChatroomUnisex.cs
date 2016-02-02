@@ -60,11 +60,13 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                MessageBox.Show("Service error: " + ex.Message);
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Client error: " + ex.Message);
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Client error");
             }
         }
 
@@ -87,12 +89,14 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                MessageBox.Show("Service error: " + ex.Message);
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Client error: " + ex.Message);
-            }   
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Client error");
+            }
         }
         private void checkBoxAutoRefresh_CheckedChanged(object sender, EventArgs e)
         {

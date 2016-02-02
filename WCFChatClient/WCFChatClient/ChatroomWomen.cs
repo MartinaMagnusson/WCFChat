@@ -59,11 +59,13 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                MessageBox.Show("Service error: " + ex.Message);
+                GlobalMethods.ErrorMessages("Woman", "Service error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Client error: " + ex.Message);
+                GlobalMethods.ErrorMessages("Woman", "Client error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Client error");
             }
         }
 
@@ -86,11 +88,13 @@ namespace WCFChatClient
             }
             catch (FaultException ex)
             {
-                MessageBox.Show("Service error: " + ex.Message);
+                GlobalMethods.ErrorMessages("Woman", "Service error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Service error");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Client error: " + ex.Message);
+                GlobalMethods.ErrorMessages("Woman", "Client error", ex.Message, roomID, _currentUser.UserName);
+                MessageBox.Show("Client error" );
             }
         }
 

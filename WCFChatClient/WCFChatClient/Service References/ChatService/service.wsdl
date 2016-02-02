@@ -68,6 +68,12 @@
   <wsdl:message name="IChat_GetUserMessagesByRoomAndUserId_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserMessagesByRoomAndUserIdResponse" />
   </wsdl:message>
+  <wsdl:message name="IChat_ErrorMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:ErrorMessages" />
+  </wsdl:message>
+  <wsdl:message name="IChat_ErrorMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ErrorMessagesResponse" />
+  </wsdl:message>
   <wsdl:portType name="IChat">
     <wsdl:operation name="SubmitUserMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/SubmitUserMessage" message="tns:IChat_SubmitUserMessage_InputMessage" />
@@ -108,6 +114,10 @@
     <wsdl:operation name="GetUserMessagesByRoomAndUserId">
       <wsdl:input wsaw:Action="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserId" message="tns:IChat_GetUserMessagesByRoomAndUserId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserIdResponse" message="tns:IChat_GetUserMessagesByRoomAndUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ErrorMessages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChat/ErrorMessages" message="tns:IChat_ErrorMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChat/ErrorMessagesResponse" message="tns:IChat_ErrorMessages_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="Man" type="tns:IChat">
@@ -195,6 +205,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserMessagesByRoomAndUserId">
       <soap:operation soapAction="http://tempuri.org/IChat/GetUserMessagesByRoomAndUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ErrorMessages">
+      <soap:operation soapAction="http://tempuri.org/IChat/ErrorMessages" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -31,6 +31,8 @@ namespace WCFChatService
         List<string> GetOnlineUsers();
         [OperationContract]
         List<UserMessage> GetUserMessagesByRoomAndUserId(int roomId, int userId);
+        [OperationContract]
+        void ErrorMessages(Error error);
     }
 
 
