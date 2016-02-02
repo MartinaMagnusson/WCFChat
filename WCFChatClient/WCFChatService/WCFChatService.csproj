@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\CurrentUser.cs" />
+    <Compile Include="Entities\Error.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserMessage.cs" />
     <Compile Include="IChat.cs" />

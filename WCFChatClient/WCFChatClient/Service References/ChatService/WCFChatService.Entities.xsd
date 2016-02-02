@@ -34,4 +34,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CurrentUser" nillable="true" type="tns:CurrentUser" />
+  <xs:complexType name="Error">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Messages" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RoomID" type="xs:int" />
+      <xs:element minOccurs="0" name="Time" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Error" nillable="true" type="tns:Error" />
 </xs:schema>

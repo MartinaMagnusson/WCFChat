@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -49,9 +50,15 @@ namespace WCFChatClient
                         listBoxDeleteMessages.Items.Add(idInput);
                 }
             }
-            catch (Exception)
+            catch (FaultException ex)
             {
-                MessageBox.Show("Input not valid");
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message);
+                MessageBox.Show("Service error");
+            }
+            catch (Exception ex)
+            {
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message);
+                MessageBox.Show("Client erro, input not valid");
             }
             textBoxMessageID.Text = "";
         }
@@ -72,9 +79,15 @@ namespace WCFChatClient
                 else
                     MessageBox.Show("Nothing to delete...");
             }
-            catch (Exception)
+            catch (FaultException ex)
             {
-                MessageBox.Show("Something went wrong...");
+                GlobalMethods.ErrorMessages("Unisex", "Service error", ex.Message);
+                MessageBox.Show("Service error");
+            }
+            catch (Exception ex)
+            {
+                GlobalMethods.ErrorMessages("Unisex", "Client error", ex.Message);
+                MessageBox.Show("Something went wrong... client erro");
             }
         }
     }
