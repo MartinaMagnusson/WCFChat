@@ -74,7 +74,7 @@ namespace WCFChatClient
             }
             catch (Exception)
             {
-                throw;
+                MessageBox.Show("Something went wrong...");
             }
         }
     }
